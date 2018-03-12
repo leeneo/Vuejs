@@ -15,6 +15,8 @@
         <button @click='obj.foo="baz"'>Change it</button>
     </div>
 
+    <div id="example"></div>
+
     <script src="js/vue.js"></script>
     <script>
         var msg = {
@@ -47,6 +49,19 @@
                     obj
                 }
             }
+        })
+
+        var data={a:1}
+        var vm=new Vue({
+            el:'#example',
+            data:data
+        })
+        vm.$data===data // =>true
+        vm.$el===document.getElementById('example') // =>true
+
+        // $watch 是一个Vue实例方法
+        vm.$watch('a',function (newValue,oldValue){
+            console.log(123)
         })
     </script>
 </body>
