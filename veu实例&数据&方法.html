@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>{{a}}</div>
+    <div id='app-2'>
+        <p>{{obj.foo}}</p>
+        <button @click='obj.foo="baz"'>Change it</button>
+    </div>
+
+    <div id="example">
+        <p>{{txt}}</p>
+        <input type="text" v-model="txt"></input>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        var msg = {
+            a: 1
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: msg
+            //data:msg=>
+            // data: {
+            //     a: 1,
+            // }
+            // data:{   //可以直接调用 vm.a|vm.b {{a|b}}
+            //     a:1,
+            //     b:'o'
+            // }
+        })
+        vm.a = msg.a
+        vm.a = 2 // <div>2</div>
+        msg.a = 3 // <div>3</div>
+
+        var obj = {
+            foo: 'bar'
+        }
+        // Object.freeze(obj)  // freeze函数可以冻结一个对象，使其不能变更属性
+        var app2 = new Vue({
+            el: '#app-2',
+            data() {
+                return {
+                    obj
+                }
+            }
+        })
+
+        var data = {
+            txt: 1
+        }
+        var app3 = new Vue({
+            el: '#example',
+            data: data
+        })
+        var x = app3.$data === data // =>true
+        var y = app3.$el === document.getElementById('example') // =>true
+        console.log("x:" + x + ";y:" + y);
+
+        // $watch 是一个Vue实例方法
+        app3.$watch('txt', function (newValue, oldValue) {
+            // 这个回调将在 `vm.a` 改变后调用
+            console.log("watch:" + newValue + " " + oldValue)
+        })
+    </script>
+</body>
+
+</html>
