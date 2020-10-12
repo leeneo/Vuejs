@@ -12,7 +12,10 @@
     <div id='app'>{{a}}</div>
     <div id='app-2'>
         <p>{{obj.foo}}</p>
-        <button @click='obj.foo="baz"'>Change it</button>
+        <!-- v-on:click -->
+        <button v-on:click='obj.foo="全写：v-on:click"'>Change it</button>
+        <!-- 缩写 -->
+        <button @click='obj.foo="简写：@click"'>Change it</button>
     </div>
 
     <div id="example">
@@ -25,7 +28,7 @@
         var msg = {
             a: 1
         }
-        var vm = new Vue({
+        const vm = new Vue({
             el: '#app',
             data: msg
             //data:msg=>
@@ -42,7 +45,7 @@
         msg.a = 3 // <div>3</div>
 
         var obj = {
-            foo: 'bar'
+            foo: 'v-on:click'
         }
         // Object.freeze(obj)  // freeze函数可以冻结一个对象，使其不能变更属性
         var app2 = new Vue({
