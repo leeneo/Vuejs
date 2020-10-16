@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{message}}</h2>
+        <button v-on:click='action'>点击</button>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'this is a vue demo!'
+            },
+            methods: {
+                action: function () {
+                    this.message = ''
+                }
+            },
+            // beforeCreate() {                 //相当于beforeCreate: function () 
+            //     console.log('beforeCreate');
+            // },
+            beforeCreate: function () {
+                console.log('beforeCreate');
+            },
+            created: function () {
+                console.log('created');
+            },
+            beforeMount: function () {
+                console.log('beforeMount');
+            },
+            mounted: function () {
+                console.log('mounted');
+            },
+            beforeUpdate: function () {
+                console.log('beforeUpdate');
+            },
+            updated: function () {
+                console.log('updated');
+            },
+            beforeDestroy: function () {
+                console.log('beforeDestroy');
+            },
+            destroyed: function () {
+                console.log('destroyed');
+            }
+        });
+    </script>
+</body>
+
+</html>
