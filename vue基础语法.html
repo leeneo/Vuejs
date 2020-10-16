@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>vue基础语法</title>
     <style>
         [v-cloak] {
             display: none;
@@ -82,15 +82,27 @@
             <!-- 很少这样用，如果class是写死的话，一般直接在class='normal' 里面加 -->
             <span class='normal' v-bind:class="['red','inline']">{{message}}</span>
             <!-- 有可能class是从服务器返回的，这样的话，可以这样写 -->
-            <span class='normal' v-bind:class="[styleRed,styleInline]">{{message}}</span>
+            <span class='normal' v-bind:class="[styleColor,styleInline]">{{message}}</span>
         </h2>
 
         <h2>v-bind 指令：动态绑定style 样式
             <!-- <span class='normal' v-bind:style="{fontSize:'50px',color:'blue'}">{{message}}</span><br> -->
-            <span class='normal' v-bind:style="{fontSize:fontSize+'px',color:styleRed}">{{message}}</span>
+            <span class='normal' v-bind:style="{fontSize:fontSize+'px',backgroundColor:styleColor}">{{message}}</span>
+            <span class='normal' :style="getStyles()">{{message}}</span>
+            <span class='normal' :style="[baseStyleSize,baseStyleColor]">{{message}}</span>
         </h2>
-    </div>
 
+        <h2>computed 计算属性：
+            <span class='normal'>{{getFullName()}}</span> |
+            <span class='normal'>{{fullName}}</span>
+        </h2>
+
+        <h2>computed 计算属性：
+            <span class='normal'>总价格1：{{totalPrice}}</span> |
+            <span class='normal'>总价格2：{{totalPrice2}}</span>
+        </h2>
+
+    </div>
 
 
     <script src="js/vue.js"></script>
@@ -113,10 +125,63 @@
                 sUrl2: 'https://www.baidu.com',
                 isRed: true,
                 isInline: true,
-                styleRed:'red',
-                styleInline:'inline',
-                fontSize:50
-
+                styleColor: 'green',
+                styleInline: 'inline',
+                fontSize: 18,
+                baseStyleSize: {
+                    fontSize: '20px'
+                },
+                baseStyleColor: {
+                    backgroundColor: 'pink'
+                },
+                firstName: 'Lee',
+                lastName: 'Neo',
+                books: [{
+                        id: 100,
+                        name: 'C语言程序设计',
+                        price: 15.5
+                    },
+                    {
+                        id: 101,
+                        name: '计算机原理',
+                        price: 23.4
+                    },
+                    {
+                        id: 102,
+                        name: '高等数学',
+                        price: 5.2
+                    },
+                    {
+                        id: 103,
+                        name: 'Linux系统',
+                        price: 34.8
+                    },
+                ]
+            },
+            computed: {
+                fullName: function () {
+                    return this.firstName + ' ' + this.lastName;
+                },
+                totalPrice: function () {
+                    // reduce()==>array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+                    // 从这个例子中可以看出reduce()，如果不给初始值，函数中的total默认是以数组第一个元素为起始的。
+                    return this.books.reduce(function (total, curValue) {
+                        console.log('total:' + JSON.stringify(total));
+                        console.log('num:' + curValue.price);
+                        let first = 0;
+                        if (total.price) {
+                            total = total.price;
+                        }
+                        return total + curValue.price;
+                    });
+                },
+                totalPrice2: function () {
+                    return this.books.reduce(function (total, curValue) {
+                        console.log('total:' + JSON.stringify(total));
+                        console.log('num:' + curValue.price);
+                        return total + curValue.price;
+                    }, 0);
+                }
             },
             methods: {
                 action: function () {
@@ -131,6 +196,15 @@
                         red: this.isRed,
                         inline: this.isInline
                     };
+                },
+                getStyles: function () {
+                    return {
+                        fontSize: this.fontSize + 'px',
+                        backgroundColor: this.styleColor
+                    };
+                },
+                getFullName: function () {
+                    return this.firstName + ' ' + this.lastName;
                 }
             }
         });
