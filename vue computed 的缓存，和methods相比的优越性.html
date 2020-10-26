@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed 的缓存，和methods相比的优越性</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span><br>
+            <span>{{timeOut}} 秒后，将刷新结果</span><br>
+        </h2>
+        <h2>methods调用：<br>
+            <span>{{getFullName()}}</span><br>
+            <span>{{getFullName()}}</span><br>
+            <span>{{getFullName()}}</span><br>
+            <span>{{getFullName()}}</span><br>
+        </h2>
+        <h2>computed调用：<br>
+            <span>{{fullName}}</span><br>
+            <span>{{fullName}}</span><br>
+            <span>{{fullName}}</span><br>
+            <span>{{fullName}}</span><br>
+        </h2>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '请观察console窗口!',
+                firstName: 'Lee',
+                lastName: 'Neo',
+                timeOut:2
+            },
+            computed: {
+                fullName: function () {
+                    console.log(' computed: ' + this.firstName + ' ' + this.lastName);
+                    return this.firstName + ' ' + this.lastName;
+                }
+            },
+            methods: {
+                getFullName: function () {
+                    console.log(' methods: ' + this.firstName + ' ' + this.lastName);
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        });
+
+        setTimeout(() => {
+            app.timeOut--;
+        }, 1000);
+
+        setTimeout(() => {
+            app.firstName='Chang';
+            app.lastName='E';
+            app.timeOut--;
+        }, 3000);
+    </script>
+</body>
+
+</html>
