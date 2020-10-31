@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-on 事件传参</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        form {
+            padding: 10px;
+            border: 1px solid rgb(167, 76, 175);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span>
+        </h2>
+
+        <div @click="divAction">
+
+            <!-- stop修饰符的使用 阻止冒泡-->
+            <button @click.stop="btnAction">button</button>
+
+            <!-- 串联修饰符-->
+            <!-- <button @click.stop.prevent="btnAction">button</button> -->
+
+            <!-- 点击事件只会触发一次，重复点击无效，但按钮不会置灰-->
+            <button  @click.stop @click.once="doOnce">button</button>
+
+            <!-- .native :监听组件根元素的原生事件 -->
+
+        </div><br>
+
+        <!-- prevent修饰符的使用 阻止默认行为-->
+        <form action="baidu" @submit.prevent>
+            <input type="submit" value="submit" @click.prevent="submitAction">
+        </form><br>
+
+        <!-- @submit.prevent 阻止form表单默认行为-->
+        <form action="baidu" @submit.prevent>
+            <input type="text" value="onKeyup" @keyup="onKeyup" ><br>
+            <input type="text" value="onKeyEnter" @keyup.enter="onEnter"><br>
+            <input type="text" value="onKeyEnter" @keyup.13="onEnter"><br>
+            <input type="submit" value="submit"><br>
+        </form>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'this is a vue demo!'
+            },
+            computed: {
+
+            },
+            methods: {
+                divAction: function () {
+                    this.message = 'divAction!';
+                    console.log('div click');
+                },
+                btnAction: function () {
+                    this.message = 'btnAction!';
+                    console.log('button click');
+                },
+                submitAction: function () {
+                    this.message = 'submitAction!';
+                    console.log('submitAction click');
+                },
+                nativeAction: function () {
+                    this.message = 'btnAction!';
+                    console.log('button click');
+                },
+                doOnce: function () {
+                    this.message = 'doOnce!';
+                    console.log('doOnce click');
+                },
+                onKeyup: function () {
+                    this.message = 'onKeyup!';
+                    console.log('onKeyup');
+                },
+                onEnter: function () {
+                    this.message = 'onEnter!';
+                    console.log('onKeyEnter');
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

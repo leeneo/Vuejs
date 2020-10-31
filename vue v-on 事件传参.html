@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-on 事件传参</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span>
+        </h2>
+        <!-- 无参数事件调用可以不写括号 -->
+        <!-- <button v-on:click='action()'>点击</button> -->
+        <button v-on:click='action'>无参</button>
+
+        <!-- 带参数事件调用 event-->
+        <!-- <button @click="action2()">undefined</button> -->
+        <button @click="action2">event</button>
+
+        <!-- 带参数事件调用 -->
+        <button @click="action3('传递的参数')">带参</button>
+
+        <!-- 带参数事件调用，传参同时获取event对象 $event-->
+        <button @click="action4('传递的参数',$event)">$event</button>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'this is a vue demo!'
+            },
+            computed: {
+
+            },
+            methods: {
+                action: function () {
+                    this.message = 'hello!';
+                },
+                action2: function (event) {
+                    this.message = event;
+                    console.log(event);
+                },
+                action3: function (abc) {
+                    this.message = abc;
+                    console.log(abc);
+                },
+                action4: function (abc,event) {
+                    this.message = abc;
+                    console.log(abc);
+                    console.log(event);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
