@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo</title>
+    <title>vue 用户登录类型切换</title>
     <style>
         div {
             padding: 10px;
@@ -23,7 +23,16 @@
         <h2>text here：
             <span>{{message}}</span>
         </h2>
-        <button v-on:click='action'>点击</button>
+        <!-- vue 在进行DOM渲染时，出于性能考虑，会尽可能复用虚拟DOM中已经存在的元素，给元素添加key标记，可以避免这种复用 -->
+        <div v-if="isUser">
+            <label for="username">用户账号</label>
+            <input type="text" id='username' placeholder="用户账号" key="username">
+        </div>
+        <div v-else>
+            <label for="email">用户邮箱</label>
+            <input type="text" id='email' placeholder="用户邮箱" key="email">
+        </div>
+        <button v-on:click='isUser=!isUser'>点击切换</button>
     </div>
 
     <script src="js/vue.js"></script>
@@ -31,7 +40,8 @@
         const app = new Vue({
             el: '#app',
             data: {
-                message: 'this is a vue demo!'
+                message: 'this is a vue demo!',
+                isUser: true
             },
             computed: {
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo</title>
+    <title>vue v-show v-if 的区别</title>
     <style>
         div {
             padding: 10px;
@@ -20,10 +20,14 @@
 
 <body>
     <div id="app">
-        <h2>text here：
-            <span>{{message}}</span>
+        <h2>text here：<br>
+            <!-- v-if 条件为false时，DOM中不会产生相关元素，当只切换一次时使用-->
+            <!-- v-show 条件为false时，只是将该元素的display设为none，当需要频繁切换时使用-->
+            <span v-if="isShow" id="ifSpn">v-if: {{message}}</span><br>
+            <span v-show="isShow" id="showSpn">v-show: {{message}}</span>
         </h2>
-        <button v-on:click='action'>点击</button>
+        <button v-show="isShow" @click="isShow=!isShow">隐藏</button>
+        <button v-show="!isShow" @click="isShow=!isShow">显示</button>
     </div>
 
     <script src="js/vue.js"></script>
@@ -31,7 +35,8 @@
         const app = new Vue({
             el: '#app',
             data: {
-                message: 'this is a vue demo!'
+                message: 'this is a vue demo!',
+                isShow:true
             },
             computed: {
 

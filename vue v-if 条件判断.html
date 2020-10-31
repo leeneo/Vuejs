@@ -5,25 +5,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        h2 {
+            padding: 10px;
+            border: 1px solid rgb(228, 95, 210);
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
         <h2>text here：
-            <span>{{message}}</span> 
+            <span v-if="isShow">v-if: {{message}}</span>
+            <span v-else="isShow">v-else: {{elseMessage}}</span>
         </h2>
         <button v-on:click='action'>点击</button>
+
+        <!-- 一般不建议以标签的形式判断复杂的逻辑，而应该改用计算属性 -->
+        <h2>text here: 【else if 标签形式】 请修改app.score的值
+            <ul>
+                <li v-if="score>=90">优秀</li>
+                <li v-else-if="score>=80">良好</li>
+                <li v-else-if="score>=60">及格</li>
+                <li v-else>不及格</li>
+            </ul>
+        </h2>
+
+        <h2>text here: 【计算属性】 请修改app.score的值
+            <ul>
+                <li>{{scoreMsg}}</li>
+            </ul>
+        </h2>
+
     </div>
- 
+
     <script src="js/vue.js"></script>
     <script>
         const app = new Vue({
             el: '#app',
             data: {
-                message: 'this is a vue demo!'
+                message: '将app.isShow改成false试下!',
+                elseMessage: '将app.isShow改成true试下!',
+                isShow: true,
+                score: 99
             },
             computed: {
-                
+                scoreMsg() {
+                    let msg = '';
+                    if (this.score >= 90)
+                        msg = '优秀';
+                    else if (this.score >= 80)
+                        msg = '良好';
+                    else if (this.score >= 60)
+                        msg = '及格';
+                    else
+                        msg = '不及格';
+                    return msg;
+                }
             },
             methods: {
                 action: function () {
