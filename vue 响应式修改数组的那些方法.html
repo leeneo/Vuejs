@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 响应式修改数组的那些方法</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        h2 {
+            padding: 10px;
+            border: 1px solid rgb(228, 95, 210);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span>
+        </h2>
+
+        <code>
+            // 1.push 方法：在数组末尾附加一个元素
+            this.letters.push('eeee');
+
+        </code>
+
+        <!-- for 循环绑定key -->
+        <ul>
+            <li v-for="item in letters">{{item}}</li>
+        </ul>
+
+        <button v-on:click='action'>点击</button>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: `本页面通过一个v-for 遍历数组来演示可以响应式修改数组的那些js方法`,
+                letters: ['a', 'b', 'c', 'd'],
+            },
+            computed: {
+
+            },
+            methods: {
+                action: function () {
+                    // 1.push 方法：在数组末尾附加一个或多个元素，并返回新数组长度              
+                    // this.letters.push('n');
+                    // this.letters.push('n1','n2','n3');
+
+                    // 2.pop 方法：删除并返回数组末尾的元素
+                    // this.letters.pop(2,3);
+
+                    // 3.shift 方法：删除并返回数组首位的元素
+                    // this.letters.shift();
+
+                    // 4.unshift 方法：在数组首位添加一个或多个元素，并返回新数组长度
+                    // this.letters.unshift('n');
+                    // this.letters.unshift('n1','n2','n3');
+
+                    // 4.splice(start,n,...add) 方法：删除/替换/插入元素
+                    // --start 添加/删除元素索引位置（从0开始），使用负数可从数组结尾处规定位置
+                    // --n 要删除的元素数量，设置为0，则不删除元素
+                    // --...add 可选项，插入数组的新元素
+                    // 删除元素：splice(start,n)  例-->  arr.splice(0,1) ,同arr.shift(); 不写数量，意味着删除从索引位置到数组末尾的所有元素
+                    // 替换元素：splice(start,n,...add)  例-->  arr.splice(0,1,'f');可以理解为删除数组首位元素，然后在首位插入‘f’
+                    // 插入元素：splice(start,0,...add)  例-->  arr.splice(2,0,'f','g')
+                    // this.letters.splice(0,1); 
+                    // this.letters.splice(0,1,'f'); 
+                    // this.letters.splice(0,0,'f','g'); 
+
+                    // 5.sort 方法：对数组元素进行排序
+                    // this.letters.unshift('e');
+                    // this.letters.sort();
+
+                    // 6.reverse 方法：颠倒数组中元素的顺序
+                    // this.letters.reverse();
+
+                    // 7.Vue内部的set方法：set(要修改的对象，索引位置，修改后的值)
+                    Vue.set(this.letters, 1, 'nnnnn');
+
+                    // 以上方法对数组的修改，会立即显示到页面中，即响应式
+
+                    // 注意非响应式修改数组方式，即通过数组下标直接修改的方式    
+                    // this.letters[0]='nnnnn';
+
+                    console.log(this.letters);
+
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

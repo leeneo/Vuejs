@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vue v-for 循环遍历</title>
+    <title>vue v-for 绑定重复Key警告 </title>
     <style>
         div {
             padding: 10px;
@@ -22,22 +22,12 @@
     <div id="app">
         <h2>text here：
             <span>{{message}}</span>
+            <span>多点几下试试</span>
         </h2>
-        <!-- 遍历数组 -->
-        <ul>
-            <li v-for="item in names">{{item}}</li>
-        </ul>
 
-        <!-- 遍历数组，带索引，item对应元素，index对应下标 -->
+        <!-- for 循环绑定key -->
         <ul>
-            <li v-for="(item,index) in names">{{index+1}}.{{item}}</li>
-        </ul>
-
-        <!-- 遍历对象 -->
-        <ul>
-            <li v-for="(value,key) in info">{{key}}: {{value}}</li>
-            <!-- 这种方式很少用 -->
-            <li v-for="(value,key,index) in info">{{index}}.{{key}}: {{value}}</li>
+            <li v-for="item in letters" :key="item">{{item}}</li>
         </ul>
 
         <button v-on:click='action'>点击</button>
@@ -48,20 +38,15 @@
         const app = new Vue({
             el: '#app',
             data: {
-                message: 'this is a vue demo!',
-                names: ['apple', 'pear', 'banana', 'orange'],
-                info:{
-                    name:'Hua',
-                    age:18,
-                    height:1.88
-                }
+                message: `当for 遍历绑定key时，如果插入的元素是重复的，控制台会报一个Vue 警告！`,
+                letters: ['a', 'b', 'c', 'd'],
             },
             computed: {
 
             },
             methods: {
                 action: function () {
-                    this.message = 'hello!'
+                    this.letters.push('some letters');
                 }
             }
         });

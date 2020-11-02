@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-for 绑定元素添加Key属性</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        h2 {
+            padding: 10px;
+            border: 1px solid rgb(228, 95, 210);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span>
+            <p>
+                官方推荐使用v-for时，给绑定元素添加:key属性。<br>
+                原因：<br>
+                vue 的虚拟 DOM 的diff 算法有关，当在多个相同节点中间插入一个新节点时；<br>
+                比如在 a,b,c,d 5个li之间的 b 和 c 之间插入一个新节点 e,diff 算法会默认把 c 更新成 e ,把 d 更新成 c ,最后再插入 d。<br>
+                添加key的作用就是给每个节点做个【唯一标识】，diff算法就会在正确的位置插入新的节点。<br>
+                key就是与元素一一对应的【唯一身份标识】。<br>
+                key的作用：为了高效的更新虚拟DOM。
+            </p>
+        </h2>
+
+        <!-- for 循环绑定key -->
+        <ul>
+            <li v-for="item in letters" :key="item">{{item}}</li>
+        </ul>
+
+        <button v-on:click='action'>点击</button>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: `用app.letters.splice(2,0,'e');插入一个元素试试`,
+                letters: ['a', 'b', 'c', 'd'],
+            },
+            computed: {
+
+            },
+            methods: {
+                action: function () {
+                    this.message = 'hello!'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
