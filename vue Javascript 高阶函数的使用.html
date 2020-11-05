@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue Javascript 高阶函数的使用</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        h2 {
+            padding: 10px;
+            border: 1px solid rgb(228, 95, 210);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>书籍名称</th>
+                    <th>出版日期</th>
+                    <th>价格</th>
+                    <th>数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item,index) in books">
+                    <td>{{item.id.toString()}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.date}}</td>
+                    <td>{{item.price.toFixed(2)}}</td>
+                    <td>
+                        {{item.count}}
+                    </td>
+                    <td>
+                        <button v-bind:disabled='true'>移除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>总价格：{{totalPrice.toFixed(2)}}</h2>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                books: [{
+                        id: 1,
+                        name: '《算法导论》',
+                        date: '2006-9',
+                        price: 85.00,
+                        count: 1
+                    },
+                    {
+                        id: 2,
+                        name: '《UNIX编程艺术》',
+                        date: '2006-2',
+                        price: 60.00,
+                        count: 2
+                    },
+                    {
+                        id: 3,
+                        name: '《编程珠玑》',
+                        date: '2008-10',
+                        price: 25.00,
+                        count: 4
+                    },
+                    {
+                        id: 4,
+                        name: '《代码大全》',
+                        date: '2006-3',
+                        price: 120.00,
+                        count: 1
+                    },
+                ],
+            },
+            computed: {
+                totalPrice() {
+
+                    // 高阶函数 arr.reduce(fn(..),0)
+                    return this.books.reduce(function (total, curValue) {
+                        let price = curValue.price * curValue.count;
+                        return total + price;
+                    }, 0);
+                },
+            },
+            methods: {
+                action: function () {
+                    this.message = 'hello!'
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

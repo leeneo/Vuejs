@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-for 循环高级应用</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        h2 {
+            padding: 10px;
+            border: 1px solid rgb(228, 95, 210);
+        }
+        .active{
+            background-color: rgb(28, 173, 209);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span>
+        </h2>
+        <!-- 遍历数组 -->
+        <ul>
+            <li v-for="(item,index) in names" :class="{active:curIndex===index}" @click="selectAction(index)">{{index}}.{{item}}</li>
+        </ul>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '点击某个元素，给对应元素添加特定样式!',
+                names: ['apple', 'pear', 'banana', 'orange'],
+                curIndex:1
+            },
+            computed: {
+
+            },
+            methods: {
+                selectAction: function (i) {
+                    this.curIndex=i;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

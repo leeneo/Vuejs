@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue computed 计算属性 </title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span><br>
+            <h2>computed 计算属性：<br>
+                <p>
+                    methods 调用方式，可以传参<br>
+                    getFullName() ：<span class='normal'>{{getFullName()}}</span> <br>
+                    getFullNameWithProp('银河') ：<span class='normal'>{{getFullNameWithProp('银河')}}</span><br></p>
+                <p>
+                    computed 直接调用不能传参，如果想传参，只能使用methods <br>
+                    fullName：<span class='normal'>{{fullName}}</span>
+                </p>
+            </h2>
+        </h2>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: 'this is a vue demo!',
+                firstName: 'Lee',
+                lastName: 'Neo'
+            },
+            computed: {
+                // fullName: function () {} ==> 等效于 fullName() {} 后面都采用这种声明方式
+                // fullName: function () {
+                //     return this.firstName + ' ' + this.lastName;
+                // },
+                fullName() {
+                    return this.firstName + ' ' + this.lastName;
+                }
+            },
+            methods: {
+                getFullName() {
+                    console.log();
+                    return this.firstName + ' ' + this.lastName;
+                },
+                getFullNameWithProp(prop) {
+                    console.log(prop);
+                    return this.firstName + ' ' + prop + ' ' + this.lastName;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

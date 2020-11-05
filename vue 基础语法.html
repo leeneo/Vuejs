@@ -163,22 +163,23 @@
                     return this.firstName + ' ' + this.lastName;
                 },
                 totalPrice: function () {
-                    // reduce()==>array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
-                    // 从这个例子中可以看出reduce()，如果不给初始值，函数中的total默认是以数组第一个元素为起始的。
+                    // arr.reduce(fn(..),0)：计算数组元素相加后的总和==>array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+                    // 从这个例子中可以看出reduce()，如果不给初始值，函数中的total默认数组第一个元素,curVlaue为数组第二个元素。
+                    // 不设初始值方式，当数组元素减少时会导致计算结果不准确，因为curValue不是从第一个元素开始计算导致后面会少一个循环
                     return this.books.reduce(function (total, curValue) {
-                        console.log('total:' + JSON.stringify(total));
-                        console.log('num:' + curValue.price);
-                        let first = 0;
+                        console.log('totalPrice:' + JSON.stringify(total));
+                        console.log('curValue:' + JSON.stringify(curValue));
                         if (total.price) {
                             total = total.price;
                         }
                         return total + curValue.price;
                     });
                 },
+                // 数组累加推荐使用设置初始值的方式                 
                 totalPrice2: function () {
                     return this.books.reduce(function (total, curValue) {
-                        console.log('total:' + JSON.stringify(total));
-                        console.log('num:' + curValue.price);
+                        console.log('totalPrice:' + JSON.stringify(total));
+                        console.log('curValue:' + curValue.price);
                         return total + curValue.price;
                     }, 0);
                 }
