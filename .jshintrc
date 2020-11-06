@@ -1,0 +1,9 @@
+{
+    "curly": true,
+    "strict": false,
+    "esversion": 6,
+    "indent": 2,
+    "quotmark": "single",
+    "asi":false,
+    "lastsemic":true
+}

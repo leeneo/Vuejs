@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <style>
+        div {
+            padding: 10px;
+            border: 1px solid green;
+        }
+
+        h2 {
+            padding: 10px;
+            border: 1px solid rgb(228, 95, 210);
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        ["1", "2", "3"].map(parseInt);
+        肯定有很多人会说这不是[1,2,3]吗?非也，非也...
+        它返回的值为[1,NaN,NaN]
+        是不是很意外，这又是为什么呢？
+        因为map的callback函数有三个参数，正在遍历的元素, 元素索引(index), 原数组本身(array)。
+        parseInt有两个参数，string和radix(进制)。
+        只传入parseInt的话，map callback会自动忽略第三个参数array。
+        而index参数不会被忽略。
+        而不被忽略的index(0,1,2)就会被parseInt当做第二个参数。
+
+        将其拆开看：
+        parseInt("1",0);//上面说过第二个参数为进制，所以"1"，被转为0进制不存在，所以返回Number类型的1。
+        parseInt("2",1);//此时将2转为1进制数，由于超过进制数1，所以返回NaN。
+        parseInt("3",2);//同理返回NaN。
+        所以最终的结果为[1,NaN,NaN]。
+
+        那么如果要得到[1,2,3]该怎么写。
+        ["1","2","3"].map((x)=>{
+        return parseInt(x);
+        });
+        也可以简写为：
+        ["1","2","3"].map(x=>parseInt(x));
+
+        这样写为什么就能返回想要的值呢？因为，传一个完整函数进去，有形参，有返回值。这样就不会造成因为参数传入错误而造成结果错误了，最后返回一个经纯函数处理过的新数组。
+    </p>
+
+    <script>
+        const nums = ["1", "2", "3"];
+        let nums2 = [];
+
+        let test = nums.map(parseInt);
+        console.log(test); //[1,NaN,NaN]
+
+        // nums.map(function (n) {
+        //     nums2.push(parseInt(n));
+        // });
+
+        // nums2 = nums.map((x) => {
+        //     return parseInt(x)
+        // });
+
+        nums2 = nums.map(x => parseInt(x));
+
+        console.log(nums2); //[1,2,3]
+    </script>
+</body>
+
+</html>
