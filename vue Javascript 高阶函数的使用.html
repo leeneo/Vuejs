@@ -90,8 +90,7 @@
 
                     // 高阶函数 arr.reduce(fn(..),0)
                     return this.books.reduce(function (total, curValue) {
-                        let price = curValue.price * curValue.count;
-                        return total + price;
+                        return total + curValue.price * curValue.count;
                     }, 0);
                 },
             },
@@ -127,7 +126,7 @@
         // *对于空数组不会执行回调函数
         // 如果不传第二个参数 initialValue，则函数的第一次执行会将数组中的第一个元素作为accumulator
         // arr.reduce(fn(accumulator,currentValue,currentIndex,sourceArray),initialValue)
-        // acc      必需，累计器
+        // acc      必需，累计器，接收函数内返回的值
         // cur      可选，当前值      
         // idx      可选，当前索引  
         // sar      可选，源数组
@@ -138,7 +137,7 @@
         console.log('初始数组：' + nums);
 
         // 1. 需求：取出所有小于100的数字
-        let newNums = [];
+        // let newNums = [];
 
         // 普通实现方式
         // for (let n of nums) {
@@ -147,15 +146,15 @@
         // }
 
         // 函数实现方式
-        newNums = nums.filter(function (n) {
-            return n < 100;
-        });
+        // newNums = nums.filter(function (n) {
+        //     return n < 100;
+        // });
 
-        console.log('小于100：' + newNums);
+        // console.log('小于100：' + newNums);
 
 
         // 2. 需求：将所有小于100的数字进行转化-->全部*2
-        let new2Nums = [];
+        // let new2Nums = [];
 
         // 普通实现方式
         // for (let n of newNums) {
@@ -168,23 +167,40 @@
         // });
 
         // 函数实现方式2
-        new2Nums = newNums.map(n => n * 2);
+        // new2Nums = newNums.map(n => n * 2);
 
-        console.log('小于100*2：' + new2Nums);
+        // console.log('小于100*2：' + new2Nums);
 
 
         // 3. 需求：将所有小于100且转化后的数字，再进行相加
-        let total = 0;
 
         // 普通实现方式
-        for (let n of new2Nums) {
-            total += n;
-        }
+        // for (let n of new2Nums) {
+        //     total += n;
+        // }
 
         // 函数实现方式
+        // let result = new2Nums.reduce(function (total, cur) {
+        //     console.log('total: ' + total);
+        //     console.log('cur: ' + cur);
+        //     return total + cur;
+        // }, 0);
+        // console.log('result: ' + result);
 
 
-        console.log("total: " + total);
+        // 以上3个需求使用高阶函数的实现方式
+        // let total = nums.filter(function (x) {
+        //     return x < 100;
+        // }).map(function (y) {
+        //     return y * 2;
+        // }).reduce(function (total, cur) {
+        //     return total + cur;
+        // }, 0)
+
+        // 再来个ES6的终极实现方式
+        let total = nums.filter(x => x < 100).map(x => x * 2).reduce((x, y) => x + y, 0)
+
+        console.log('total: ' + total);
     </script>
 </body>
 

@@ -36,8 +36,7 @@ const app = new Vue({
             return this.books.reduce(function (total, curValue) {
                 console.log('totalPrice:' + JSON.stringify(total));
                 console.log('curValue:' + JSON.stringify(curValue));
-                let price = curValue.price * curValue.count;
-                return total + price;
+                return total + curValue.price * curValue.count;
             }, 0);
         },
     },
