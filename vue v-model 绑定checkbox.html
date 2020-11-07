@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-model 绑定checkbox</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in messages'>{{msg}}</li>
+            </ul>
+        </div>
+        <div>
+            <!-- 单选框 -->
+            <label for="agree1">
+                unchecked <input type='checkbox' id='agree1' unchecked> 不同意，不允许进行下一步<br>
+            </label>
+            <label for="agree2">
+                checked <input type='checkbox' id='agree2' checked> 同意，允许进行下一步<br>
+            </label>
+            <label for="agree">
+                <!-- v-model 绑定的 isAgree 状态 会覆盖掉 checkbox 的 checked unchecked 状态 -->
+                v-model <input type='checkbox' id='agree' v-model="isAgree"> 同意，进行下一步
+            </label>
+            <h2>您选择的是：{{isAgree}}</h2>
+            <button :disabled="!isAgree">下一步</button>
+        </div>
+        <div>
+            <!-- 复选框 -->
+            请选择您喜欢的球类运动（多选）：
+            <!-- 如果需要设置默认选中项，只需要将要设为默认项的value值 放入v-model绑定的hobbies数组中即可 -->
+            <input type="checkbox" name='balls' value='足球' v-model='hobbies'>足球
+            <input type="checkbox" name='balls' value='篮球' v-model='hobbies'>篮球
+            <input type="checkbox" name='balls' value='网球' v-model='hobbies'>网球
+            <input type="checkbox" name='balls' value='棒球' v-model='hobbies'>棒球
+            <h2>你选择的爱好有：{{hobbies}}</h2>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title:'v-model 绑定checkbox',
+                messages: [
+                    'v-model 绑定的 isAgree 状态 会覆盖掉 checkbox 的 checked unchecked 状态',
+                    '多选框如果需要设置默认选中项，只需要将要设为默认项的value值 放入v-model绑定的hobbies数组中即可'
+                ],
+                isAgree: false,
+                hobbies: ['篮球', '棒球']
+            },
+            computed: {
+            },
+            methods: {
+            }
+        });
+    </script>
+</body>
+
+</html>

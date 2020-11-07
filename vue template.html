@@ -5,24 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo</title>
-    <style>
-        div {
-            padding: 10px;
-            border: 1px solid green;
-        }
-
-        h2 {
-            padding: 10px;
-            border: 1px solid rgb(228, 95, 210);
-        }
-    </style>
+    <link rel="stylesheet" href="./css/global.css">
 </head>
 
 <body>
     <div id="app">
-        <h2>text here：
-            <span>{{message}}</span>
-        </h2>
+
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in messags'>{{msg}}</li>
+            </ul>
+        </div>
+
         <button v-on:click='action'>点击</button>
     </div>
 
@@ -31,14 +26,17 @@
         const app = new Vue({
             el: '#app',
             data: {
-                message: 'this is a vue demo!'
+                title: 'this is a title',
+                messags: [
+                    'this is a vue demo!',
+                ]
             },
             computed: {
 
             },
             methods: {
-                action: function () {
-                    this.message = 'hello!'
+                action() {
+                    this.title = 'hello!'
                 }
             }
         });

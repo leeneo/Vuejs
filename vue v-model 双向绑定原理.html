@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-model双向绑定原理</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for="msg in messages">{{msg}}</li>
+            </ul>
+        </div>
+        <div>
+            <!-- <input type="text" v-model="message"> -->
+            <!-- v-model等效于v-bind 加 v-on事件的结合 -->
+            <!-- <input type="text" :value="message" @input="valueChange"> -->
+            <input type="text" :value="txt" @input="txt=$event.target.value">
+            <h2>{{txt}}</h2>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'v-model双向绑定原理',
+                messages: [
+                    ' v-model 一般用于表单输入控件，用来实现控件value和vm变量的映射，即双向绑定(v<-->vm)',
+                    ' v-model 其实是一个语法糖，本质上包含两个操作',
+                    ' 1.v-bind 绑定一个value属性（实现 vm-->v 的绑定）',
+                    ' 2.v-on 指令给当前元素绑定input事件（实现 v-->vm 的绑定）',
+                    'v-model等效于v-bind 加 v-on事件的结合'
+                ],
+                txt: 'input的双向绑定',
+            },
+            computed: {
+            },
+            methods: {
+                valueChange(event) {
+                    this.message = event.target.value;
+                    // console.log(event);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+#app {
+  padding: 10px;
+  border: 1px solid green;
+}
+
+#app div {
+  padding: 10px;
+  border: 1px solid #e45fd2;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-model 绑定select</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in messages'>{{msg}}</li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- 单选 -->
+            <select name="fruitSelt" v-model='fruit'>
+                <option value="苹果">苹果</option>
+                <option value="香蕉">香蕉</option>
+                <option value="橘子">橘子</option>
+                <option value="榴莲">榴莲</option>
+            </select>
+            <h2>你选择的水果是：{{fruit}}</h2>
+        </div>
+        <div>
+            <!-- 多选 -->
+            <h3>按 ctrl 可多选</h3>
+            <select name="fruitSelt" v-model='fruits' multiple>
+                <option value="苹果">苹果</option>
+                <option value="香蕉">香蕉</option>
+                <option value="橘子">橘子</option>
+                <option value="榴莲">榴莲</option>
+            </select>
+            <h2>你选择的水果是：{{fruits}}</h2>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'v-model 绑定select',
+                messages: [
+                    '单选：v-model绑定的是一个值，当选中options中的一个时，会将选中项value的值赋值到myselect',
+                    '多选：v-modle绑定的是一个数组，会将选中项的多个value的值添加到myselects中'
+                ],
+                fruit: '榴莲',
+                fruits: ['榴莲']
+            },
+            computed: {
+            },
+            methods: {
+            }
+        });
+    </script>
+</body>
+
+</html>

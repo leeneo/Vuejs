@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue v-model 绑定radio</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for="msg in messages">{{msg}}</li>
+            </ul>
+        </div>
+        <div>
+            <label for="male">
+                <!-- 男<input type='radio' id='male' value='男' name='sex' v-model="sex"> -->
+                男<input type='radio' id='male' value='男' v-model="sex">
+            </label><br>
+            <label for="female">
+                <!-- 女<input type="radio" id='female' value='女' name='sex' v-model="sex"> -->
+                女<input type="radio" id='female' value='女' v-model="sex">
+            </label>
+            <h2>您选择的是：{{sex}}</h2>
+        </div>
+        <div>
+            <label for="male1">
+                男<input type='radio' id='male1' value='男1' v-model="sex1">
+            </label><br>
+            <label for="female1">
+                女<input type="radio" id='female1' value='女1' v-model="sex1">
+            </label>
+            <h2>您选择的是：{{sex1}}</h2>
+        </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'v-model 绑定radio',
+                messages: [
+                    'label标记对绑定的radio加上同一个name就可以保证radio之间的互斥性， 当用v-model绑定同一个变量时，可以省去name。',
+                    'vm会根据与radio控件绑定变量的值来寻找view中value值与其相同的radio，如有，则该radio为默认选中状态。'
+                ],
+                sex: '男',
+                sex1: ''
+            },
+            computed: {
+            },
+            methods: {
+            }
+        });
+    </script>
+</body>
+
+</html>
