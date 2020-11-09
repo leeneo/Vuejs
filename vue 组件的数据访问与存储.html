@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件的数据访问与存储</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+
+        <v-comp></v-comp>
+        <v-partial></v-partial>
+    </div>
+
+
+    <template id='comp'>
+        <div>
+            <h2>{{global}}</h2>
+            <!-- 错误，不可访问别的组件的数据 -->
+            <!-- <h2>{{partialContent}}</h2> -->
+            <h2>{{copmContent}}</h2>
+        </div>
+    </template>
+
+    <template id='partial'>
+        <div>
+            <h2>{{global}}</h2>
+            <!-- 错误，不可访问别的组件的数据 -->
+            <!-- <h2>{{copmContent}}</h2> -->
+            <h2>{{partialContent}}</h2>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        Vue.component('v-comp', {
+            template: '#comp',
+            data() {
+                return {
+                    global: 'comp--组件数据彼此独立',
+                    copmContent: '我是comp组件定义的数据，我不能访问 partial 组件定义的数据'
+                }
+            }
+        });
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件的数据访问与存储',
+                messages: [
+                    `组件是一个单独功能模块的封装，有属于自己的HTML模板，也有属于自己的data数据`,
+                    `组件不能直接访问 vue data 的数据，组件的数据存储应该是分割的，如果所有的数据都存储在顶级的 vue data中，vue 实例会变得非常臃肿且难以维护`,
+                    `组件彼此独立，彼此间不能直接访问对方的数据，组件下访问的数据重名，并不冲突`,
+                    `同理，组件内的 methods 也同 data 的访问形式一样，不能直接访问外部组件内的 data 和 methods`,
+                ]
+            },
+            components: {
+                'v-partial': {
+                    template: '#partial',
+                    data() {
+                        return {
+                            global: 'partial--组件数据彼此独立',
+                            partialContent: '我是partial组件定义的数据，我不能访问 comp 组件定义的数据'
+                        }
+                    }
+                }
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

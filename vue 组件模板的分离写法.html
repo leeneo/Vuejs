@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件模板的分离写法</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+
+        <!-- 使用自定义的组件 -->
+        <v-comp></v-comp>
+        <v-partial></v-partial>
+    </div>
+
+    <!--组件模板的抽离写法 -->
+    <!--1. 利用 x-template 类型的script 标签书写模板，并用其 id 绑定注册 -->
+    <script type='text/x-template' id='separate'>
+        <div>
+            <h2>我是 script 标签 抽离的组件模板</h2>
+        </div>
+    </script>
+
+    <!--2. 利用 template 标签书写模板，并用其 id 绑定注册 -->
+    <template id='separate2'>
+        <div>
+            <h2>我是 template 标签 抽离的组件模板</h2>
+        </div>
+    </template>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+        //注册组件
+        Vue.component('v-comp', {
+            template: '#separate'
+        });
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件模板的分离写法',
+                messages: [
+                    `方法一：利用 x-template 类型的script 标签书写模板，并用其 id 绑定注册`,
+                    `方法二：利用 template 标签书写模板，并用其 id 绑定注册`
+                ]
+            },
+            components: {
+                'v-partial':{
+                    template:'#separate2'
+                }
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            },
+        });
+
+    </script>
+</body>
+
+</html>

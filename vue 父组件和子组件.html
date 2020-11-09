@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 父组件和子组件</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+
+        <!-- 使用自定义的组件 -->
+        <v-parent></v-parent>
+        <!-- <v-son></v-son> -->
+
+    </div>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        
+        // 构造组件模板
+        // 注意子组件的定义不可放在父组件下面，否则会报下面的错误
+        // Cannot access 'sonComp' before initialization
+
+        // 子组件
+        const sonComp = {
+            template: `
+            <div>
+                <h2>我是子组件</h2>
+            </div>
+            `
+        };
+        
+        // 父组件
+        const parentComp = {
+            template: `
+            <div>
+                <h2>我是父组件</h2>
+                <v-son></v-son>
+            </div>
+            `,
+            components: {
+                'v-son': sonComp
+            }
+        };
+
+        // root 组件
+        // root 可以看做最大的一个父组件，网络请求的发起和服务器数据的存储就是在这一层，然后可以向下面的子组件传递数据
+        // 子组件主要用来展示用，不做网络请求，是为避免网络请求的重复发起
+        // 类似后端开发一样，将所需要的数据一次性取出来，缓存到一个大的应用池中，避免对服务器的频繁请求
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '父组件和子组件',
+                messages: [`注意子组件的定义不可放在父组件下面，否则会报下面的错误!`,`Cannot access 'sonComp' before initialization`]
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            },
+            //2.注册组件
+            components: {
+                'v-parent': parentComp,
+            },
+        });
+    </script>
+</body>
+
+</html>

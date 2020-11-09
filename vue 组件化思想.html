@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件化思想</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul> 
+        </div>
+
+        <button v-on:click='action'>点击</button>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'vue 组件化思想',
+                messages: [
+                    `组件化可以理解为，当人在面对一个很复杂的对象或者逻辑或者应用，处理起来很麻烦时，可以将之拆分、细化为一个个独立的小模块;
+                    <br>每个模块有自己独立的功能，然后由这些小模块组成一个大的在成体系的模块，直至构建出整个应用；
+                    这些小的模块就是组件`,
+                    '组件化思想提供了一个抽象，让我们可以开发出一个个独立可复用的小组件来构造我们的应用',
+                    '任何的应用都会被抽象成一棵组件树',
+                    '组件化的好处：方便代码的组织和管理以及扩展性大大加强了',
+                ]
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';                    
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

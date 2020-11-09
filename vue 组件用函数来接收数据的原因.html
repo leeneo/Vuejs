@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件内部的 data 用函数来接收数据的原因</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+
+        <v-comp></v-comp>
+        <v-comp></v-comp>
+        <v-comp></v-comp>
+
+    </div>
+
+
+    <template id='comp'>
+        <div>
+            <h2>当前计数：{{global}}</h2>
+            <button @click='increment' :disabled='global<1'>-</button>
+            <button @click='decrement'>+</button>
+        </div>
+    </template>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+        const obj = {
+            'global': 0
+        }
+
+        Vue.component('v-comp', {
+            template: '#comp',
+            data() {
+                return {
+                    'global': 0,
+                };
+                // 直接 return obj 复用组件绑定的是同一个数据对象，当改变复用的组件其中一个数据时，其他复用的组件的数据会跟着一起改变
+                // return obj;
+            },
+            methods: {
+                increment() {
+                    this.global--;
+                },
+                decrement() {
+                    this.global++;
+                }
+            }
+
+        });
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件内部的数据 data 用函数来接收数据的原因',
+                messages: [
+                    `解析 vue 组件要用函数来接受数据的原理---其实是 javascript 的特性决定的`,
+                    `当一个函数直接 return 一个定义了的对象时，那么该函数的不同实例，映射的都是同一块内存区域（即同一个对象）`,
+                    `如果有一处复用的组件改变了其内部的 data ，那么其他复用的组件内部的 data 也跟着改变了，因为它们映射的是同一个对象`,
+                    `如何避免这种情况发生？如何保证复用组件的数据独立和安全性？`,
+                    `人们想要的是复用的函数实例或者说组件内部的数据不能受其他地方的复用组件影响。`,
+                    `在函数 return 时定义对象`,
+                    `如此，当复用的组件内部的数据修改时，不会影响到别的地方复用的组件，它们是彼此独立的对象`,
+                    `为此，vue 组件定义内部的 data 时需要用函数来接受数据`
+                ]
+            },
+            components: {},
+            computed: {},
+            methods: {},
+        });
+
+        // 解析 vue 组件要用函数来接受数据的原理---其实是 javascript 的特性决定的
+        // 当一个函数直接return 一个定义了的对象时，那么该函数的不同实例，映射的都是同一块内存区域（即同一个对象）
+        // 函数直接 return 一个定义了的对象
+        const testObj = {
+            name: '尤雨溪',
+            age: 28
+        }
+
+        function testFn() {
+            return testObj;
+        }
+
+        let abc = new testFn();
+        let abc2 = new testFn();
+        let abc3 = new testFn();
+        // 这里函数的实例 abc 改变了其内部 name 的值，但可以看到其他实例内部的 name 也被改变了，因为它们映射的是同一个对象
+        abc.name = '成龙';
+        console.log('函数直接 return 一个定义了的对象');
+        console.log(abc);
+        console.log(abc2);
+        console.log(abc3);
+
+        // 如何避免这种情况发生？如何保证复用组件的数据独立和安全性？
+        // 人们想要的是复用的函数实例或者说组件内部的数据不能受其他地方的复用组件影响。
+        // 在函数 return 时定义对象
+        function testFn2() {
+            return {
+                name: '刘德华',
+                age: 58
+            };
+        }
+
+        let safe = new testFn2();
+        let safe2 = new testFn2();
+        let safe3 = new testFn2();
+        // 这里函数的实例 safe 改变了其内部 name 的值，但可以看到其他实例内部的 name 没有被改变，因为它们映射的已经不是同一个对象了
+        safe.name = '周卧龙';
+        console.log('在函数 return 时定义对象');
+        console.log(safe);
+        console.log(safe2);
+        console.log(safe3);
+    </script>
+</body>
+
+</html>

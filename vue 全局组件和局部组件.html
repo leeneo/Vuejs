@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 全局组件和局部组件</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+
+        <!-- 使用自定义的组件 -->
+        <v-Comp></v-Comp>
+        <v-partial></v-partial>
+        <v-partial2></v-partial2>
+
+    </div>
+
+    <div id="app2">
+        <h2>这块是vue2实例区域</h2>
+        <v-comp></v-comp>
+        <!-- 调不到哦 -->
+        <!-- <v-partial></v-partial> -->
+    </div>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 1.构造组件
+        // const myComp = Vue.extend({
+        //     template: `
+        //     <div>
+        //         <h2>我是全局组件</h2>
+        //     </div>
+        //     `
+        // });
+
+        // 注册时使用语法糖，可以省略 Vue.extend()构造组件
+        // const myComp = {
+        //     template: `
+        //     <div>
+        //         <h2>我是全局组件</h2>
+        //     </div>
+        //     `
+        // };
+
+        const partial = {
+            template: `
+            <div>
+                <h2>我是局部组件</h2>
+            </div>
+            `
+        };
+
+        const partial2 = {
+            template: `
+            <div>
+                <h2>我是局部组件2</h2>
+            </div>
+            `
+        };
+
+        //2.注册（全局组件：可以在多个vue实例作用范围内使用）
+        // Vue.component('v-comp', myComp);
+        // 组件注册的语法糖写法
+        Vue.component('v-comp', {
+            template: `
+            <div>
+                <h2>我是全局组件</h2>
+            </div>
+            `
+        });
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '全局组件和局部组件',
+                messages: [
+                    `全局组件：可以在多个vue实例作用范围内使用`,
+                    `局部组件：只有在当前注册的vue实例下使用`,
+                    `注册时使用语法糖，可以省略 Vue.extend()构造组件`,
+                    `Vue 为了简化组件注册的的过程，提供了注册语法糖：省去了Vue.extend() 构造，直接用一个包含了模板的对象来代替`,
+                    `*注册组件时注意，组件的标签名定义禁用驼峰命名法(禁用：myComp形式)，因为浏览器渲染时会自动将大写字母转换成小写字母，
+                    这样浏览器就找不到自己自定义的组件标签了，调用时大小写无所谓，浏览器会自动转换`,
+                ]
+            },
+            components: {
+                // 语法糖注册方式，不过一般不建议这种形式，还是建议用变量将模板保存起来，方便管理
+                // 'v-partial': {
+                //     template: `
+                //     <div>
+                //         <h2>我是局部组件2</h2>
+                //     </div>
+                //     `
+                // },
+                'v-partial': partial,
+                'v-partial2': partial2
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            },
+        });
+
+        //用于测试的vue2实例
+        const app2 = new Vue({
+            el: '#app2'
+        })
+    </script>
+</body>
+
+</html>

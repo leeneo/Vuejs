@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件的基本使用</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+
+        <!-- 使用自定义的组件 -->
+        <v-comp></v-comp>
+        <v-comp></v-comp>
+        <v-comp></v-comp>
+        <v-comp></v-comp>
+
+        <button v-on:click='action'>点击</button>
+    </div>
+
+    <!-- 此处使用自定义组件是无效的（超脱了Vue实例的作用范围） -->
+    <v-comp></v-comp>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 1.构造组件
+        const mycomp = Vue.extend({
+            template: `
+            <div>
+                <h2>title</h2>
+                <p>content</p>
+                <p>content2</p>
+            </div>
+            `
+        });
+
+        //2.注册组件
+        Vue.component('v-comp', mycomp)
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'vue 组件的基本使用',
+                messages: [
+                    '组件的使用：1.创建组件构造器；2.注册组件；3.使用组件',
+                    '1.创建组件构造器：Vue.extend()',
+                    '2.注册组件：Vue.component()',
+                    '3.使用组件：在Vue实例的作用范围内调用',
+                    `Vue.extend({}) 创建的是一个组件构造器，传入template 表示自定义组件的模板（就是要在文档结构里显示的HTML）；<br>
+                    &emsp;事实上这种写法在Vue2.x的文档中几乎已经看不到了，而是用其他的语法糖代替`,
+                    `Vue.component('标签名',组件对象) 是将已经构造的组件对象注册为一个组件，并且为该组件指定一个对应的html标签`,
+                    `调用注册好的组件，只需要在html文档结构中使用组件映射的html标签名即可`,
+                    `注意：自定义组件的使用范围：仅限于Vue对象的实例范围内，即那个注册为Vue实例的 id=app 的div内，超出这个div使用是无意义的`,
+                ]
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
