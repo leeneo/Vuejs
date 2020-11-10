@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件 props 驼峰标识变量名的标签用法</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-comp :title='title' :messages='messages' :childInfo='info'></v-comp>
+
+        <!-- 正常显示 -->
+        1.<list-comp :child-info='info'></list-comp>
+        <!-- 正常显示 -->
+        2.<list-Comp :child-Info='info'></list-Comp>
+        <!-- 标签正常显示，数据显示不正确（显示默认值，实际数据已经传递过来） -->
+        3.<list-comp :childInfo='info'></list-comp>
+        <!-- 标签不能正常显示，浏览器报：Unknown custom element: <listcomp> -->
+        4.<listComp :child-Info='info'></listComp>
+
+        <!-- 因为 html 语法为大小写不敏感语法，当标签或者标签内属性有驼峰命名时，
+            浏览器会自动将大写字母转换在小写的，这样就造成错误显示了 -->
+        <!-- 当组件的标签名或者 props 属性有驼峰命名法时，在 html 中展示时要做相应的转换
+            比如：组件标签：listComp ，html中应用写为：<list-comp></list-comp> 或者 <list-Comp></list-Comp>
+            props 属性：listInfo ，html中应用写为：<comp :list-info></comp> 或者 <comp :list-Info></comp>
+         -->
+
+    </div>
+
+    <!-- 组件模板 -->
+    <template id='comp'>
+        <div>
+            <div>
+                <h2>{{title}}</h2>
+                <ul>
+                    <li v-html="msg" v-for='msg in messages'></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+    <template id='list'>
+        <div>
+            <ul>
+                <li v-for='item in childInfo'>{{item}}</li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const comp = {
+            template: '#comp',
+            props: {
+                title: String,
+                messages: Array,
+            }
+        }
+
+        const listComp = {
+            template: '#list',
+            props: {
+                childInfo: {
+                    type: Object,
+                    default () {
+                        return {
+                            name: '默认名称',
+                            age: 0
+                        };
+                    }
+                }
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件 props 驼峰标识变量名的标签用法',
+                messages: [
+                    `因为 html 语法为大小写不敏感语法，当标签或者标签内属性有驼峰命名时，
+                    浏览器会自动将大写字母转换在小写的，这样就造成错误显示了`,
+                    `当组件的标签名或者 props 属性有驼峰命名法时，在 html 中展示时要做相应的转换`,
+                    `比如：<br>组件标签：listComp ，html中应用写为：&lt;list-comp&gt; 
+                    <br>props 属性：listInfo ，html中应用写为：&lt;comp :list-info&gt;
+                    <br>写成 &lt;list-Comp&gt; &lt;comp :list-Info&gt;也可以，但一般还是建议标签和属性全用小写`,
+                ],
+                info: {
+                    name: 'Harry',
+                    age: 28
+                }
+            },
+            components: {
+                'vComp': comp,
+                listComp
+            },
+            computed: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

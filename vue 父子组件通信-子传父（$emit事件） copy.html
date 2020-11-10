@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 子组件通过 $emit 自定义事件向父组件发送事件</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <h2>计数：{{total}}</h2>
+        <v-content @emitclick='changeTotal'></v-content>
+    </div>
+
+    <template id='content'>
+        <div>
+            <button @click="add">+1</button>
+            <button @click="sub">-1</button>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const content = {
+            template: '#content',
+            data() {
+                return {
+                    counter: 0
+                };
+            },
+            methods: {
+                add() {                    
+                    this.counter++;
+                    this.$emit('emitclick', this.counter); 
+                },
+                sub() {
+                    this.counter--;
+                    this.$emit('emitclick', this.counter);
+                }
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                total: 0
+            },
+            components: {
+                'vContent': content
+            },
+            computed: {},
+            methods: {
+                changeTotal(item) {
+                    this.total = item;
+                    console.log(this.total);
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

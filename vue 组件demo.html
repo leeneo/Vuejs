@@ -10,24 +10,19 @@
 
 <body>
     <div id="app">
+        <!-- 调用组件 -->
+        <v-comp :title='title' :messages='messages'></v-comp>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id='comp'>
         <div>
             <h2>{{title}}</h2>
             <ul>
                 <li v-html="msg" v-for='msg in messages'></li>
             </ul>
         </div>
-
-        <!-- 调用组件 -->
-        <v-comp></v-comp>
-    </div>
-
-    <!-- 组件模板 -->
-    <template id='comp'>
-        <div>
-            <h2>{{global}}</h2>
-        </div>
     </template>
-
 
     <script src="js/vue.js"></script>
     <script>
@@ -42,11 +37,16 @@
         //     methods() {}
         // });
 
+        // 笔记列表组件
         const comp = {
             template: '#comp',
-            data() {
-                return {
-                    global: '这里定义组件数据',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
                 }
             },
         }
@@ -54,13 +54,13 @@
         const app = new Vue({
             el: '#app',
             data: {
-                title: '这是一个简单的组件demo',
+                title: '组件demo',
                 messages: [
                     `这是一个简单的组件demo`,
                 ]
             },
             components: {
-                'v-comp': comp
+                'vComp': comp
             },
             computed: {},
             methods: {},

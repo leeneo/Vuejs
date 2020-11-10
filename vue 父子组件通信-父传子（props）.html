@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 父组件通过 props 向子组件传递数据</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-comp :childtitle='title' :childmessages='messages'></v-comp>
+        <!-- 测试String 的默认值 -->
+        <!-- <v-comp :childmessages='messages'></v-comp> -->
+    </div>
+
+    <!-- 子组件模板 -->
+    <template id='childComp'>
+        <div>
+            <h2>子组件</h2>
+            <ul>
+                <li v-for="item in childmovies">{{item}}</li>
+            </ul>
+            <ul>
+                <li v-for="item in childman">主演：{{item}}</li>
+            </ul>
+            <h4>测试 Props 类型：{{testprop}}</h4>
+        </div>
+    </template>
+
+    <!-- 父组件模板 -->
+    <template id='comp'>
+        <div>
+            <h2>父组件</h2>
+            <h2>{{childtitle}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in childmessages'></li>
+            </ul>
+            <!-- 调用子组件 -->
+            <v-child :childmovies='movies' :childman='man'></v-child>
+            <!-- 展示默认值 -->
+            <v-child :testprop='testprop'></v-child>
+        </div>
+    </template>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 子组件
+        const childComp = {
+            template: '#childComp',
+            // 必需通过props设置一个变量来接收父组件传递的数据，这个变量属于子组件
+            // 然后父组件在调用子组件的模板上将要传递的数据赋值给子组件中对应的 props 变量
+            // 子组件再在自己的模板里使用这个 props 变量来展示数据，等于是变相的在用父级的数据来进行展示
+            // 这就是父组件向子组件传递数据的全过程
+
+            // props 方式一：数组
+            // props: ['childmovies'],
+            // props 方式二：对象
+            props: {
+                // 简单类型限定方式，不设默认值，也无需做数据校验时使用
+                // childmovies: Array,  
+                childmovies: {
+                    // type 作类型限定，限定父组件传递过来的数据类型，如不匹配，控制区警告，但不影响页面显示，不加就不做类型限定
+                    type: Array,
+                    // type: Object,
+
+                    // default: ['默认电影']  
+                    // 报错：Props with type Object/Array must use a factory function to return the default value.
+                    // 当 props 类型为数组或对象时，必需使用函数的方式，返回一个默认值
+
+                    // 展示 default 的值，当父组件模板调用子组件的地方尚未向子组件传递数据时，如有默认值就会显示
+                    default () {
+                        return ['默认数组']
+                    },
+                    // required 标记，如不传，控制台会有警告，但不影响页面显示
+                    required: false,
+                },
+                childman: {
+                    type: Object,
+                    default () {
+                        return {
+                            name: '默认对象',
+                        }
+                    },
+                },
+                testprop: {
+                    // type:Person
+                    validator(value) {
+                        return ['success', 'waring', 'danger'].indexOf(value) !== -1;
+                    }
+                },
+
+                // props 的其他类型
+
+                // 基础的类型检查，（null 匹配任何类型，基础类型也可以是自定义类型）
+                propa:Number,
+
+                // 多个可能的类型
+                propb: [String, Number],
+
+                // 必填的字符串
+                propc: {
+                    type: String,
+                    required: false
+                },
+
+                // 带有默认值的数字
+                propd: {
+                    type: Number,
+                    default: 226
+                },
+
+                // 带有默认值的对象
+                prope: {
+                    type: Object,
+                    default () {
+                        return {
+                            msg: 'Hello'
+                        }
+                    }
+                },
+
+                // 自定义验证规则
+                propf: {
+                    type: Object,
+                    validator(value) {
+                        return ['success', 'waring', 'danger'].indexOf(value) !== -1;
+                    }
+                },
+            },
+            data() {
+                return {};
+            }
+        }
+        // 父组件
+        const comp = {
+            template: '#comp',
+            components: {
+                'v-child': childComp
+            },
+            data() {
+                return {
+                    'movies': ['哈利波特', '钢铁侠', '黑衣人', '黑客帝国'],
+                    'man': {
+                        name: 'Harry',
+                    },
+                    // testprop: new Person('Lee','Neo'),
+                    testprop: 'success',
+                };
+            },
+            // props: ['childtitle', 'childmessages']
+            props: {
+                childtitle: {
+                    type: String,
+                    default: '这是一个默认的标题',
+                },
+                childmessages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                },
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '父组件通过 props 向子组件传递数据',
+                messages: [
+                    `<h4>父子组件的通信</h4>`,
+                    `实际开发中很多时候需要将数据从上层传递到下层，大组件用来发送请求，接收服务器数据，小组件用来进行数据展示，
+                    这时需要将数据从父组件（大组件）传递给子组件（小组件）`,
+                    `<h4>父子组件如何通信呢？</h4>`,
+                    `父组件通过 props 向子组件传递数据（或者说子组件通过props对象从父组件拉取数据）`,
+                    `子组件通过 $emit 事件向给父组件发送信息`,
+                    `vue 实例相当于一个最大的父组件`,
+                    `实际开发中，Vue 实例和子组件的通信和父组件和子组件的通信过程是一样的`,
+                    `<h4>props 基本用法</h4>`,
+                    `子组件使用 props 来声明需要从父级接收的数据`,
+                    `props 的值可以设置为两种方式`,
+                    `方式一：字符串数组，数组中的字符串就是传递的数据名称`,
+                    `方式二：对象，对象模式可扩展性更强，可设置数据类型，也可设置默认值，更可添加数据校验`,
+                    `<h4>父组件向子组件传递数据的全过程</h4>`,
+                    `必需通过props设置一个变量来接收父组件传递的数据，这个变量属于子组件`,
+                    `然后父组件在调用子组件的模板上将要传递的数据赋值给子组件中对应的 props 变量`,
+                    `子组件再在自己的模板里使用这个 props 变量来展示数据，等于是变相的在用父级的数据来进行展示`,
+                    `<h4>prop 对象模式</h4>`,
+                    `简单类型限定方式：当不需要设默认值，也无需做数据校验时使用`,
+                    `需要设默认值或者复杂数据校验时：<br>
+                    type 作类型限定，限定父组件传递过来的数据类型，如不匹配，控制区警告，但不影响页面显示，不加就不做类型限定`,
+                    `props 对象模式可以传递一个默认值`,
+                    `当 props 类型为数组或对象时，必需使用函数的方式，返回一个默认值`,
+                    `当父组件模板调用子组件的地方尚未向子组件传递数据时，子组件 props 类型内部如有默认值就会显示`,
+                    `<h4>props 的类型种类</h4></h4>`,
+                    `// 基础的类型检查，（null 匹配任何类型，基础类型也可以是自定义类型）<br>&emsp;propa:Number`,
+                    `// 多个可能的类型<br>&emsp;propb: [String, Number],`,
+                    ``,
+                    ``,
+                    ``,
+                ]
+            },
+            components: {
+                'v-comp': comp
+            },
+            computed: {},
+            methods: {},
+        });
+
+        function Person(fName, lName) {
+            this.fName = fName;
+            this.lName = lName
+        }
+    </script>
+</body>
+
+</html>
