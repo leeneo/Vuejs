@@ -11,11 +11,19 @@
 <body>
     <div id="app">
         <!-- 调用组件 -->
-        <v-comp :title='title' :messages='messages'></v-comp>
+        <v-note :title='title' :messages='messages'></v-note>
+        <v-comp :msg='messages'></v-comp>
     </div>
 
-    <!-- 组件模板 -->
+    <!-- 自定义组件模板 -->
     <template id='comp'>
+        <div>
+            <h2>{{msg}}</h2>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
         <div>
             <h2>{{title}}</h2>
             <ul>
@@ -26,20 +34,17 @@
 
     <script src="js/vue.js"></script>
     <script>
-        // 注册全局组件
-        // Vue.component('v-comp', {
-        //     template: '#comp',
-        //     data() {
-        //         return {
-        //             global: '这里定义组件数据',
-        //         }
-        //     },
-        //     methods() {}
-        // });
+        // 自定义组件
+        const vComp = {
+            template: '#comp',
+            props: {
+                msg: Array,
+            },
+        }
 
         // 笔记列表组件
-        const comp = {
-            template: '#comp',
+        const vNote = {
+            template: '#note',
             props: {
                 title: String,
                 messages: {
@@ -60,7 +65,8 @@
                 ]
             },
             components: {
-                'vComp': comp
+                vNote,
+                vComp,
             },
             computed: {},
             methods: {},

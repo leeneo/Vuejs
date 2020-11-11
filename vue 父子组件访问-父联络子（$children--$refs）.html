@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 父子组件访问-父联络子</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-note :title='title' :messages='msg' ref='noteCpn'></v-note>
+        <v-comp ref='cpn'></v-comp>
+        <button @click='btnClick'>按钮</button>
+    </div>
+
+    <!-- 自定义组件模板 -->
+    <template id='comp'>
+        <div>
+            <h2>{{childData}}</h2>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 自定义组件
+        const vComp = {
+            template: '#comp',
+            props: {
+                // msg: Array,
+            },
+            data() {
+                return {
+                    childData: {
+                        box: '封装的子组件数据'
+                    }
+                }
+            },
+            methods: {
+                showMsg() {
+                    console.log('子组件消息');
+                }
+            },
+        }
+
+        // 笔记列表组件
+        const vNote = {
+            template: '#note',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '父子组件访问-父联络子',
+                msg: [
+                    `父组件获取子组件的对象，有两种方式：children 和 refs`,
+                    `$children: 数组，可以获取所有子组件的集合，因为不能明确的去拿取具体的某一个子组件（一般是通过数组下标的方式）,
+                    <br>所以开发中用得相当少`,
+                    `$refs: 对象，默认为空对象，只有当子组件标签上加上 ref='xx' 的标志时候，里面才会有对象，
+                    然后通过 xx 就可以拿到具体的子组件了，
+                    <br>开发中常以这种方式来获取子组件对象`,
+                ]
+            },
+            components: {
+                vNote,
+                vComp,
+            },
+            computed: {},
+            methods: {
+                btnClick() {
+                    // 父组件获取子组件的对象，有两种方式：children 和 refs
+                    // $children: 数组，可以获取所有子组件的集合，因为不能明确的去拿取具体的某一个子组件（一般是通过数组下标的方式）
+                    // 所以开发中用得相当少                    
+                    this.$children[1].showMsg();
+                    console.log(this.$children);
+
+                    // $refs: 对象，默认为空对象，只有当子组件标签上加上 ref='xx' 的标志时候，里面才会有对象，
+                    // 然后通过 xx 就可以拿到具体的子组件了
+                    this.$refs.cpn.showMsg();
+                    console.log(this.$refs);
+                    console.log(this.$refs.noteCpn.messages);
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

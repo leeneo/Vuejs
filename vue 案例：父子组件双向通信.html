@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 案例：父子组件双向通信</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-note :title='title' :messages='messages'></v-note>
+        <v-comp :number1='num1' :number2='num2' @num1-change='num1Change' @num2-change='num2Change'></v-comp>
+    </div>
+
+    <!-- 组件模板 -->
+    <template id='comp'>
+        <div>
+            <div>
+                <h2>父组件传递的值: {{number1}}</h2>
+                <h2>子组件内部的值: {{dNumber1}}</h2>
+                <!-- v-model 不能直接绑 props 类型，值变化时，浏览器会报警告，原理上这里如果修改了值，父组件传递过来的值如有变化，
+                    会覆盖掉这里的修改 -->
+                <!-- <input type="text" v-model='number1'> -->
+                <!-- 而应该基于 props 的值用 data 或 computed 属性创建一些变量 -->
+                <!-- <input type="text" v-model='dNumber1'> -->
+                <!-- 为了方便向父组件传递事件，改成这种 v-model 双向绑定的原理形式 -->
+                输入框-1：<input type="number" @input='num1Input' :value='dNumber1'>
+            </div>
+            <div>
+                <h2>父组件传递的值: {{number2}}</h2>
+                <h2>子组件内部的值: {{dNumber2}}</h2>
+                <!-- <input type="text" v-model='dNumber2'> -->
+                输入框-2：<input type="number" @input='num2Input' :value='dNumber2'>
+            </div>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const vComp = {
+            template: '#comp',
+            props: {
+                number1: Number,
+                number2: Number
+            },
+            data() {
+                return {
+                    dNumber1: this.number1,
+                    dNumber2: this.number2
+                }
+            },
+            methods: {
+                // 要求：第一个输入框的值是第二个输入的值的百分之一
+                num1Input(event) {
+                    this.dNumber1 = parseInt(event.target.value);
+                    // 当输入的值 dNumber1 变化时，及时将修改后的值传递给父组件的 num1
+                    this.$emit('num1-change', this.dNumber1);
+
+                    // 同时修改 dNumber2 的值，因为值改变了所以要再发送一次事件，将 dNumber2 修改后的值传递给 num2
+                    this.dNumber2 = this.dNumber1 * 100;
+                    this.$emit('num2-change', this.dNumber2);
+                    // console.log(typeof this.dNumber1);
+                },
+                // 要求：第二个输入框的值是第一个输入的值的一百倍
+                num2Input(event) {
+                    this.dNumber2 = event.target.value;
+                    this.$emit('num2-change', parseFloat(this.dNumber2));
+
+                    this.dNumber1 = this.dNumber2 / 100;
+                    this.$emit('num1-change', parseFloat(this.dNumber1));
+                    // console.log(event);
+                }
+            }
+        }
+
+        // 笔记列表组件
+        const vNote = {
+            template: '#note',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '案例：父子组件双向通信',
+                messages: [
+                    `v-model 不能直接绑 props 类型，值变化时，浏览器会报警告，原理上这里如果修改了值，父组件传递过来的值如有变化，会覆盖掉这里的修改;
+                    <br>而应该基于 props 的值用 data 或 computed 属性创建子组件内部的变量`,
+                    `子组件内部再用两个事件绑定到父组件的 num1Change num2Change 上，将修改后的值及时传递给父组件，来完成这种双向通信`,
+                    `本例中：input1 的值是 input2 的 1/100`,
+                    `由于 input1的值变化会同时引起 input2 的值变化，所以在 input1 事件内部除了传递 input1 变化后的值之外，同时要传递 input2 变化后的值，
+                    所以一个事件内部要有两次 $emit() ，只不过传递的对象和数据不一样，input2 事件内同理亦然`,
+                ],
+                num1: 0,
+                num2: 0,
+            },
+            components: {
+                vNote,
+                vComp
+            },
+            computed: {},
+            methods: {
+                num1Change(value) {
+                    this.num1 = value;
+                    // console.log(value);
+                },
+                num2Change(value) {
+                    this.num2 = value;
+                    // console.log(value);
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>
