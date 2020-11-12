@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 父子组件访问-子联络父（$parent--$root）</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-note :title='title' :messages='msg' ref='noteCpn'></v-note>
+        <v-comp></v-comp>
+    </div>
+
+    <!-- 自定义组件模板 -->
+    <template id='comp'>
+        <div>
+            <h2>{{childData}}</h2>
+            <button @click='showRoot'>显示根组件</button>
+            <v-child-comp ref='cpn'></v-child-comp>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='childComp'>
+        <div>
+            <h2>{{childData}}</h2>
+            <button @click='showParent'>显示父组件</button>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 自定义组件
+        const vChildComp = {
+            template: '#childComp',
+            data() {
+                return {
+                    childData: '这是一个子组件内部的子组件'
+                }
+            },
+            methods: {
+                showParent() {
+                    console.log('this.$parent :', this.$parent, '\n\n');
+                    console.log('this.$root :', this.$root, '\n\n');
+                }
+            },
+        }
+
+        // 自定义组件
+        const vComp = {
+            template: '#comp',
+            data() {
+                return {
+                    childData: '这是一个子组件'
+                }
+            },
+            components: {
+                vChildComp
+            },
+            methods: {
+                showRoot() {
+                    console.log('this.$parent :', this.$parent, '\n\n');
+                    console.log('this.$root :', this.$root, '\n\n');
+                }
+            },
+        }
+
+        // 笔记列表组件
+        const vNote = {
+            template: '#note',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '父子组件访问-子联络父（$parent--$root）',
+                msg: [
+                    `this.$parent 返回：对象，
+                    <br>如果当前组件的父组件就是当前的 vue 实例，那么会返回当前的 vue 实例，这时等效于 this.$root
+                    <br>this.$parent 开发中用得很少，比this.$children 还少;`,
+                    `this.$root 返回：对象，会返回当前的 vue 实例`,
+                    `一旦在子组件内部用了 this.$parent 或者 this.$root 的某个具体属性，该子组件的复用性就大降低了，因为使用的场景不一样，
+                    可以在这个场景，它的父组件有这个属性，到另一个复用场景时，它的父组件就没有了这个属性`
+                ]
+            },
+            components: {
+                vNote,
+                vComp
+            },
+            computed: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件demo</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-note :title='title' :messages='messages'></v-note>
+        <v-comp :msg='messages'></v-comp>
+    </div>
+
+    <!-- 自定义组件模板 -->
+    <template id='comp'>
+        <div>
+            <h2>{{msg}}</h2>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 自定义组件
+        const vComp = {
+            template: '#comp',
+            props: {
+                msg: Array,
+            },
+        }
+
+        // 笔记列表组件
+        const vNote = {
+            template: '#note',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件demo',
+                messages: [
+                    `这是一个简单的组件demo`,
+                ]
+            },
+            components: {
+                vNote,
+                vComp,
+            },
+            computed: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

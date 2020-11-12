@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vue 父子组件访问-父联络子</title>
+    <title>vue 父子组件访问-父联络子（$children--$refs）</title>
     <link rel="stylesheet" href="./css/global.css">
 </head>
 
@@ -72,7 +72,7 @@
         const app = new Vue({
             el: '#app',
             data: {
-                title: '父子组件访问-父联络子',
+                title: '父子组件访问-父联络子（$children--$refs）',
                 msg: [
                     `父组件获取子组件的对象，有两种方式：children 和 refs`,
                     `$children: 数组，可以获取所有子组件的集合，因为不能明确的去拿取具体的某一个子组件（一般是通过数组下标的方式）,
