@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件高级应用：slot-插槽基本使用</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-note :title='title' :messages='messages'></v-note>
+        <v-comp></v-comp>
+        <v-comp><button>按钮</button></button></v-comp>
+        <v-comp><a href="www.baidu.com">百度</a></v-comp>
+        <!-- 也可以用多个标签替换一个slot -->
+        <v-comp>
+            <div>div
+                <p>这是个p</p>
+            </div>
+            <h4>这是个h4</h4>
+        </v-comp>
+    </div>
+
+    <!-- 自定义组件模板 -->
+    <template id='comp'>
+        <div>
+            <h2>{{msg}}</h2>
+            <!-- 无默认值 -->
+            <!-- <slot></slot> -->
+            <!-- 有默认值 -->
+            <slot><i>如果组件标签上没有可替换的内容，这里会显示成默认内容</i></slot>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 自定义组件
+        const vComp = {
+            template: '#comp',
+            data() {
+                return {
+                    msg: '插槽的基本使用',
+                }
+            }
+        }
+
+        // 笔记列表组件
+        const vNote = {
+            template: '#note',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件高级应用：slot-插槽基本使用',
+                messages: [
+                    `组件使用插槽是为了让封装的组件更具有扩展性，让使用者根据场景决定展示什么内容`,
+                    `针对一些相似的应用场景，比如导航栏，那么就可以抽离出来封装成一个组件，然后用插槽来切换成具体的使用场景`,
+                    `哪些场景适合封装成组件？
+                    <br>抽取共性，保留不同（封装成插槽）
+                    <br>即将共性抽取到组件中，将不同的地方暴露为插槽，方便使用者根据具体的场景更换插槽内容`,
+                    `可以用多个标签替换一个slot`,
+                    `slot 可以设置默认模板，如果组件标签上没有可替换的内容，默认模板就会显示`,
+                    `注意：<del>slot</del> 和 <del>slot-scope</del> 语法已经被废弃，<br><i>在vue 2.6 以后的版本中改用 v-slot</i>`,
+                ]
+            },
+            components: {
+                vNote,
+                vComp,
+            },
+            computed: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端模块化思想的演进</title>
+</head>
+
+<body>
+
+    <div>
+        <h4>模块化演进之路</h4>
+        <ul>
+            <li>A 程序员想用之前 a.js 里面写的全局变量flag，但是这个变量被B程序员给改掉了</li>
+            <li>c.js 的内容显示不出来，这时 bug 出来了，A 会去找 Bug,这里只有几行代码，所以它能很快发现 flag 被B程序员给改掉了</li>
+            <li>但是如果有几千甚至几万行代码呢？</li>
+            <li>如何解决 js 的设计之初的弊端：全局变量冲突的问题</li>
+            <li>刚开始是用匿名函数的方式，因为函数有自己的作用域名，确实可以解决全局变量冲突的问题</li>
+            <li>但是函数化又有个问题：代码无法重用了，functionC 想用在 fucntionA 中定义了的 flag 发现用不了了</li>
+            <li>那么既要解决全局变量冲突问题，又想复用代码，怎么办？</li>
+            </li>
+            <li>于是，模块化 (使用对象封装函数-的 module) 出现了</li>
+        </ul>
+
+        <h4>模块化的使用：</h4>
+        <ul>
+            <li>模块作为一个出口，可以选择性的将内部一些需要共享的数据和变量暴露给外部使用</li>
+            <li>使用非常简单</li>
+            <li>1.在匿名函数内部定义一个对象</li>
+            <li>2.然后给这个对象添加需要暴露到外部使用的属性和方法</li>
+            <li>3.最后将这个对象返回，并用一个 moduleX 来接收这个匿名函数的返回</li>
+            <li>在别的js代码中引入该模块后，直接用这个 moduleX 的模块名来引用其中的属性和方法就行了</li>
+            <li>这就是模块化最基础的封装</li>
+            <li>实际开发中，已经发展出很多模块化的规范以及对应的实现方案了</li>
+            <li>常见的模块化规范有：CommonJs、AMD、CMD 以及 ES6 的 Modules</li>
+        </ul>
+
+        <h4>测试区域</h4>
+        <span id='acont'></span>
+        <span id='bcont'></span>
+        <span id='ccont'></span>
+
+    </div>
+    <!-- <script src="./js/a.js"></script>
+    <script src="./js/b.js"></script>
+    <script src="./js/c.js"></script> -->
+
+    <!-- <script src="./js/functionA.js"></script>
+    <script src="./js/functionB.js"></script>
+    <script src="./js/functionC.js"></script> -->
+
+    <script src="./js/moduleA.js"></script>
+    <script src="./js/moduleB.js"></script>
+    <script src="./js/moduleC.js"></script>
+</body>
+
+</html>

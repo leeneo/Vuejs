@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>组件demo</title>
+    <title>vue 组件高级应用：slot-具名插槽</title>
     <link rel="stylesheet" href="./css/global.css">
 </head>
 
@@ -12,13 +12,22 @@
     <div id="app">
         <!-- 调用组件 -->
         <v-note :title='title' :messages='messages'></v-note>
-        <v-comp :msg='messages'></v-comp>
+        <v-comp><span>非指定替换内容</span></v-comp>
+        <v-comp>
+            <button slot='left'>返回</button>
+            <span slot='center'>搜索框</span>
+            <span slot='right'>下拉菜单</span>
+        </v-comp>
     </div>
 
     <!-- 自定义组件模板 -->
     <template id='comp'>
         <div>
             <h2>{{msg}}</h2>
+            <slot name='left'><span>具名插槽：左</span></slot><br>
+            <slot name='center'><span>具名插槽：中</span></slot><br>
+            <slot name='right'><span>具名插槽：右</span></slot><br>
+            <slot><span>不具名</span></slot>
         </div>
     </template>
 
@@ -37,9 +46,11 @@
         // 自定义组件
         const vComp = {
             template: '#comp',
-            props: {
-                msg: Array,
-            },
+            data() {
+                return {
+                    msg: '具名插槽的使用',
+                }
+            }
         }
 
         // 笔记列表组件
@@ -59,9 +70,9 @@
         const app = new Vue({
             el: '#app',
             data: {
-                title: '组件demo',
+                title: '组件高级应用：slot-具名插槽',
                 messages: [
-                    `这是一个简单的组件demo`,
+                    `插槽模板上添加 name 属性，使用时在替换标签上设置指定的 slot，来指定所要替换的插槽`,
                 ]
             },
             components: {

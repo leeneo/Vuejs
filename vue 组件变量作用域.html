@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>组件demo</title>
+    <title>vue 组件变量作用域</title>
     <link rel="stylesheet" href="./css/global.css">
 </head>
 
@@ -12,13 +12,16 @@
     <div id="app">
         <!-- 调用组件 -->
         <v-note :title='title' :messages='messages'></v-note>
-        <v-comp></v-comp>
+        <!-- 默认显示，isShow 是 vue 实例的变量 -->
+        <v-comp v-show='isShow'></v-comp>
     </div>
 
     <!-- 自定义组件模板 -->
     <template id='comp'>
         <div>
             <h2>{{msg}}</h2>
+            <!-- 默认不会显示，isShow 是组件的变量，通过 app.$children[1].isShow=true 可以让该按钮进行显示 -->
+            <button v-show='isShow'>按钮</button>
         </div>
     </template>
 
@@ -40,6 +43,7 @@
             data() {
                 return {
                     msg: '这是一个子组件',
+                    isShow: false,
                 }
             },
         }
@@ -61,10 +65,14 @@
         const app = new Vue({
             el: '#app',
             data: {
-                title: '组件demo',
+                title: '组件的变量作用域',
                 messages: [
-                    `这是一个简单的组件demo`,
-                ]
+                    `子组件模板上引用的变量必需是在子组件内部定义了的，无法直接引用父级或 vue 实例里的变量`,
+                    `vue 实例子组件标签上引用的变量是 vue 实例内部的变量，无法直接引用子组件内部定义的变量`,
+                    `父组件模板上的所有东西都会在父级作用域内编译`,
+                    `子组件模板上的所有东西都会在子级作用域内编译`,
+                ],
+                isShow: true,
             },
             components: {
                 vNote,

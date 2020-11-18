@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 组件高级应用：slot-scope 作用域插槽</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 调用组件 -->
+        <v-note :title='title' :messages='messages'></v-note>
+
+        <!-- 父组件替换展示效果1 -->
+        <h2>父组件替换展示效果1 </h2>
+        <v-comp>
+            <template slot-scope="slots">
+                <div>
+                    我所习得的编程语言：
+                    <!-- <span v-for='item in slots.data'>{{item}}, </span> -->
+                    <span>{{slots.data.join(' & ')}}</span>
+                </div>
+            </template>
+        </v-comp>
+
+        <!-- 父组件替换展示效果2 -->
+        <h2>父组件替换展示效果2 </h2>
+        <v-comp>
+            <template slot-scope="slots">
+                <div>
+                    我所习得的编程语言：
+                    <span>{{slots.data.join(', ')}}</span>
+                </div>
+            </template>
+        </v-comp>
+
+        <!-- 子组件内部的默认展示效果 -->
+        <h2>子组件内部的默认展示效果 </h2>
+        <v-comp></v-comp>
+    </div>
+
+    <!-- 自定义组件模板 -->
+    <template id='comp'>
+        <div>
+            <h2>{{msg}}</h2>
+            <slot :data='pla'>
+                我所习得的编程语言：
+                <ul>
+                    <li v-for='item in pla'>{{item}}</li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id='note'>
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-html="msg" v-for='msg in messages'></li>
+            </ul>
+        </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+        // 自定义组件
+        const vComp = {
+            template: '#comp',
+            data() {
+                return {
+                    msg: 'slot-scope 的使用',
+                    pla: ['Javascript', 'C语言', 'Python', 'SQL', 'C#', 'Vue', 'Typescript']
+                }
+            }
+        }
+
+        // 笔记列表组件
+        const vNote = {
+            template: '#note',
+            props: {
+                title: String,
+                messages: {
+                    type: Array,
+                    default () {
+                        return [];
+                    }
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '组件高级应用：slot-scope 作用域插槽',
+                messages: [
+                    `目的：父组件替换插槽的标签，但是内容由子组件来提供`,
+                    `使用时机：当数据定义在子组件，但是希望父组件来进行和子组件内部不一样的展示时`,
+                ]
+            },
+            components: {
+                vNote,
+                vComp,
+            },
+            computed: {},
+            methods: {},
+        });
+    </script>
+</body>
+
+</html>
