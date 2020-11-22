@@ -3,7 +3,7 @@ var age = 18;
 var flag = true;
 
 if (flag) {
-    document.getElementById('acont').innerHTML = 'acont';
+    document.getElementById('acont').innerHTML = 'export-content';
 }
 
 function sum(a, b) {
@@ -29,8 +29,8 @@ export class Person {
         this.name = pName;
         this.age = pAge;
         // 类中的字段 this.name,this.age 与当前模块中定义的 name age 不冲突
-        console.log('aaa.name', name);
-        console.log('aaa.age', age);
+        console.log('export.name', name);
+        console.log('export.age', age);
     }
 
     learning() {
