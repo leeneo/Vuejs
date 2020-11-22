@@ -20,7 +20,7 @@ export function mul(n1, n2) {
 export {
     flag,
     sum
-}
+};
 
 //导出方式三：导出类
 export class Person {
@@ -44,6 +44,6 @@ export class Person {
 // const address = '地球';
 // export default address;
 
-export default function(args){
+export default function (args) {
     console.log(args);
 }
