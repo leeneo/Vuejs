@@ -32,6 +32,18 @@
         <li>使用本地开发环境安装指定版本 webpack : npm install webpack@4.x.x --save-dev </li>
     </ul>
 
+    <h2>loader 的使用</h2>
+    <ul>
+        <li>loader 是 webpack 中一个非常核心的概念</li>
+        <li>webpack 会自动处理 js 之间的依赖关系</li>
+        <li>但是 webpack 没有处理 ES6 转 ES5 代码，Sass\Scss\Less 转 CSS 以及图片加载功能</li>
+        <li>所以 webpack 需要借助 loader 扩展来实现这些功能</li>
+        <li>例如：css-loader</li>
+        <li>通过 npm 安装：npm install --save-dev css-loader</li>
+        <li>然后在 webpack.config.js 中进行相关配置</li>
+        <li>更多 loader 详情参考：https://www.webpackjs.com/loaders/</li>
+    </ul>
+
     <script src='./dist/bundle.js'></script>
 </body>
 
