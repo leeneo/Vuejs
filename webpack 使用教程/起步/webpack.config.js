@@ -9,9 +9,9 @@ module.exports = {
   // 打包文件出口
   output: {
     // 2.修改output对象的path属性
-    path: path.resolve(__dirname, 'dist'), 
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath:'dist/'
+    publicPath: 'dist/'
   },
   plugins: [
     // 功能已更新，与官网文档不同
@@ -56,7 +56,7 @@ module.exports = {
             // 当图片资源大于 limit 限定值时，需要使用 file-loader 会将图片打包到 dist 文件夹中
             limit: 14000,
             // 给打包的文件设定命名规则：name--取原文件的 name,hash:8--取8位的 hash 值，ext--取原文件的扩展名
-            name:'img/[name].[hash:8].[ext]'
+            name: 'img/[name].[hash:8].[ext]'
           }
         }]
       },
@@ -73,7 +73,7 @@ module.exports = {
             presets: ['es2015']
           }
         }
-      }
+      },
       // {
       //   test: /\.(woff|woff2|eot|ttf|otf)$/,
       //   use: ['file-loader']
