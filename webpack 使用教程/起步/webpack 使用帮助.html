@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webpack 使用帮助</title>
+</head>
+
+<body>
+    <h2>webpack 使用帮助</h2>
+    <ul>
+        <li>webpack2 打包命令：webpack soure.js target.js</li>
+        <li>webpack4 打包命令：webpack ./src/soure.js -o ./dist/</li>
+        <li>不支持 反斜杠：' \'</li>
+        <li>只能打包符合 CommonJS 和 ES6 模块规范的 js 代码</li>
+        <li>webpack 自动用命令打包，需要在项目中添加两个文件（package.json & webpack.config.js）</li>
+        <li>使用 npm init 生成 package.json 文件，用来管理 node 环境依赖包</li>
+        <li>手动添加 webpack.config.js ，这个是 webpack 的配置文件，定义 webpack 打包文件出入口，打包命令，css 图片等参数</li>
+        <li>在终端中直接执行的 webpack 命令，都是全局的</li>
+        <li>package.json 中的 scripts 脚本在执行时，会按照顺序寻找对应的命令</li>
+        <li>当在 scripts 中添加 "build": "webpack" 项后就可以使用 npm run build 命令进行打包</li>
+        <li>npm run build 命令在执行时会自动替换为 webpack 命令</li>
+        <li>这个命令首先会在本地的 node-modules/.bin 路径中寻找对应的命令</li>
+        <li>如果没找到，再去全局环境中寻找</li>
+    </ul>
+    <h2>webpack 开发时依赖</h2>
+    <ul>
+        <li>webpack 开发环境，属于开发时依赖，真正项目运行的是 webpack 打包后的文件，不需要将 webpack 部署到服务器</li>
+        <li>一般新成员加入一个项目开发时，往往项目是已经构建好了的，这就会造成全局开发环境和本地开发环境版本不一致等问题</li>
+        <li>所以一般每个项目的开发环境都会固定为某个特定版本，因此新成员需要手动在本地安装指定版本的 webpack </li>
+        <li>使用本地开发环境安装指定版本 webpack : npm install webpack@4.x.x --save-dev </li>
+    </ul>
+
+    <script src='./dist/bundle.js'></script>
+</body>
+
+</html>

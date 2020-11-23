@@ -6,4 +6,4 @@
      name,
      age,
      height
- }
+ };
