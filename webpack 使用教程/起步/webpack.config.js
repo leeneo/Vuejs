@@ -60,6 +60,20 @@ module.exports = {
           }
         }]
       },
+      // 将 ES6 语法转为浏览器更为兼容的 ES5 语法
+      {
+        test: /\.js$/,
+        // 排除 node_modules 等目录下的 js 文件
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            // 开启此项配置需要额外配置 .bablerc 文件
+            // presets: ['@babel/preset-env'],
+            presets: ['es2015']
+          }
+        }
+      }
       // {
       //   test: /\.(woff|woff2|eot|ttf|otf)$/,
       //   use: ['file-loader']
