@@ -1,5 +1,6 @@
 // 请求 path 包，用变量 __dirname 替换当前绝对路径
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -20,6 +21,8 @@ module.exports = {
     // new HtmlWebpackPlugin({ 
     //   title: 'Output Management ok'
     // })
+    // vue-loader 15.x 以上版本 需要配合此插件使用
+    new VueLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -44,7 +47,7 @@ module.exports = {
         }, ]
       },
       // 图片和字体文件配置
-      // 安装了url-loader 或者 file-loader方可配置
+      // 安装了url-loader 或者 file-loader 方可配置
       // url-loader 功能类似于 file-loader，但是在文件大小（单位 byte）低于指定的限制时，可以返回一个 DataURL
       // 超过限定大小，需要使用 file-loader
       {
@@ -74,6 +77,11 @@ module.exports = {
           }
         }
       },
+      // 使用.vue 组件，安装 vue-loader 方可配置
+      {
+        test: /\.vue$/,
+        use: ['vue-loader']
+      }
       // {
       //   test: /\.(woff|woff2|eot|ttf|otf)$/,
       //   use: ['file-loader']
@@ -89,5 +97,13 @@ module.exports = {
       //   use: ['xml-loader']
       // }
     ]
-  }
+  },
+  resolve: {
+    // 别名
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    // 导入文件简写 
+    extensions:['.js','.css','.vue']
+  },
 };

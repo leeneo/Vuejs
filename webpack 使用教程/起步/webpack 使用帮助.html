@@ -24,6 +24,7 @@
         <li>这个命令首先会在本地的 node-modules/.bin 路径中寻找对应的命令</li>
         <li>如果没找到，再去全局环境中寻找</li>
     </ul>
+
     <h2>webpack 开发时依赖</h2>
     <ul>
         <li>webpack 开发环境，属于开发时依赖，真正项目运行的是 webpack 打包后的文件，不需要将 webpack 部署到服务器</li>
@@ -43,6 +44,7 @@
         <li>然后在 webpack.config.js 中进行相关配置</li>
         <li>更多 loader 详情参考：https://www.webpackjs.com/loaders/</li>
     </ul>
+
     <h2>一些常用 loader，配置详情见 webpack.config.js</h2>
     <ul>
         <li>加载 CSS：css-loader</li>
@@ -54,7 +56,55 @@
         <li>需要将 babel-preset-env 项改成 babel-preset-es2015，使用 babel-preset-env 需要配置额外的 .bablerc 文件</li>
         <li>同时注意 bable-loader@8 需要 bable@7(bable-core) 以上版本，bable-loader@7 搭配 bable-core@6 版本使用</li>
     </ul>
-    <div></div>
+
+    <h2>webpack 配置 Vue</h2>
+    <ul>
+        <li>vue 运行时依赖</li>
+        <li>首先，要安装 vue: npm install --save vue</li>
+        <li>其次，需要将 vue 编译模式改为 runtime-compiler 模式</li>
+        <li>默认情况下，webpack 中引用的 vue 是 node-modules/vue/vue.runtime.js，该模式不能编译 template</li>
+        <li>最后，在 webpack.config.js 中配置
+            resolve: {
+            alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+            }
+            }
+        </li>
+        <li>该配置将引用的 vue 改为 vue.esm.js：其中的 compiler 可以将 template 渲染为 render 函数</li>
+    </ul>
+
+    <h2>vue 构建版本的差异</h2>
+    <ul>
+        <li>vue 构建项目时有多种运行时方式，包括：vue.js,vue.common.js,vue.esm.js,vue.runtime.js 等等</li>
+        <li>vue.runtime.js（runtime-only--只包含运行时版本）：模板只允许在 .vue 文件中</li>
+        <li>vue.esm.js（runtime-compiler--EcmaScript Module，完整版，包含运行时和编译器-compiler）：适合大多数场景，模板允许内嵌在 html 中</li>
+        <li>不同构建版本差异，<a href="https://cn.vuejs.org/v2/guide/installation.html">详见官网</a></li>
+    </ul>
+
+    <h2>vue runtime-only vs runtime-compiler</h2>
+    <ul>
+        <li>
+            runtime-only 优点：<br>
+            1.运行效率高(没有编译模板的过程，所用的模板是预编译好了的)<br>
+            2.源代码量更少</li>
+        <li>
+            vue 内部运行时的渲染过程：<br>
+            runtime-only 的步骤：render -> virtual dom -> 真实dom <br>
+            runtime-compiler 的步骤：template-->ast-->render 函数-->virtual dom-->真实 dom <br>
+        </li>
+    </ul>
+
+    <h2>webpack 使用 .vue 组件方式开发</h2>
+    <ul>
+        <li>首先，需要本地安装两个模块：vue-loader vue-template-loader</li>
+        <li>其次，在 webpack.config.js rules 中作相差配置 </li>
+        <li>注意：vue-loader@15.x 以上的版本需要配合 VueLoaderPlugin 插件使用</li>
+    </ul>
+    
+    <hr>
+    <div id='app'>
+        <h2>此处会被 teplate 替换掉</h2>
+    </div>
     <script src='./dist/bundle.js'></script>
 </body>
 
