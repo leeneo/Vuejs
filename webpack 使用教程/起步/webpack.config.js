@@ -1,6 +1,7 @@
 // 请求 path 包，用变量 __dirname 替换当前绝对路径
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const webpack=require('webpack');
 // const CleanWebpackPlugin = require('clean-webpack-plugin');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -23,6 +24,10 @@ module.exports = {
     // })
     // vue-loader 15.x 以上版本 需要配合此插件使用
     new VueLoaderPlugin(),
+    // 会在 bundle.js.LICENSE.TXT 中添加相关版权信息
+    new webpack.BannerPlugin({
+      banner:'这里是添加的版权信息，by Leeneo！',
+    }),
   ],
   module: {
     rules: [
