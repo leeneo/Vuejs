@@ -3,7 +3,7 @@
     <h4 class="title">{{msg}}</h4>
     {{name}} 的按钮点击事件：
     <button @click="btnClick">按钮</button>
-    <Cpn></Cpn>
+    <cpn></cpn>
   </div>
 </template>
 

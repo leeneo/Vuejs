@@ -100,8 +100,25 @@
         <li>其次，在 webpack.config.js rules 中作相差配置 </li>
         <li>注意：vue-loader@15.x 以上的版本需要配合 VueLoaderPlugin 插件使用</li>
     </ul>
+
+    <h2>plugin 的使用 </h2>
+    <ul>
+        <li>plugin 插件：通常指可以对现有框架进行扩展的一些具有独立功能的模块</li>
+        <li>webpack 中的 plugin，就是对 webpack 现有功能的各种扩展，比如打包优化，文件压缩等等 </li>
+        <li>
+            loader 和 plugin 的区别<br>
+            loader 主要用于转换某些特殊文件类型的模块，是一个转换器
+            plugin 是对 webpack 本身功能的扩展，是一个扩展器
+        </li>
+        <li>
+            plugin 的使用过程<br>
+            1，通过 npm 安装需要的 plugins （某些 plugins 是 webpack 已经内置的，这些不用安装）
+            2，在 webpack.config.js 中 引入并且配置 plugins
+        </li>
+    </ul>
     
     <hr>
+    <!-- 测试区域 -->
     <div id='app'>
         <h2>此处会被 teplate 替换掉</h2>
     </div>
@@ -109,3 +126,6 @@
 </body>
 
 </html>
+
+
+
