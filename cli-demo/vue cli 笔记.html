@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue CLI 笔记</title>
+</head>
+
+<body>
+    <h2>什么是 CLI</h2>
+    <ul>
+        <li>CLI：Command-Line Interface 通称命令行界面</li>
+        <li>是在图形用户界面得到普及之前使用最为广泛的用户界面</li>
+        <li>用户通过键盘输入指令，计算机接收到指令后，予以执行</li>
+    </ul>
+
+    <h2>什么是 Vue CLI</h2>
+    <ul>
+        <li>
+            官方定义：<br>
+            Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统，提供：
+            <ul>
+                <li> 通过 @vue/cli 实现的交互式的项目脚手架。 </li>
+                <li> 通过 @vue/cli + @vue/cli-service-global 实现的零配置原型开发。 </li>
+                <li> 一个运行时依赖 (@vue/cli-service)，该依赖：
+                    <ul>
+                        <li>可升级；</li>
+                        <li>基于 webpack 构建，并带有合理的默认配置；</li>
+                        <li>可以通过项目内的配置文件进行配置；</li>
+                        <li>可以通过插件进行扩展。</li>
+                    </ul>
+                </li>
+                <li>一个丰富的官方插件集合，集成了前端生态中最好的工具。</li>
+                <li>一套完全图形化的创建和管理 Vue.js 项目的用户界面。</li>
+            </ul>
+        </li>
+        <li>是一套使用 Vue.js 构建、开发、管理项目的标准工具</li>
+    </ul>
+
+    <h2>为什么大项目要用 Vue CLI 构建</h2>
+    <ul>
+        <Li>如果是小型项目或者简单的Demo，不需要用 Vue CLI;</Li>
+        <li>如果大型的项目，那么必然要用到 Vue CLI;</li>
+        <Li>开发大型应用时，需要考虑到应用配置、代码结构、项目结构和部署、热加载、代码单元测试等事情</Li>
+        <li>如果每个项目都要手动完成这些工作，无疑效率会非常低，所以需要借助脚手架 (Vue CLI)来完成这些工作</li>
+        <li>
+            官方原话： Vue CLI 致力于将 Vue 生态中的工具基础标准化。<br> 它确保了各种构建工具能够基于智能的默认配置即可平稳衔接，这样你可以专注在撰写应用上，而不必花好几天去纠结配置的问题</li>
+    </ul>
+
+    <h2>Vue CLI 的使用</h2>
+    <ul>
+        <li>
+            安装<br>
+            npm install -g @vue/cli <br>
+            # OR <br>
+            yarn global add @vue/cli
+        </li>
+        <li>
+            创建项目<br>
+            vue create my-project <br>
+            # OR <br>
+            vue ui
+        </li>
+    </ul>
+
+</body>
+
+</html>
