@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <h2>npm run build 如有报错，请执行第二遍，或将 dist 删除后再执行一次</h2>
     <h2>webpack 使用帮助</h2>
     <ul>
         <li>webpack2 打包命令：webpack soure.js target.js</li>
@@ -142,6 +143,12 @@
             inline: 是否实时刷新(true or false)<br>
             historyApiFallback: 在SPA页面中，依赖 HTML5 的 history 模式
         </li>
+    </ul>
+
+    <h2>webpack 配置文件的分离</h2>
+    <ul>
+        <li>主要是将公共项，开发环境设置项，生产环境设置项，分离开来</li>
+        <li>需要安装 webpack-merge 对抽离的配置文件进行合并</li>
     </ul>
 
 

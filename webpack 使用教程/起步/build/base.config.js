@@ -33,7 +33,10 @@ const webpackConfig = {
   // 打包文件出口
   output: {
     // 2.修改output对象的path属性
-    path: path.resolve(__dirname, 'dist'),
+    // 分离前的设置
+    // path: path.resolve(__dirname, 'dist'),
+    // 分离后的设置
+    path: path.resolve(__dirname, '../dist'),
     filename: 'bundle.js',
     // 引入 HtmlWebpackPlugin 后，就不需要设置 publicPath 了
     // publicPath: 'dist/'
@@ -52,7 +55,6 @@ const webpackConfig = {
     new webpack.BannerPlugin({
       banner: '这里是添加的版权信息，by Leeneo！',
     }),
-    new UglifyjsWebpackPlugin(),
   ],
   module: {
     rules: [
@@ -136,14 +138,6 @@ const webpackConfig = {
     // 导入文件简写 
     extensions: ['.js', '.css', '.vue']
   },
-  devServer: {
-    contentBase: './dist',
-    headers: {
-      'X-LeeNeo': 'xingzhihen.com'
-    },
-    port: '8164',
-    inline:true
-  }
 };
 
 module.exports = webpackConfig;

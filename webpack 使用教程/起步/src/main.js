@@ -37,3 +37,5 @@ new Vue({
         App
     }
 });
+
+// document.write('<div>123131</div>');
