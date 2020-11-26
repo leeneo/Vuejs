@@ -116,16 +116,42 @@
             2，在 webpack.config.js 中 引入并且配置 plugins
         </li>
     </ul>
-    
+
+    <h2>HtmlWebpackPlugin 的使用</h2>
+    <ul>
+        <li>顾名思义，打包 html 文件用的</li>
+        <li>可用指定的模板 自动生成一个 index.html 文件，打包进 dist 文件夹中，并且自动引入打包好的 bundle.js 文件</li>
+        <li>官方说法是：可以简化 html 的创建，将打包的 js 文件通过 script 标签插入 body 中</li>
+        <li>通过 npm 安装后，在 webpack.config.js 中引入并配置，即可</li>
+    </ul>
+
+    <h2>webpack-dev-server </h2>
+    <ul>
+        <li>The webpack-dev-server provides you with a simple web server and the ability to use live reloading.</li>
+        <li>webpack-dev-server doesn't write any output files after compiling. Instead, it keeps bundle files in memory</li>
+        <li>这个服务器基于 nodejs 搭建，内部使用 express 框架</li>
+        <li>
+            特点：<br>
+            1. 可以让浏览器自动刷新，显示修改后的效果<br>
+            2. 并不会像 build 那样将编译结果输出到 dist 目录中，除非你执行 build 命令，所做的修改才会真正输出到 dist 中
+        </li>
+        <li>
+            有以下选项可以设置：<br>
+            contentBase: 监听文件目录，也是就是所要服务的那个目录，一般是 dist <br>
+            port: 端口号<br>
+            inline: 是否实时刷新(true or false)<br>
+            historyApiFallback: 在SPA页面中，依赖 HTML5 的 history 模式
+        </li>
+    </ul>
+
+
     <hr>
     <!-- 测试区域 -->
     <div id='app'>
         <h2>此处会被 teplate 替换掉</h2>
     </div>
-    <script src='./dist/bundle.js'></script>
+    <!-- // 引入 HtmlWebpackPlugin 后，就不需要手动通过 scirpt 标签引入打包的 bundle.js 了 -->
+    <!-- <script src='./dist/bundle.js'></script> -->
 </body>
 
 </html>
-
-
-

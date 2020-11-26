@@ -1,11 +1,25 @@
 // 请求 path 包，用变量 __dirname 替换当前绝对路径
 const path = require('path');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const webpack=require('webpack');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
+// 自动打包 index.html，并引入打包好的 js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// to remove/clean your build folder(s).
+// By default, this plugin will remove all files inside webpack's output.path directory, 
+// as well as all unused webpack assets after every successful rebuild.
+// clean-webpack-plugin 3.0之前版本使用方式略有不同
+// const CleanWebpackPlugin = require('clean-webpack-plugin'); //旧版本使用方式，使用时需要传参
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin');
+
+// 配合 vue-loader@15.x 以上版本使用
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
+// 使用 BannerPlugin，需要引入 webapck
+const webpack = require('webpack');
+
+const webpackConfig = {
   // 打包文件入口
   entry: './src/main.js',
   // 打包文件出口
@@ -13,20 +27,22 @@ module.exports = {
     // 2.修改output对象的path属性
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: 'dist/'
+    // 引入 HtmlWebpackPlugin 后，就不需要设置 publicPath 了
+    // publicPath: 'dist/'
   },
   plugins: [
-    // 功能已更新，与官网文档不同
-    // new CleanWebpackPlugin(), 
+    // everything under <PROJECT_DIR>/dist/ will be removed
+    new CleanWebpackPlugin(),
     // 入口文件名称管理
-    // new HtmlWebpackPlugin({ 
-    //   title: 'Output Management ok'
-    // })
+    new HtmlWebpackPlugin({
+      title: 'Output Management ok',
+      template: 'webpack 使用帮助.html'
+    }),
     // vue-loader 15.x 以上版本 需要配合此插件使用
     new VueLoaderPlugin(),
     // 会在 bundle.js.LICENSE.TXT 中添加相关版权信息
     new webpack.BannerPlugin({
-      banner:'这里是添加的版权信息，by Leeneo！',
+      banner: '这里是添加的版权信息，by Leeneo！',
     }),
   ],
   module: {
@@ -109,6 +125,16 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     },
     // 导入文件简写 
-    extensions:['.js','.css','.vue']
+    extensions: ['.js', '.css', '.vue']
   },
+  devServer: {
+    contentBase: './dist',
+    // headers: {
+    //   'x-neo': 'xingzhihen.com'
+    // },
+    // port: '8164',
+    inline:true
+  }
 };
+
+module.exports = webpackConfig;

@@ -17,7 +17,7 @@
             return {
                 msg: "这是 webpack 配置的 vue 实例",
                 name: "LiMing",
-            }
+            };
         },
         methods: {
             btnClick() {
