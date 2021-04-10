@@ -3,8 +3,9 @@
     <div id="nav">
       <!-- <router-link to="/" tag="a" replace active-class="aactive">Home</router-link> |
       <router-link to="/about" replace active-class="aactive">About</router-link> -->
-      <router-link to="/" tag="a" replace >Home</router-link> |
-      <router-link to="/about" replace >About</router-link>
+      <router-link to="/" tag="a" replace>Home</router-link> |
+      <router-link to="/about" replace>About</router-link> |
+      <router-link :to="'/user/' + id" replace>User</router-link>
 
       <!-- <button @click="homeClick">首页</button>
       <button @click="aboutClick">关于</button> -->
@@ -37,20 +38,25 @@
 </style>
 
 <script>
-// export default {
-//   name: "app",
-//   methods: {
-//     // 通过代码的方式修改路由
-//     homeClick() {
-//       // this.$router.push("/");
-//       this.$router.replace("/");
-//       console.log("homeClick");
-//     },
-//     aboutClick() {
-//       // this.$router.push("about");
-//       this.$router.replace("about");
-//       console.log("aboutClick");
-//     },
-//   },
-// };
+export default {
+  name: "app",
+  data() {
+    return {
+      id: "000",
+    };
+  },
+  methods: {
+    // 通过代码的方式修改路由
+    homeClick() {
+      // this.$router.push("/");
+      this.$router.replace("/");
+      console.log("homeClick");
+    },
+    aboutClick() {
+      // this.$router.push("about");
+      this.$router.replace("about");
+      console.log("aboutClick");
+    },
+  },
+};
 </script>
