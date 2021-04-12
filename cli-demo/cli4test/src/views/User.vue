@@ -13,5 +13,11 @@ export default {
       return this.$route.params.id;
     },
   },
+  created() {
+    console.log("user created");
+  },
+  destroyed() {
+    console.log("user destroyed");
+  },
 };
 </script>
