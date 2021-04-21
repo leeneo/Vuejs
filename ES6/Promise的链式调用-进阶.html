@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Promise的链式调用-进阶</title>
+</head>
+
+<body>
+
+        <script>
+                // Promise的链式调用-进阶
+                console.log('Promise的链式调用-进阶----------------------------------------------');
+
+                // // 链式调用2--进阶形式，对网络返回结果进行处理，并依次传递给下一次请求
+                // new Promise((resolve, reject) => {
+                //         // 假设第一次网络请求，用setTimeout模拟异步操作模拟网络请求
+                //         setTimeout(() => {
+                //                 resolve('data');
+                //         }, 1000);
+                // }).then((res) => {
+                //         // 第一层处理的N行代码
+                //         console.log(res, ' 第一层处理代码');
+
+                //         return new Promise((resolve) => {
+                //                 // 对结果进行第一次处理
+                //                 resolve(res + ' 111');
+                //         })
+                // }).then(res => {
+                //         // 第二层处理的N行代码
+                //         console.log(res, ' 第二层处理代码');
+
+                //         return new Promise((resolve, reject) => {
+                //                 // 对结果进行第二次处理，出现异常
+                //                 // resolve(res + ' 222');
+                //                 reject('err: ' + res);
+                //         })
+                // }).then(res => {
+                //         // 第三层处理的N行代码
+                //         console.log(res, ' 第三层处理代码');
+                // }).catch(err => {
+                //         console.log(err);
+                // })
+
+                // // 简写1：链式调用2--进阶形式，对网络返回结果进行处理，并依次传递给下一次请求
+                // return new Promise(resolve=>{ resolve(res) })可以简写为 return Promise.resolve(res)
+
+                // new Promise((resolve, reject) => {
+                //         // 假设第一次网络请求，用setTimeout模拟异步操作模拟网络请求
+                //         setTimeout(() => {
+                //                 resolve('data');
+                //         }, 1000);
+                // }).then((res) => {
+                //         // 第一层处理的N行代码
+                //         console.log(res, ' 第一层处理代码');
+
+                //         // 对结果进行第一次处理
+                //         return Promise.resolve(res + ' 111');
+                // }).then(res => {
+                //         // 第二层处理的N行代码
+                //         console.log(res, ' 第二层处理代码');
+
+                //         // 对结果进行第二次处理，出现异常
+                //         // return Promise.resolve(res + ' 222');
+                //         return Promise.reject('err: ' + res);
+                // }).then(res => {
+                //         // 第三层处理的N行代码
+                //         console.log(res, ' 第三层处理代码');
+                // }).catch(err => {
+                //         console.log(err);
+                // })
+
+                // 简写2：链式调用2--进阶形式，对网络返回结果进行处理，并依次传递给下一次请求
+                // return Promise.resolve(res) => return res
+
+                new Promise((resolve, reject) => {
+                        // 假设第一次网络请求，用setTimeout模拟异步操作模拟网络请求
+                        setTimeout(() => {
+                                resolve('data');
+                        }, 1000);
+                }).then((res) => {
+                        // 第一层处理的N行代码
+                        console.log(res, ' 第一层处理代码');
+
+                        // 对结果进行第一次处理
+                        return res + ' 111';
+                }).then(res => {
+                        // 第二层处理的N行代码
+                        console.log(res, ' 第二层处理代码');
+
+                        // 对结果进行第二次处理，出现异常
+                        throw 'err: ' + res;
+                }).then(res => {
+                        // 第三层处理的N行代码
+                        console.log(res, ' 第三层处理代码');
+                }).catch(err => {
+                        console.log(err);
+                })
+
+
+        </script>
+</body>
+
+</html>

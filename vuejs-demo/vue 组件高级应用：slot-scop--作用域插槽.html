@@ -13,8 +13,12 @@
         <!-- 调用组件 -->
         <v-note :title='title' :messages='messages'></v-note>
 
-        <!-- 父组件替换展示效果1 -->
-        <h2>父组件替换展示效果1 </h2>
+        <!-- 子组件内部的默认展示效果 -->
+        <h2>子组件默认展示效果 </h2>
+        <v-comp></v-comp>
+
+        <!-- 父组件替换展示效果 -->
+        <h2>父组件替换子组件展示效果 </h2>
         <v-comp>
             <template slot-scope="slots">
                 <div>
@@ -24,21 +28,6 @@
                 </div>
             </template>
         </v-comp>
-
-        <!-- 父组件替换展示效果2 -->
-        <h2>父组件替换展示效果2 </h2>
-        <v-comp>
-            <template slot-scope="slots">
-                <div>
-                    我所习得的编程语言：
-                    <span>{{slots.data.join(', ')}}</span>
-                </div>
-            </template>
-        </v-comp>
-
-        <!-- 子组件内部的默认展示效果 -->
-        <h2>子组件内部的默认展示效果 </h2>
-        <v-comp></v-comp>
     </div>
 
     <!-- 自定义组件模板 -->

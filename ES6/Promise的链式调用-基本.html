@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Promise的链式调用-基本</title>
+</head>
+
+<body>
+
+        <script>
+                // Promise 的链式调用
+                console.log('Promise 的链式调用----------------------------------------------');
+
+                // 链式调用1--基本形式
+                new Promise((resolve, reject) => {
+
+                        // 假设第一次网络请求，用setTimeout模拟异步操作模拟网络请求
+                        setTimeout(() => {
+                                resolve();
+                        }, 1000);
+                }).then(() => {
+
+                        // 第一层处理结果
+                        console.log('第一层处理结果');
+                        console.log('Hello Promise');
+
+                        return new Promise((resolve) => {
+
+                                // 假设第二次网络请求
+                                setTimeout(() => {
+                                        resolve();
+                                }, 1000);
+
+                        }).then(() => {
+
+                                // 第二层处理结果
+                                console.log('第二层处理结果');
+                                console.log('Hello Vue');
+
+                                return new Promise((resolve) => {
+
+                                        // 假设第三网络请求
+                                        setTimeout(() => {
+                                                resolve();
+                                        }, 1000);
+
+                                }).then(() => {
+
+                                        // 第三层处理结果
+                                        console.log('第三层处理结果');
+                                        console.log('Hello Python');
+                                })
+                        })
+                })
+        </script>
+</body>
+
+</html>
