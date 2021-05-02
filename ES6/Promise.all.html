@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.all</title>
+</head>
+
+<body>
+
+    <script>
+        // Promise.all可以将多个Promise实例包装成一个新的Promise实例，用于批处理Promise
+        // 成功返回成功的 Promise 结果集，失败返回第一个 reject 实例结果
+        Promise.all([
+            new Promise((resolve, reject) => {
+                // $.ajax({
+                //     url:'url1',
+                //     success:function(data){
+                //         resolve(data);
+                //     }
+                // })
+                setTimeout(() => {
+                    resolve({ res: 'result1' })
+                }, 1000);
+            }),
+            new Promise((resolve, reject) => {
+                // $.ajax({
+                //     url: 'url2',
+                //     success: function (data) {
+                //         resolve(data);
+                //     }
+                // })
+                setTimeout(() => {
+                    resolve({ res: 'result2' })
+                }, 2000);
+            }),
+            new Promise((resolve, reject) => {
+                // $.ajax({
+                //     url: 'url2',
+                //     success: function (data) {
+                //         resolve(data);
+                //     }
+                // })
+                setTimeout(() => {
+                    // resolve({ res: 'result3' });
+                    reject({ res: 'err mesg!' })
+                }, 1200);
+            }),
+        ]).then(results => {
+            console.log(results);
+        }).catch(err => {
+            console.log(err);
+        });
+    </script>
+</body>
+
+</html>
