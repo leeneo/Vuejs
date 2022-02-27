@@ -56,33 +56,33 @@
             el: '#app',
             data: {
                 books: [{
-                        id: 1,
-                        name: '《算法导论》',
-                        date: '2006-9',
-                        price: 85.00,
-                        count: 1
-                    },
-                    {
-                        id: 2,
-                        name: '《UNIX编程艺术》',
-                        date: '2006-2',
-                        price: 60.00,
-                        count: 2
-                    },
-                    {
-                        id: 3,
-                        name: '《编程珠玑》',
-                        date: '2008-10',
-                        price: 25.00,
-                        count: 4
-                    },
-                    {
-                        id: 4,
-                        name: '《代码大全》',
-                        date: '2006-3',
-                        price: 120.00,
-                        count: 1
-                    },
+                    id: 1,
+                    name: '《算法导论》',
+                    date: '2006-9',
+                    price: 85.00,
+                    count: 1
+                },
+                {
+                    id: 2,
+                    name: '《UNIX编程艺术》',
+                    date: '2006-2',
+                    price: 60.00,
+                    count: 2
+                },
+                {
+                    id: 3,
+                    name: '《编程珠玑》',
+                    date: '2008-10',
+                    price: 25.00,
+                    count: 4
+                },
+                {
+                    id: 4,
+                    name: '《代码大全》',
+                    date: '2006-3',
+                    price: 120.00,
+                    count: 1
+                },
                 ],
             },
             computed: {
@@ -138,6 +138,7 @@
 
         // 1. 需求：取出所有小于100的数字
         // let newNums = [];
+        // let total=0;
 
         // 普通实现方式
         // for (let n of nums) {
@@ -157,8 +158,9 @@
         // let new2Nums = [];
 
         // 普通实现方式
-        // for (let n of newNums) {
-        //     new2Nums.push(n * 2);
+        // for (let n of nums) {
+        //     if (n < 100)
+        //         new2Nums.push(n * 2);
         // }
 
         // 函数实现方式1
@@ -167,23 +169,26 @@
         // });
 
         // 函数实现方式2
-        // new2Nums = newNums.map(n => n * 2);
+        // new2Nums = nums.map(n => n * 2);
 
         // console.log('小于100*2：' + new2Nums);
 
 
-        // 3. 需求：将所有小于100且转化后的数字，再进行相加
+        // 3. 需求：将所有小于100且*2转化后的数字，再进行相加
 
         // 普通实现方式
-        // for (let n of new2Nums) {
-        //     total += n;
+        // let new2Nums = [];
+        // let total=0;
+        // for (let n of nums) {
+        //     if (n < 100)
+        //         total += n*2;
         // }
 
         // 函数实现方式
-        // let result = new2Nums.reduce(function (total, cur) {
+        // let result = nums.reduce(function (total, cur) {
         //     console.log('total: ' + total);
         //     console.log('cur: ' + cur);
-        //     return total + cur;
+        //     return total + cur*2;
         // }, 0);
         // console.log('result: ' + result);
 

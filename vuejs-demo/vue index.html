@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <style type="text/css">
+        /*初始化CSS！*/
+        body,
+        div,
+        span,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        ul,
+        li,
+        ol,
+        dl,
+        dt,
+        dd,
+        a,
+        img,
+        input {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-align: center;
+        }
+
+        /*初写正文样式！*/
+        body {
+            color: #333;
+            font: 14px '微软雅黑';
+            background-color: #fdfcf8;
+            line-height: 1.5;
+        }
+
+        /*初写超链接样式！*/
+        a {
+            color: #338de6;
+            text-decoration: none;
+        }
+
+        /* .icpWrap {
+            width: 100%;
+            color: gray;
+            font-size: 12px;
+            float: left;
+            bottom: 0;
+            text-align: center;
+            margin-top: 20px !important;
+            border: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .icpWrap a {
+            color: gray;
+        }
+ */
+        #app ul li {
+            text-align: left;
+            margin-left: 42%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in msgs'><a :href="msg">{{msg}}</a></li>
+            </ul>
+        </div>
+
+        <!-- <div class="icpWrap">
+            互联网ICP备案：<a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19077666号</a>
+        </div> -->
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'vue 的使用',
+                lists: [
+                    'helloVue',
+                    'vue template',
+                    'vue 组件demo',
+                    'vue 基础语法',
+                    'vue computed 的缓存，和methods相比的优越性',
+                    'vue computed 计算属性',
+                    'vue Javascript 高阶函数的使用',
+                    'vue slice splice',
+                    'vue v-for 绑定Key属性重复元素警告',
+                    'vue v-for 绑定元素添加Key属性',
+                    'vue v-for 循环遍历',
+                    'vue v-for 循环的三种方式',
+                    'vue v-for 循环高级应用',
+                    'vue v-if 条件判断',
+                    'vue v-model 绑定checkbox',
+                    'vue v-model 绑定radio',
+                    'vue v-model 绑定select',
+                    'vue v-model 动态值绑定',
+                    'vue v-model 双向绑定原理',
+                    'vue v-model 修饰符',
+                    'vue v-on 事件传参',
+                    'vue v-on 事件修饰符',
+                    'vue v-show v-if 的区别',
+                    'vue 案例：父子组件双向通信（watch实现）',
+                    'vue 案例：父子组件双向通信',
+                    'Vue 案例：计数器',
+                    'vue 案例：用户登录切换',
+                    'Vue 案例：游戏换算',
+                    'vue 案例：子传父的计数器',
+                    'vue 父子组件访问-父联络子（$children--$refs）',
+                    'vue 父子组件访问-子联络父（$parent--$root）',
+                    'vue 父子组件通信-父传子（props）',
+                    'vue 父子组件通信-子传父（$emit事件）',
+                    'vue 父组件和子组件',
+                    'vue 计算属性的 getter 和 setter',
+                    'vue 全局组件和局部组件',
+                    'vue 生命周期函数',
+                    'vue 实例&数据&方法',
+                    'vue 响应式修改数组的那些方法',
+                    'vue 用户登录类型切换',
+                    'vue 组件 props 驼峰标识变量名的标签用法',
+                    'vue 组件变量作用域',
+                    'vue 组件的基本使用',
+                    'vue 组件的数据访问与存储',
+                    'vue 组件高级应用：slot-scop--作用域插槽',
+                    'vue 组件高级应用：slot--插槽基本使用',
+                    'vue 组件高级应用：slot--具名插槽',
+                    'vue 组件化思想',
+                    'vue 组件模板的分离写法',
+                    'vue 组件用函数来接收数据的原因',
+                    '',
+                    '',
+                ]
+            },
+            computed: {
+                msgs: function () {
+                    this.lists = this.lists.filter(n => n.length > 0).map(n => n + '.html');
+                    // console.log(this.lists);
+                    return this.lists;
+                },
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

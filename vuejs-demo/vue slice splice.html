@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in messages'>{{msg}}</li>
+            </ul>
+        </div>
+        <button v-on:click='action'>点击</button>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'vue slice splice',
+                messages: [
+                    'this is a vue demo!',
+                ],
+                arr:[1, 2, 3, 4, 5],
+                arr2:[2, 3, 4, 5, 6],
+            },
+            computed: {
+
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                    //slice(start,end) 不改变原数组
+                    console.log(this.arr.slice(1),'原arr：'+ this.arr);      //[2,3,4,5] 选择索引1到最后的元素形成新的数组
+                    console.log(this.arr.slice(1,3),'原arr：'+ this.arr);    //[2,3] 选取索引2到3之间的元素，不包含end
+
+                    // slice 用于字符串切割
+                    let str="Hello,world";
+                    console.log(str.slice(1,5),'原：'+str);     //ello
+                    console.log(str.substring(1,5),'原：'+str); //ello
+                    console.log(str.substr(1,4),'原：'+str); //ello
+                    console.log(str.slice(-3),'原：'+str); //rld
+
+                    //splice(index.howmany,addItem)，根据下标向数组中添加或删除项目，返回被删除的项目，会改变原数组
+                    console.log( this.arr2.splice(2,1,"hello"),'原arr2：'+ this.arr2);
+                    console.log(this.arr,this.arr2);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
