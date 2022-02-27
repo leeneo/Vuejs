@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天下换算器</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h3>请输入当前元宝比例（例：1 元宝=1.46 金，输入 1.46）：
+                <input type="number" v-model="currency">
+            </h3>
+            <h4>1军饷军资：{{munition}} 金</h4>
+            <h4>1半价军资：{{halfMunition}} 金</h4>
+
+            <h4>1军饷元灵：{{yuanLing}} 金（同半价折扣元灵）</h4>
+            <h4>1折扣元灵：{{yuanLing2}} 金（按100折扣券算））</h4>
+            <hr>
+        </div>
+
+        <div>
+            <h3>请输入当前逆天之石·碎片售价：
+                <input type="number" v-model="oppositeStone">
+            </h3>
+            <h3>请输入当前逆天之力售价：
+                <input type="number" v-model="oppositeForce">
+            </h3>
+            <h3>请输入当前逆天之愿售价：
+                <input type="number" v-model="oppositeWilling">
+            </h3>
+            <h4>1天域出货价：{{skyRegion}} 金（按逆天之力·天域声望购买）</h4>
+            <h4>1天域出货价：{{skyRegion2}} 金（按逆天之愿·天域声望购买）</h4>
+            <h4>1军资出货价：{{skyRegionGoods}} 金（按逆天之愿·军资购买，逆天之力无军资兑换途径）</h4>
+            <hr>
+        </div>
+
+        <div>
+            <h3>请输入当前桃源·甘露售价（例：1 甘露=4 银 36铜，输入 0.0436）：
+                <input type="number" v-model="manna">
+            </h3>
+            <h3>请输入当前精金售价（例：1 精金=4 银 36铜，输入 0.0436）：
+                <input type="number" v-model="wroughtGold">
+            </h3>
+
+            <h4>1聚能丹喂养成本价：{{collectBoxEnergy}} 银（使用军饷购买幻化·百宝匣，喂养寄售甘露）</h4>
+            <h4>1聚能丹喂养成本价：{{collectBoxProEnergy}} 银（使用军饷购买幻化·百宝匣，喂养军饷甘霖）</h4>
+            <h4>1聚能丹喂养成本价：{{collectHalfGoodsEnergy}} 银（使用半价折扣军资树，喂养寄售甘露）</h4>
+            <h4>1聚能丹喂养成本价：{{collectHalfEnergy}} 银（使用半价折扣军资树，喂养军饷甘霖）</h4>
+            <h4>1聚能丹喂养成本价：{{collectEnergy}} 银（使用军饷军资树，喂养寄售甘露）</h4>
+            <h4>1聚能丹喂养成本价：{{collectProEnergy}} 银（使用军饷军资树，喂养军饷甘霖）</h4>
+
+            <!-- 由于军饷甘霖及军饷百宝匣的价格远低于半价折扣购买的价格，所以通常情况下不建议消耗折扣券购买幻化相关 -->
+            <!-- <h4>1聚能丹喂养成本价：{{collectHalfBoxEnergy}} 银（使用半价折扣券购买幻化·百宝匣，喂养寄售甘露）</h4>
+            <h4>1聚能丹喂养成本价：{{collectHalfBoxProEnergy}} 银（使用半价折扣券购买幻化·百宝匣，喂养军饷甘霖）</h4>
+            <h4>1聚能丹喂养成本价：{{collectProHalfMEnergy}} 银（使用军饷军资购买树，喂养半价折扣甘霖）</h4>
+            <h4>1聚能丹喂养成本价：{{collectHalfProHalfMEnergy}} 银（使用半价折扣军资购买树，喂养半价折扣甘霖）</h4>
+            <h4>1聚能丹喂养成本价：{{collectProBoxHalfMEnergy}} 银（使用军饷购买幻化·百宝匣，喂养半价折扣甘霖）</h4>
+            <h4>1聚能丹喂养成本价：{{collectHalBoxHalfMEnergy}} 银（使用半价折扣券购买幻化·百宝匣，喂养半价折扣甘霖）</h4> -->
+
+            <h4>1能量符喂养成本价：{{collectPower}} 银（喂养寄售甘露）</h4>
+            <h4>1能量符喂养成本价：{{collectProPower}} 银（喂养军饷甘霖）</h4>
+            <!-- <h4>1能量符喂养成本价：{{collectHalfPower}} 银（喂养半价折扣甘霖）</h4> -->
+            <hr>
+        </div>
+
+        <div>
+            <h3>请输入当前金矿石价格（例：1 金矿石=4 银 36铜，输入 0.0436）：
+                <input type="number" v-model="goldStone">
+            </h3>
+            <h3>请输入当前翡翠原石价格（例：1 翡翠原石=3 银 0铜，输入 0.03）：
+                <input type="number" v-model="emeraldStone">
+            </h3>
+            
+            <h4>1鎏金皮成本价：{{goldSkin}} 银</h4>
+            <h4>1鎏金皮成本价：{{emeraldGrain}} 银</h4>
+            <h4>1重明继焰成本价：{{chongMingjiYan}} 银</h4>
+            <hr>
+        </div>
+
+
+
+    </div>
+
+
+    <script src="js/vue.js"></script>
+    <script src="js/toFiexed.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                currency: 1.80,         //元宝比例
+                oppositeStone: 3.2,     //逆天之石·碎片价格，单价金
+                oppositeForce: 1950,    //逆天之力价格，单价金
+                oppositeWilling: 428,   //逆天之愿价格，单价金
+                manna: 0.065,           //桃源·甘露价格，单价金
+                wroughtGold: 0.12,      //精金价格，单价金
+                goldStone: 0.0436,      //金矿石，单价金
+                emeraldStone: 0.03,     //翡翠原石，单价金
+            },
+            computed: {
+                /**
+                 * 军饷军资
+                */
+                munition() {    // 军饷军资 军资原价：1200军资/468元宝，使用军饷：1200军资/328元宝
+                    return (this.currency * 328 / 1200).toFixed(3);
+                },
+                /**
+                 * 半价折扣券军资
+                */
+                halfMunition() {    // 半价折扣券军资 使用半价折扣券：1200军资/234元宝
+                    return (this.currency * 234 / 1200).toFixed(3);
+                },
+                /**
+                 * 军饷元灵之力
+                */
+                yuanLing() {  // 军饷元灵 元灵之力原价：1000元灵/350元宝，使用军饷：1000元灵/175元宝，与使用半价折扣券价格相同
+                    return (this.currency * 175 / 1000).toFixed(3);
+                },
+                /**
+                * 100折扣元灵之力
+                */
+                yuanLing2() {  // 100折扣券元灵 使用军饷：1000元灵/250元宝
+                    return (this.currency * 250 / 1000).toFixed(3);
+                },
+                /**
+                 * 天域出货换算·逆天之力
+                */
+                skyRegion() {
+                    // 1逆天之力兑换所需：1500天域声望，50金币，20逆天之石
+                    // 1逆天之石=5逆天之石·碎片
+                    let skyRegion = 0;
+                    skyRegion = (this.oppositeForce - (this.oppositeStone * 20 * 5) - 50) / 1500;
+                    return skyRegion.toFixed(3);
+                },
+                /**
+                 * 天域出货换算·逆天之愿
+                */
+                skyRegion2() {
+                    // 1逆天之愿兑换所需：250天域声望，100金币，5逆天之石
+                    let skyRegion = 0;
+                    skyRegion = (this.oppositeWilling - (this.oppositeStone * 5 * 5) - 100) / 250;
+                    return skyRegion.toFixed(3);
+                },
+                /**
+                 * 军饷军资兑换逆天之愿出货换算，*逆天之力无军资兑换途径
+                */
+                skyRegionGoods() {
+                    // 1逆天之愿兑换所需：1000军资，100金币，5逆天之石
+                    // 1逆天之石=5逆天之石·碎片
+                    let skyRegion = 0;
+                    skyRegion = (this.oppositeWilling - (this.oppositeStone * 5 * 5) - 100) / 1000;
+                    return skyRegion.toFixed(3);
+                },
+                // 摇钱树
+                provisionsTree() {   //军饷军资树
+                    let treePrice = 130 * this.munition + this.wroughtGold * 2;  //单个摇钱树成本：130军资，2精金
+                    return treePrice;
+                },
+                halfPriceTree() {   //半价折扣军资树
+                    let treePrice = 130 * this.halfMunition + this.wroughtGold * 2;  //单个摇钱树成本：130军资，2精金
+                    return treePrice;
+                },
+                // 幻化·百宝匣，原价78元宝/个
+                boxProTree() {          //军饷幻化·百宝匣
+                    let treePrice = this.currency * 23;//使用军饷购买幻化·百宝匣：23元宝/个，送3个桃源·甘霖（相当于60个桃源甘露）
+                    return treePrice;
+                },
+                boxHalfTree() {         //半价折扣券幻化·百宝匣
+                    let treePrice = this.currency * 39;//使用半价折扣券幻化·百宝匣：39元宝/个，送3个桃源·甘霖（相当于60个桃源甘露）
+                    return treePrice;
+                },
+                // 甘露或者甘霖总花费，桃源·甘霖原价34元宝/组（20个）
+                // 喂养成功一棵摇钱树（灵符宝贝）需要桃源·甘露520个
+                // 喂养成功一棵摇钱树（灵符宝贝）需要桃源·甘霖1.3组
+                // 喂养成功一棵幻化·百宝匣中的幻化·摇钱树（灵符宝贝）需要桃源·甘霖460/400=1.15组                
+                //喂养一棵树的寄售甘露总价
+                totalMannaPrice() {
+                    let price = this.manna * 520; //喂养成功一棵摇钱树（灵符宝贝）需要甘露520个
+                    return price;
+                },
+                //喂养一棵树的桃源·甘霖（使用军饷购买）总价
+                totalProMannaPrice() {
+                    // 10元宝/组（一组20个相当于400个桃源甘露） 
+                    let price = 520 / 400 * 10 * this.currency;
+                    return price;
+                },
+                //喂养一棵树的桃源·甘霖（使用半价折扣券购买）总价
+                totalHalfMannaPrice() {
+                    // 17元宝/组（一组20个相当于400个桃源甘露） 
+                    let price = 520 / 400 * 17 * this.currency;
+                    return price;
+                },
+                //喂养一棵幻化·百宝匣中的幻化·摇钱树的桃源·甘露（寄售甘露）总价，需要减去3个甘霖（百宝匣自带3个，相当于60个甘露）
+                totalBoxMannaPrice() {
+                    // 10元宝/组（一组20个相当于400个桃源甘露） 
+                    let price = (520 - 60) * this.manna;
+                    return price;
+                },
+                //喂养一棵幻化·百宝匣中的幻化·摇钱树的桃源·甘霖（军饷甘霖）总价，需要减去3个甘霖（百宝匣自带3个，相当于60个甘露）
+                totalBoxProMannaPrice() {
+                    // 10元宝/组（一组20个相当于400个桃源甘露） 
+                    let price = (520 - 60) / 400 * 10 * this.currency;
+                    return price;
+                },
+                //喂养一棵幻化·百宝匣中的幻化·摇钱树的桃源·甘霖（半价折扣甘霖）总价，需要减去3个甘霖（百宝匣自带3个，相当于60个甘露）
+                totalBoxHalfMannaPrice() {
+                    // 17元宝/组（一组20个相当于400个桃源甘露） 
+                    let price = (520 - 60) / 400 * 17 * this.currency;
+                    return price;
+                },
+                // 计算聚能丹成本价
+                collectEnergy() {  // 使用军饷军资购买树，喂养寄售甘露
+                    let energyPrice = (this.provisionsTree + this.totalMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectHalfGoodsEnergy() {  // 使用半价折扣军资购买树，喂养寄售甘露
+                    let energyPrice = (this.halfPriceTree + this.totalMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectBoxEnergy() {  // 使用军饷购买幻化·百宝匣，喂养寄售甘霖
+                    let energyPrice = (this.boxProTree + this.totalBoxMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectHalfBoxEnergy() {  // 使用半价折扣券购买幻化·百宝匣，喂养寄售甘霖
+                    let energyPrice = (this.boxHalfTree + this.totalBoxMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectProEnergy() {  // 使用军饷军资购买树，喂养军饷甘霖
+                    let energyPrice = (this.provisionsTree + this.totalProMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectHalfEnergy() {  // 使用半价折扣军资购买树，喂养军饷甘霖
+                    let energyPrice = (this.halfPriceTree + this.totalProMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectBoxProEnergy() {  // 使用军饷购买幻化·百宝匣，喂养军饷甘霖
+                    let energyPrice = (this.boxProTree + this.totalBoxProMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectHalfBoxProEnergy() {  // 使用半价折扣券购买幻化·百宝匣，喂养军饷甘霖
+                    let energyPrice = (this.boxHalfTree + this.totalBoxProMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectProHalfMEnergy() {  // 使用军饷军资购买树，喂养半价折扣甘霖
+                    let energyPrice = (this.provisionsTree + this.totalHalfMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectHalfProHalfMEnergy() {  // 使用半价折扣军资购买树，喂养半价折扣甘霖
+                    let energyPrice = (this.halfPriceTree + this.totalHalfMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectProBoxHalfMEnergy() {  // 使用军饷购买幻化·百宝匣，喂养半价折扣甘霖
+                    let energyPrice = (this.boxProTree + this.totalBoxHalfMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectHalBoxHalfMEnergy() {  // 使用半价折扣券购买幻化·百宝匣，喂养半价折扣甘霖
+                    let energyPrice = (this.boxHalfTree + this.totalBoxHalfMannaPrice) / 552 * 100;//喂养成功生成聚能丹总共552个
+                    return energyPrice.toFixed(2);
+                },
+                collectPower() {  // 计算能量符成本价，喂养寄售甘露
+                    let treePrice = 1; //各系元魂珠灵符宝贝单价1金一个
+                    powerPrice = (treePrice + this.totalMannaPrice) / 520 * 100; //喂养成功生成元魂珠能量符总共520个                    return skyRegion;
+                    return powerPrice.toFixed(2);
+                },
+                collectProPower() {  // 计算能量符成本价，喂养军饷甘霖
+                    let treePrice = 1; //各系元魂珠灵符宝贝单价1金一个
+                    powerPrice = (treePrice + this.totalProMannaPrice) / 520 * 100; //喂养成功生成元魂珠能量符总共520个                    return skyRegion;
+                    return powerPrice.toFixed(2);
+                },
+                collectHalfPower() {  // 计算能量符成本价，喂养半价折扣甘霖
+                    let treePrice = 1; //各系元魂珠灵符宝贝单价1金一个
+                    powerPrice = (treePrice + this.totalHalfMannaPrice) / 520 * 100; //喂养成功生成元魂珠能量符总共520个                    return skyRegion;
+                    return powerPrice.toFixed(2);
+                },
+                goldSkin() {
+                    //鎏金皮成本价 1鎏金皮=2金矿石+2煤炭 煤炭为系统产出物，价格固定，1煤炭=3.87银
+                    let coalPrice = (3.87 * 2) / 100;//单价金
+                    return ((this.goldStone * 2 + coalPrice) * 100).toFixed(2);//由金换算成银 1金=100银
+                },
+                emeraldGrain() {
+                    //翡翠颗粒成本价 1翡翠颗粒=2翡翠原石+2粗砂轮 粗砂轮为系统产出物，价格固定，1粗砂轮=3.87银
+                    let gritPrice = (3.87 * 2) / 100;//单价金
+                    return ((this.emeraldStone * 2 + gritPrice) * 100).toFixed(2);//由金换算成银 1金=100银
+                },
+                chongMingjiYan() {
+                    //重明继焰成本价 1重明继焰=1兴微继绝+1鎏金皮+1翡翠颗粒 兴微继绝为系统产出物价格为0
+                    // let x = parseFloat(this.goldSkin) + parseFloat(this.emeraldGrain);
+                    let x = this.goldSkin * 1 + this.emeraldGrain * 1;
+                    return x.toFixed(2);//由金换算成银 1金=100银
+                },
+            },
+            methods: {
+                add: function () {
+                    this.message++;
+                }
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
