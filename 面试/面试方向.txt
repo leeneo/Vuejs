@@ -1,1 +1,0 @@
-大屏&地图开发：超图平台(SuperMap GIS),熟悉Canvas、WebGIS、Geoserver、ArcGIS Server或互联网地图服务

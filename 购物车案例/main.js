@@ -34,8 +34,8 @@ const app = new Vue({
     computed: {
         totalPrice() {
             return this.books.reduce(function (total, curValue) {
-                console.log('totalPrice:' + JSON.stringify(total));
-                console.log('curValue:' + JSON.stringify(curValue));
+                // console.log('totalPrice:' + JSON.stringify(total));
+                // console.log('curValue:' + JSON.stringify(curValue));
                 return total + curValue.price * curValue.count;
             }, 0);
         },
@@ -45,17 +45,18 @@ const app = new Vue({
             return '￥' + price.toFixed(2);
         },
         add(ind) {
-            console.log(ind);
+            // console.log(ind);
             this.books[ind].count++;
         },
         sub(ind) {
-            console.log(ind);
+            // console.log(ind);
             // if (this.books[ind].count > 1)   //加入条件可以限制最小数量不能小于多少
             this.books[ind].count--;
         },
         remove(ind) {
+            console.log(ind);
             let m = this.books.splice(ind, 1);
-            // console.log(JSON.stringify(m));
+            console.log(JSON.stringify(m));
         }
     },
     filters: {

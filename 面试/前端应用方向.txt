@@ -1,0 +1,4 @@
+大屏&地图开发：超图平台(SuperMap GIS),熟悉Canvas、WebGIS、Geoserver、ArcGIS Server或互联网地图服务
+LBS：基于位置的服务（Location Based Services，LBS）
+LBS业务：围绕地理位置数据而展开的服务
+GIS：地理信息系统（Geographic Information System或 Geo－Information system，GIS）

@@ -36,12 +36,15 @@
                     <td>{{item.id.toString()}}</td>
                     <td>{{item.name}}</td>
                     <td>{{item.date}}</td>
-                    <td>{{item.price.toFixed(2)}}</td>
+                    <td>{{item.price|showPrice}}</td>
                     <td>
+                        <!--v- bind:disabled 按钮置灰-->
+                        <button @click="sub(index)" v-bind:disabled="item.count <=1">-</button>
                         {{item.count}}
+                        <button @click="add(index)">+</button>
                     </td>
                     <td>
-                        <button v-bind:disabled='true'>移除</button>
+                        <button @click="remove(index)">移除</button>
                     </td>
                 </tr>
             </tbody>
@@ -88,17 +91,32 @@
             computed: {
                 totalPrice() {
 
-                    // 高阶函数 arr.reduce(fn(..),0)
+                    // 高阶函数 arr.reduce(fn(..),0) 计算数组元素相加后的总和
                     return this.books.reduce(function (total, curValue) {
                         return total + curValue.price * curValue.count;
                     }, 0);
                 },
             },
             methods: {
-                action: function () {
-                    this.message = 'hello!'
+                add(ind) {
+                    this.books[ind].count++;
+                },
+                sub(ind) {
+                    // if (this.books[ind].count > 1)   //加入条件可以限制最小数量不能小于多少
+                    this.books[ind].count--;
+                },
+                remove(ind) {
+                    console.log(ind);
+                    let m = this.books.splice(ind, 1);
+                    console.log(JSON.stringify(m));
+                }
+            },
+            filters: {
+                showPrice(price) {
+                    return '￥' + price.toFixed(2);
                 }
             }
+
         });
 
         // 编程范式：命令式编程/声明式编程
