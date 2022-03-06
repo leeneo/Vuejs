@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+        content="HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,webpack,node.js,git,npm,前端,全栈,Web开发" />
+    <meta name="description" content="一位Web开发工程师的学习、工作笔记-星之痕。
+    内容涵盖：HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,前端,全栈,Web开发……等" />
+    <title>Vue.js 笔记-星之痕</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in messages'>{{msg}}</li>
+            </ul>
+        </div>
+        <button v-on:click='findMax'>点击</button>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'this is a title',
+                messages: [
+                    'this is a vue demo!',
+                ]
+            },
+            computed: {
+
+            },
+            methods: {
+                findMax() {
+                    let nums = [12, 4, 6, 8, 1];
+
+                    // Number.MIN_VALUE ：JavaScript 中所能表示的最小的正值
+                    // MIN_VALUE 属性是 JavaScript 里最接近 0 的正值，而不是最小的负值。
+                    // MIN_VALUE 的值约为 5e-324。小于 MIN_VALUE("underflow values") 的值将会转换为 0。
+
+                    // Number.NEGATIVE_INFINITY：表示小于 Number.MIN_VALUE 的值，该值代表负无穷大。
+                    let maxNum = Number.NEGATIVE_INFINITY;
+                    for (let num of nums) {
+                        if (num > maxNum)
+                            maxNum = num;
+                    }
+                    this.title = maxNum;
+                },
+            }
+        });
+    </script>
+</body>
+
+</html>

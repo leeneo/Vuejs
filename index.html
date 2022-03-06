@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta name="keywords" content="HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,webpack,前端,全栈,Web开发" />
     <meta name="description" content="一位Web开发工程师的学习、工作笔记-星之痕。
     内容涵盖：HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,前端,全栈,Web开发……等" />
@@ -63,13 +63,35 @@
             color: gray;
         }
 
-        #app ul{
-            margin:18px auto;
+        #app ul {
+            margin: 18px auto;
         }
+
         /* #app ul li{
             text-align: left;
             margin-left:42%;
         } */
+
+        /* 手机样式 */
+        @media screen and (max-width:640) {
+            body {
+                background: lightblue;
+            }
+        }
+
+        /* 平板样式 */
+        @media screen and (min-width:641px) and (max-width:1200px) {
+            body {
+                background: lightblue;
+            }
+        }
+
+        /* 大屏样式 */
+        @media screen and (min-width:1201px) {
+            body {
+                background: lightblue;
+            }
+        }
     </style>
 </head>
 
@@ -79,7 +101,7 @@
         <div>
             <h1>星之痕</h1>
             <ul>
-                <li ><a href="./vuejs-demo/vue index.html">Vue的使用</a></li>
+                <li><a href="./vuejs-demo/vue index.html">Vue的使用</a></li>
             </ul>
         </div>
 

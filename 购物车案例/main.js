@@ -33,6 +33,37 @@ const app = new Vue({
     },
     computed: {
         totalPrice() {
+            
+            let totalPrice = 0;
+
+            // 1，普通循环形式
+            // {
+            //     for (let i = 0; i < this.books.length; i++) {
+            //         totalPrice += this.books[i].price * this.books[i].count;
+            //     }
+            //     return totalPrice;
+            // }
+
+            // 2，for in 
+            // {
+            //     for (let i in this.books) {
+            //         console.log(i); //i 是索引
+            //         const book = this.books[i];
+            //         totalPrice += book.price * book.count;
+            //     }
+            //     return totalPrice;
+            // }
+
+            // 3，for of 
+            // {
+            //     for (let book of this.books) {
+            //         console.log(JSON.stringify(book));         //book 是元素
+            //         console.log(this.books.indexOf(book));     //arr.index(v) 取元素索引
+            //         totalPrice += book.price * book.count;
+            //     }
+            //     return totalPrice;
+            // }
+
             return this.books.reduce(function (total, curValue) {
                 // console.log('totalPrice:' + JSON.stringify(total));
                 // console.log('curValue:' + JSON.stringify(curValue));
