@@ -15,13 +15,14 @@
     <div id="app">
         <!-- 调用组件 -->
         <v-note :title='title' :messages='messages'></v-note>
-        <v-comp></v-comp>
+        <v-comp :c-info="info"></v-comp>
     </div>
 
     <!-- 自定义组件模板 -->
     <template id='comp'>
         <div>
             <h2>{{msg}}</h2>
+            <h2>{{cInfo}}</h2>
         </div>
     </template>
 
@@ -45,6 +46,13 @@
                     msg: '这是一个子组件',
                 }
             },
+            props:{
+                cInfo:{
+                    default(){
+                        return {};
+                    }
+                }
+            }
         }
 
         // 笔记列表组件
@@ -67,7 +75,8 @@
                 title: '组件demo',
                 messages: [
                     `这是一个简单的组件demo`,
-                ]
+                ],
+                info:'this is a message',
             },
             components: {
                 vNote,

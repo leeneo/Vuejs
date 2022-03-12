@@ -72,7 +72,7 @@
                     // 当 props 类型为数组或对象时，必需使用函数的方式，返回一个默认值
 
                     // 展示 default 的值，当父组件模板调用子组件的地方尚未向子组件传递数据时，如有默认值就会显示
-                    default () {
+                    default() {
                         return ['默认数组']
                     },
                     // required 标记，如不传，控制台会有警告，但不影响页面显示
@@ -80,7 +80,7 @@
                 },
                 childman: {
                     type: Object,
-                    default () {
+                    default() {
                         return {
                             name: '默认对象',
                         }
@@ -88,6 +88,7 @@
                 },
                 testprop: {
                     // type:Person
+                    // 自定义验证规则
                     validator(value) {
                         return ['success', 'waring', 'danger'].indexOf(value) !== -1;
                     }
@@ -96,7 +97,7 @@
                 // props 的其他类型
 
                 // 基础的类型检查，（null 匹配任何类型，基础类型也可以是自定义类型）
-                propa:Number,
+                propa: Number,
 
                 // 多个可能的类型
                 propb: [String, Number],
@@ -116,7 +117,7 @@
                 // 带有默认值的对象
                 prope: {
                     type: Object,
-                    default () {
+                    default() {
                         return {
                             msg: 'Hello'
                         }
@@ -159,7 +160,7 @@
                 },
                 childmessages: {
                     type: Array,
-                    default () {
+                    default() {
                         return [];
                     }
                 },
