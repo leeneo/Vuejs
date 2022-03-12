@@ -30,8 +30,8 @@
         <div>
             <!-- 动态值绑定 -->
             请选择您喜欢的球类运动（多选）：
-            <label v-for="item in originHobbies" :for='item'>
-                <input type="checkbox" name="balls" :id="item" :value="item" v-model='hobbies'>{{item}}
+            <label v-for="(item,index) in originHobbies" :for='index+item'>
+                <input type="checkbox" name="balls" :id="index+item" :value="item" v-model='hobbies'>{{item}}
             </label>
             <h2>你选择的爱好有：{{hobbies}}</h2>
         </div>

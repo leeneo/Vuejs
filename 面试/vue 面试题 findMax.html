@@ -18,7 +18,7 @@
         <div>
             <h2>{{title}}</h2>
             <ul>
-                <li v-for='msg in messages'>{{msg}}</li>
+                <li v-for='msg in nums'>{{msg}}</li>
             </ul>
         </div>
         <button v-on:click='findMax'>点击</button>
@@ -30,17 +30,18 @@
         const app = new Vue({
             el: '#app',
             data: {
-                title: 'this is a title',
+                title: '找出最大的数',
                 messages: [
                     'this is a vue demo!',
-                ]
+                ],
+                nums:[12,4,6,8,1]
             },
             computed: {
 
             },
             methods: {
                 findMax() {
-                    let nums = [12, 4, 6, 8, 1];
+                    let nums = this.nums;
 
                     // Number.MIN_VALUE ：JavaScript 中所能表示的最小的正值
                     // MIN_VALUE 属性是 JavaScript 里最接近 0 的正值，而不是最小的负值。
