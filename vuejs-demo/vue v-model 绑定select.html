@@ -19,7 +19,7 @@
 
         <div>
             <!-- 单选 -->
-            <select name="fruitSelt" v-model='fruit'>
+            <select name="fruitSelt" size='4' v-model='fruit'>
                 <option value="苹果">苹果</option>
                 <option value="香蕉">香蕉</option>
                 <option value="橘子">橘子</option>
@@ -27,7 +27,8 @@
             </select>
             <h2>你选择的水果是：{{fruit}}</h2>
         </div>
-        <div>
+
+        <div>            
             <!-- 多选 -->
             <h3>按 ctrl 可多选</h3>
             <select name="fruitSelt" v-model='fruits' multiple>
@@ -36,7 +37,7 @@
                 <option value="橘子">橘子</option>
                 <option value="榴莲">榴莲</option>
             </select>
-            <h2>你选择的水果是：{{fruits}}</h2>
+            <h2>你选择的水果有：{{fruits}}</h2>
         </div>
     </div>
 
@@ -47,8 +48,8 @@
             data: {
                 title: 'v-model 绑定select',
                 messages: [
-                    '单选：v-model绑定的是一个值，当选中options中的一个时，会将选中项value的值赋值到myselect',
-                    '多选：v-modle绑定的是一个数组，会将选中项的多个value的值添加到myselects中'
+                    '单选：v-model绑定的是一个值，当选中options中的一个时，会将选中项value的值赋值到 myselect',
+                    '多选：v-modle绑定的是一个数组，会将选中项的多个value的值添加到 myselects中'
                 ],
                 fruit: '榴莲',
                 fruits: ['榴莲']

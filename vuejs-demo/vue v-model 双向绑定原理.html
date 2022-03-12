@@ -19,8 +19,10 @@
         <div>
             <!-- <input type="text" v-model="message"> -->
             <!-- v-model等效于v-bind 加 v-on事件的结合 -->
-            <!-- <input type="text" :value="message" @input="valueChange"> -->
-            <input type="text" :value="txt" @input="txt=$event.target.value">
+            <!-- <input type="text" :value="txt" @input="valueChange($event)"> -->
+            <!-- 这里可以不用传 $event -->
+            <input type="text" :value="txt" @input="valueChange">
+            <!-- <input type="text" :value="txt" @input="txt=$event.target.value"> -->
             <h2>{{txt}}</h2>
         </div>
     </div>
@@ -33,10 +35,11 @@
                 title: 'v-model双向绑定原理',
                 messages: [
                     ' v-model 一般用于表单输入控件，用来实现控件value和vm变量的映射，即双向绑定(v<-->vm)',
+                    ' v-model等效于 v-bind 加 v-on 事件的结合',
                     ' v-model 其实是一个语法糖，本质上包含两个操作',
                     ' 1.v-bind 绑定一个value属性（实现 vm-->v 的绑定）',
                     ' 2.v-on 指令给当前元素绑定input事件（实现 v-->vm 的绑定）',
-                    'v-model等效于v-bind 加 v-on事件的结合'
+                    'v-model等效于 v-bind 加 v-on 事件的结合'
                 ],
                 txt: 'input的双向绑定',
             },
@@ -44,8 +47,10 @@
             },
             methods: {
                 valueChange(event) {
-                    this.message = event.target.value;
+                    this.txt = event.target.value;
                     // console.log(event);
+                    console.log('value',event.target.value);
+                    // console.log('_value',event.target._value);
                 }
             }
         });

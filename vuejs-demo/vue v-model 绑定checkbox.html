@@ -19,14 +19,14 @@
         <div>
             <!-- 单选框 -->
             <label for="agree1">
-                unchecked <input type='checkbox' id='agree1' unchecked> 不同意，不允许进行下一步<br>
+                unchecked <input type='checkbox' id='agree1' name="agree" unchecked :value="isAgree"> 默认未选中<br>
             </label>
             <label for="agree2">
-                checked <input type='checkbox' id='agree2' checked> 同意，允许进行下一步<br>
+                checked <input type='checkbox' id='agree2' name="agree" checked :value="isAgree"> 默认选中<br>
             </label>
             <label for="agree">
-                <!-- v-model 绑定的 isAgree 状态 会覆盖掉 checkbox 的 checked unchecked 状态 -->
-                v-model <input type='checkbox' id='agree' v-model="isAgree"> 同意，进行下一步
+                <!-- v-model 绑定的 isAgree 状态 会覆盖掉 checkbox 的 :value -->
+                v-model <input type='checkbox' id='agree' name="agree" :value="isAgree" v-model="isAgree"> 同意，进行下一步
             </label>
             <h2>您选择的是：{{isAgree}}</h2>
             <button :disabled="!isAgree">下一步</button>
@@ -34,7 +34,7 @@
         <div>
             <!-- 复选框 -->
             请选择您喜欢的球类运动（多选）：
-            <!-- 如果需要设置默认选中项，只需要将要设为默认项的value值 放入v-model绑定的hobbies数组中即可 -->
+            <!-- 如果需要设置默认选中项，只需要将默认项的value值 放入v-model绑定的hobbies数组中即可 -->
             <input type="checkbox" name='balls' value='足球' v-model='hobbies'>足球
             <input type="checkbox" name='balls' value='篮球' v-model='hobbies'>篮球
             <input type="checkbox" name='balls' value='网球' v-model='hobbies'>网球
@@ -50,8 +50,9 @@
             data: {
                 title:'v-model 绑定checkbox',
                 messages: [
-                    'v-model 绑定的 isAgree 状态 会覆盖掉 checkbox 的 checked unchecked 状态',
-                    '多选框如果需要设置默认选中项，只需要将要设为默认项的value值 放入v-model绑定的hobbies数组中即可'
+                    `通过 v-bind 绑定的 value 不会影响本身 checkbox 的选中状态，也不会根据元素的选中状态改变 value 的值`,
+                    '只有通过 v-model 绑定到 value 的值才会影响选中状态，且选中状态也会改变 value 的值',
+                    '多选框如果需要设置默认选中项，只需要将默认项的value值 放入v-model绑定的hobbies数组中即可'
                 ],
                 isAgree: false,
                 hobbies: ['篮球', '棒球']
