@@ -17,24 +17,36 @@
         <h2>子组件默认展示效果 </h2>
         <v-comp></v-comp>
 
-        <!-- 父组件替换展示效果 -->
-        <h2>父组件替换子组件展示效果 </h2>
+        <!-- 父组件替换展示效果 子传父的txt展示 -->
+        <h2>父组件替换展示效果 子传父的 txt 展示</h2>
         <v-comp>
-            <template slot-scope="slots">
+            <!-- 2.5.x 以下需要加 template ，2.5.x以上不用加 template 标签 -->
+            <!-- slot-scope 好像取什么名字都可以，只是为了调用子组件slot绑定的数据 -->
+            <template slot-scope="slots" slot="test">
                 <div>
-                    我所习得的编程语言：
-                    <!-- <span v-for='item in slots.data'>{{item}}, </span> -->
-                    <span>{{slots.data.join(' & ')}}</span>
+                    <span>{{slots.txt}}</span>
                 </div>
             </template>
+        </v-comp>
+
+        <!-- 父组件替换展示效果 子传父的txt展示-->
+        <h2>父组件替换子组件展示效果 子传父的 data 展示</h2>
+        <v-comp>
+            <div slot-scope="slots" slot="lang">
+                我所习得的编程语言：
+                <!-- <span v-for='item in slots.data'>{{item}}, </span> -->
+                <span>{{slots.data.join(' & ')}}</span>
+            </div>
         </v-comp>
     </div>
 
     <!-- 自定义组件模板 -->
     <template id='comp'>
         <div>
-            <h2>{{msg}}</h2>
-            <slot :data='pla'>
+            <slot :txt="msg" name="test">
+                <h2>{{msg}}</h2>
+            </slot>
+            <slot :data='pla' name="lang">
                 我所习得的编程语言：
                 <ul>
                     <li v-for='item in pla'>{{item}}</li>
@@ -73,7 +85,7 @@
                 title: String,
                 messages: {
                     type: Array,
-                    default () {
+                    default() {
                         return [];
                     }
                 }

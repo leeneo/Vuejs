@@ -12,22 +12,28 @@
     <div id="app">
         <!-- 调用组件 -->
         <v-note :title='title' :messages='messages'></v-note>
-        <v-comp><span>非指定替换内容</span></v-comp>
+
+        <v-comp></v-comp>
+
+        <v-comp><span>父组件模板： 替换掉不具名 slot 模板</span></v-comp>
+
         <v-comp>
-            <button slot='left'>返回</button>
-            <span slot='center'>搜索框</span>
-            <span slot='right'>下拉菜单</span>
+            <button slot='left'>替换掉指定 name slot 模板：返回</button>
+            <span slot='center'>替换掉指定 name slot 模板：搜索框</span>
+            <span slot='right'>替换掉指定 name slot 模板：下拉菜单</span>
+            <span>父组件模板： 替换掉不具名 slot 模板</span>
         </v-comp>
+
     </div>
 
     <!-- 自定义组件模板 -->
     <template id='comp'>
         <div>
             <h2>{{msg}}</h2>
-            <slot name='left'><span>具名插槽：左</span></slot><br>
-            <slot name='center'><span>具名插槽：中</span></slot><br>
-            <slot name='right'><span>具名插槽：右</span></slot><br>
-            <slot><span>不具名</span></slot>
+            <slot name='left'><span>具名插槽 默认模板：左</span></slot><br>
+            <slot name='center'><span>具名插槽  默认模板：中</span></slot><br>
+            <slot name='right'><span>具名插槽  默认模板：右</span></slot><br>
+            <slot><span>不具名插槽  默认模板: xxx</span></slot>
         </div>
     </template>
 
