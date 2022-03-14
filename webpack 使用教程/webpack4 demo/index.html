@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webpack4 demo</title>
+</head>
+
+<body>
+    <h2>webpack4 打包需要安装 webpack-cli </h2>
+    <h2>webpack4 打包js文件 有多种方式</h2>
+    <ul>
+        <li>webpack ./src/index.js -o ./dist/ 会在dist目录下自动生成 main.js</li>
+        <li>npx webpack </li>
+        <li>npx webpack --config webpack.config.js</li>
+    </ul>
+    <h2>添加 webpack.config.js 配置文件，可以简化很多操作，比如指定生成后的 js 文件名和目录</h2>
+    <h2>通过 npm scripts 方式运行 webpack </h2>
+    <h2>
+        在package.json 加入
+        <pre>
+        "scripts": {
+            "test": "echo \"Error: no test specified\" && exit 1",
+            "build": "webpack"
+          },    
+        </pre>
+    </h2>
+    <h2>之后通过 npm run build 命令，进行 webpack 打包</h2>
+    <h2>而且经过 scripts 配置过的 build 会优先运行本地的webpack</h2>
+
+
+
+    <script src="./dist/bundle.js"></script>
+</body>
+
+</html>
