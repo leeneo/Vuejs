@@ -1,0 +1,16 @@
+h2 {
+  font-size: 28px;
+  color: orange;
+}
+div {
+  margin-bottom: 50px;
+}
+a:link {
+  color: orange;
+}
+a:hover {
+  color: white;
+}
+a:visited {
+  color: #00c3ff;
+}
