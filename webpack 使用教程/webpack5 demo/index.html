@@ -35,8 +35,15 @@
         <li>development: bundle.js 代码没有被压缩</li>
         <li>production: bundle.js 代码是被压缩的</li>
     </ul>
+    <hr>
 
+    <!-- 测试区域 -->
+    <div id='app'>
+        <h2>此处会被 template 替换掉</h2>
+        <h2>{{message}}</h2>
+    </div>
 
+    <!-- // 引入 HtmlWebpackPlugin 后，就不需要手动通过 scirpt 标签引入打包的 bundle.js 了 -->
     <script src="./dist/bundle.js"></script>
 </body>
 

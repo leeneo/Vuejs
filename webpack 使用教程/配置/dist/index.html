@@ -12,9 +12,7 @@
     <h2>浏览本页面效果，请用dist\index.html</h2>
     <h2>webpack 使用帮助</h2>
     <ul>
-        <li>webpack2 打包命令：webpack soure.js target.js</li>
-        <li>webpack4 打包命令：webpack ./src/soure.js -o ./dist/bundle.js</li>
-        <li>不支持 反斜杠：' \'</li>
+        <li>webpack4 打包命令：webpack ./src/soure.js -o ./dist/</li>
         <li>只能打包符合 CommonJS 和 ES6 模块规范的 js 代码</li>
         <li>webpack 自动用命令打包，需要在项目中添加两个文件（package.json & webpack.config.js）</li>
         <li>使用 npm init 生成 package.json 文件，用来管理 node 环境依赖包</li>
@@ -54,7 +52,7 @@
         <li>加载小图片类文件：url-loader；大图片或字体文件：file-loader</li>
         <li>less 转 CSS：less-loader</li>
         <li>ES6 转 ES5 语法：bable-loader</li>
-        <li> 注意 bable-loader 的安装语法：install --save-dev babel-loader@7 babel-core babel-preset-es2015</li>
+        <li>注意 bable-loader 的安装语法：install --save-dev babel-loader@7 babel-core babel-preset-es2015</li>
         <li>需要将 babel-preset-env 项改成 babel-preset-es2015，使用 babel-preset-env 需要配置额外的 .bablerc 文件</li>
         <li>同时注意 bable-loader@8 需要 bable@7(bable-core) 以上版本，bable-loader@7 搭配 bable-core@6 版本使用</li>
     </ul>

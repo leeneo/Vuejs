@@ -12,7 +12,7 @@ import {
     name,
     age,
     height
-} from './js/info';
+} from './js/info.js';
 
 console.log(name, age, height);
 
@@ -22,20 +22,15 @@ require('./css/normal.css');
 // 请求依赖的 Less 文件
 require('./css/special.less');
 
-// 使用 vue 开发
+// 使用vue
 import Vue from 'vue';
-// 以 .js 方式引入入自定义的 vue 组件 
 // import App from './vue/app';
-// 以 .vue 方式引入入自定义的 vue 组件 
 import App from './vue/App.vue';
 
 new Vue({
-    // el and template 同时出现时，template 内容会将 el 内容整个替换掉
-    el: '#app',
+    el: "#app",
     template: `<App/>`,
-    components: {
+    components:{
         App
     }
-});
-
-// document.write('<div>123131</div>');
+})
