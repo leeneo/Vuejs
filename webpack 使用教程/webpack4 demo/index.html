@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>webpack4 demo</title>
+    <!-- <title>webpack4 demo</title> -->
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
 </head>
 
 <body>
@@ -30,14 +33,26 @@
     <h2>之后通过 npm run build 命令，进行 webpack 打包</h2>
     <h2>而且经过 scripts 配置过的 build 会优先运行本地的webpack</h2>
 
+    <h2>webpack4 相关</h2>
+    <ul>
+        <li>webpack-dev-server : webpack4 对应 webpack-dev-server@3.x.x 版本，dev server 超过这个版本会报错</li>
+        <li>webpack-dev-server : webpack-dev-server@3.x.x 对应 webpack cli3 版本，webpack cli 超过这个版本，
+            npm run serve 时会报错</li>
+        <li>npm run "serve": "webpack-dev-server --open --config ./build/dev.config.js"        </li>
+        <li>参数说明：--open 项目启动后自动打开首页</li>
+    </ul>
 
     <!-- 测试区域 -->
+    <hr>
+    <h2>测试区域</h2>
     <div id='app'>
         <h2>此处会被 template 替换掉</h2>
     </div>
 
     <!-- // 引入 HtmlWebpackPlugin 后，就不需要手动通过 scirpt 标签引入打包的 bundle.js 了 -->
-    <script src="./dist/bundle.js"></script>
+    <!-- 引入 HtmlWebpackPlugin，使用 dist/index.html 察看页面效果 -->
+    <!-- <script src="./dist/bundle.js"></script> -->
+
 </body>
 
 </html>

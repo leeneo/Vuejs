@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>webpack 使用帮助</title>
+    <!-- <title>webpack 使用帮助</title> -->
+    <title>webpack demo HtmlWebpackPlugin title</title>
 </head>
 
 <body>
-    <h2>npm run build 如有报错，请执行第二遍，或将 dist 删除后再执行一次</h2>
-    <h2>浏览本页面效果，请用dist\index.html</h2>
+    <h2>请通过 npm run serve 演示本项目，ctrl+c 终止项目运行</h2>
+    <h2>若使用 build方式，npm run build 如有报错，请执行第二遍，或将 dist 删除后再执行一次</h2>
+    <h2>若使用 build方式，浏览本页面效果，请用dist\index.html</h2>
     <h2>webpack 使用帮助</h2>
     <ul>
         <li>webpack4 打包命令：webpack ./src/soure.js -o ./dist/</li>
@@ -123,12 +125,14 @@
         <li>可用指定的模板 自动生成一个 index.html 文件，打包进 dist 文件夹中，并且自动引入打包好的 bundle.js 文件</li>
         <li>官方说法是：可以简化 html 的创建，将打包的 js 文件通过 script 标签插入 body 中</li>
         <li>通过 npm 安装后，在 webpack.config.js 中引入并配置，即可</li>
+        <li>此plugin 通过设置 title 可以动态设置 html 页面的 title</li>
     </ul>
 
     <h2>webpack-dev-server </h2>
     <ul>
         <li>The webpack-dev-server provides you with a simple web server and the ability to use live reloading.</li>
-        <li>webpack-dev-server doesn't write any output files after compiling. Instead, it keeps bundle files in memory</li>
+        <li>webpack-dev-server doesn't write any output files after compiling. Instead, it keeps bundle files in memory
+        </li>
         <li>这个服务器基于 nodejs 搭建，内部使用 express 框架</li>
         <li>
             特点：<br>
@@ -157,6 +161,8 @@
         <h2>此处会被 template 替换掉</h2>
     </div>
     <!-- // 引入 HtmlWebpackPlugin 后，就不需要手动通过 scirpt 标签引入打包的 bundle.js 了 -->
+    <!-- 引入 HtmlWebpackPlugin，使用 dist/index.html 察看页面效果 -->
+    <!-- 想要通过build 命令，以及屏蔽 HtmlWebpackPlugin，查看src下html页面实时改变效果，修改build\base.config.js -->
     <!-- <script src='./dist/bundle.js'></script> -->
 <script src="bundle.js"></script></body>
 

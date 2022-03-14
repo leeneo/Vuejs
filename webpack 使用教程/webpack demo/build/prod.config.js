@@ -6,6 +6,7 @@ const baseConfig=require('./base.config');
 // 注意：
 // webpack 5 需要移除此项，webpack 5 （内置压缩功能）打包的 js 是已经压缩的了
 // webpack 5 打包时，如设置有 BannerPlugin ，会单独生成一个 bundle.js.LICENSE.txt 文件
+// webpack4 中UglifyjsPlugin 的压缩功能，被optimization.minimize
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin');
 
 const webpackConfig = webpackMerg.merge(baseConfig, {

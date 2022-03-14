@@ -2,13 +2,12 @@
   <div>
     <h2>this is from App.vue</h2>
     <h2 class="title">{{ message }}</h2>
-    <Cpn/>
+    <Cpn />
   </div>
 </template>
 
 <script>
-
-import Cpn from './Cpn';
+import Cpn from "./Cpn";
 
 export default {
   name: "App",

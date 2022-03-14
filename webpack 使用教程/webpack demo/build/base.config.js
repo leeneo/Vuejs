@@ -19,15 +19,8 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // 使用 BannerPlugin ，需要引入 webapck
 const webpack = require('webpack');
 
-// 第三方 js 压缩插件
-// 因为 webpack 5 与 webpack-dev-server 现有版本不兼容，我才回退到 webpack 4
-// 注意：
-// webpack 5 需要移除此项，webpack 5 （内置压缩功能）打包的 js 是已经压缩的了
-// webpack 5 打包时，如设置有 BannerPlugin ，会单独生成一个 bundle.js.LICENSE.txt 文件
-const UglifyjsWebpackPlugin=require('uglifyjs-webpack-plugin');
-
 const webpackConfig = {
-  mode:'development',
+  mode: 'development',
   // 打包文件入口
   entry: './src/main.js',
   // 打包文件出口
@@ -44,13 +37,18 @@ const webpackConfig = {
   plugins: [
     // everything under <PROJECT_DIR>/dist/ will be removed
     new CleanWebpackPlugin(),
+
     // 入口文件名称管理
+    // 此 plugin 通过设置 title 可以动态设置 html 页面的 title
+    // 模板页的 title不会正确显示，但 dist 中的html title 确实会变
     new HtmlWebpackPlugin({
-      title: 'Output Management ok',
+      title: 'webpack demo HtmlWebpackPlugin title',
       template: 'webpack 使用帮助.html'
     }),
+
     // vue-loader 15.x 以上版本 需要配合此插件使用
     new VueLoaderPlugin(),
+
     // 会在 bundle.js.LICENSE.TXT 中添加相关版权信息
     new webpack.BannerPlugin({
       banner: '这里是添加的版权信息，by Leeneo！',
