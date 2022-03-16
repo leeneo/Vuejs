@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 
+// 安装插件
 Vue.use(VueRouter)
 
 // 路由懒加载
@@ -14,6 +15,7 @@ const About = () => import( /* webpackChunkName: "about" */ '../views/About.vue'
 const User = () => import('../views/User.vue');
 const Profile = () => import('../views/Profile.vue');
 
+// 配置url和组件间的映射关系
 const routes = [{
     path: '/',
     redirect: '/home'
@@ -76,6 +78,7 @@ const routes = [{
   }
 ]
 
+// 创建 vue router 对象
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

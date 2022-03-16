@@ -85,6 +85,28 @@
         </li>
     </ul>
 
+    <h2>runtime only vs runtime compiler 的区别</h2>
+    <ul>
+        <li>runtime compiler ：template->ast->render()->v-dom->真实 dom</li>
+        <li>runtime only ：render()->v-dom->真实 dom</li>
+        <li>runtime compiler demo 如该目录下的 cli2test,main.js 中有 template的即为 runtime compiler</li>
+        <li>runtime only demo 如该目录下的 cli4test,main.js 中没有 template，但有render 函数</li>
+        <li>runtime only 性能更高，因为省却了 编译template的过程</li>
+    </ul>
+
+    <h2>render 函数</h2>
+    <ul>
+        <li>传dom：render:function(createEl){return createEl('h2',{class:'box'},['hello',createEl('button','按钮')])}</li>
+        <li>传组件：render:createEl=>createEl(Component)}</li>
+    </ul>
+
+    <h2>配置相关</h2>
+    <ul>
+        <li>1，vue ui:使用图形化界面配置项目</li>
+        <li>2，通过node_modules\@vue\cli-service\ 这个目录来修改配置，比如 webpack</li>
+        <li>3，在项目根目录下手动添加 vue.config.js 该配置文件会自动与其他 webpack 配置文件合并</li>
+    </ul>
+
 </body>
 
 </html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue router 笔记</title>
+</head>
+
+<body>
+
+    <h2>路由的发展</h2>
+    <dl>
+        <dt>后端路由阶段</dt>
+        <dd>Jsp/PHP/Asp时期，后端处理url和页面之间的映射关系，然后由服务器端渲染好HTML代码，返回给客户端展示</dd>
+        <dt>前后端分离阶段</dt>
+        <dd>jQuery 时期，随着Ajax的出现，出现前后端分离的开发模式。这个时期采用大量由js,jq拼接生成的html代码</dd>
+        <dt>前后路由阶段</dt>
+        <dd>伴随SPA的出现，用户点击某个操作不在实现整个页面的重载，取而代之的是利用浏览器自身的特性(hash,history)，
+            通过js动态刷新html，从而模拟多个视图的切换</dd>
+        <dd>原理：一次从服务器端请求整套的state resource(html+css+js) ，然后点击链接切换视图时，从整套 state resource 里调用该视图的html+css+js</dd>
+        <dd>技术：利用 url hash, 和 h5 history 对象</dd>
+    </dl>
+
+    <h2>hash</h2>
+    <ul>
+        <li>location.hash='home'</li>
+    </ul>
+
+    <h2>h5 history</h2>
+    <ul>
+        <li>history.pushState({},'','home')</li>
+        <li>history.replaceState({},'','home')</li>
+        <li>pushState replaceState 的区别，repalceState 改变的 url 没有保存历史状态，也就是无法 back() go()</li>
+        <li>历史状态的 返回：history.back(),前进：history.go()</li>
+        <li>history.go(num); --num:正负整数 </li>
+        <li>history.back();</li>
+        <li>history.back()=history.go(-1) </li>
+        <li>history.forward=history.go(1) </li>
+    </ul>
+
+    <h2>vue router</h2>
+    <ul>
+        <li>在 vue router 的SPA 中，url的改变就是组件的切换</li>
+    </ul>
+    
+    <dl>
+        <dt>安装 vue router</dt>
+        <dd>1,npm install vue-router --save</dd>
+        <dd>2,Vue.use(VueRouter)</dd>
+    </dl>
+
+</body>
+
+</html>
