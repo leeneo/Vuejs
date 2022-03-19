@@ -14,7 +14,7 @@ export default {
     },
   },
   created() {
-    // console.log("user created");
+    console.log("user created");
   },
   destroyed() {
     // console.log("user destroyed");

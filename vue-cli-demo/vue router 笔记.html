@@ -138,11 +138,15 @@
     <ul>
         <li>keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染</li>
         <li>router-view 如果被包在 keep-alive里面，所有路径匹配到的视图组件都会被缓存</li>
+        <li>include: 字符串或正则表达式，只有匹配的组件才会被缓存</li>
+        <li>exclude: 字符串或正则表达式，任何匹配的组件都不会被缓存</li>
         <li>使用：
             &lt;keep-alive exclude="User,Profile">
             &lt;router-view />
             &lt;/keep-alive>
         </li>
+        <li>组件内使用 activated 或者 deactivated 函数，只有当使用了keep-alive时，这两个函数才会生效</li>
+        <li>同时使用 beforeRouteLeave 函数，控制路由以保存状态并正确访问</li>
     </ul>
 
 </body>

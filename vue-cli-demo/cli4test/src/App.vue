@@ -26,8 +26,9 @@
       <button @click="profileClick">档案</button>
     </div>
 
-    <!-- <router-view /> -->
-
+    <!-- router-view 如果被包在 keep-alive里面，所有路径匹配到的视图组件都会被缓存 -->
+    <!-- include: 字符串或正则表达式，只有匹配的组件才会被缓存 -->
+    <!-- exclude: 字符串或正则表达式，任何匹配的组件都不会被缓存 -->
     <keep-alive exclude="User,Profile">
       <router-view />
     </keep-alive>

@@ -24,7 +24,7 @@ export default {
   created() {
     console.log("home created");
   },
-  // 只有当使用keep-alive时，此函数才有效
+  // 只有当该组件被保持了状态，即使用keep-alive时，此函数才有效
   activated() {
     // console.log("activated", this.path);
     this.$router.push(this.path);
