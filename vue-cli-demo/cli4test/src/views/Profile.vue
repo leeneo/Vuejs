@@ -15,10 +15,11 @@
 export default {
   name: "Profile",
   created() {
-    console.log("Profile created");
+    // console.log("Profile created");
+    // console.log(this.$route.query) 
   },
   destroyed() {
-    console.log("Profile destroyed");
+    // console.log("Profile destroyed");
   },
 };
 </script>

@@ -15,21 +15,21 @@ export default {
   },
   created() {
     Window.prototype.vue = this;
-    console.log("created");
+    // console.log("created");
   },
   mounted() {
-    console.log("mounted");
+    // console.log("mounted");
   },
   updated() {
-    console.log("updated");
+    // console.log("updated");
   },
   beforeDestroy() {
     this.message='';
     console.log('message: ',this.message);
-    console.log('beforeDestroyed');
+    // console.log('beforeDestroyed');
   },
   destroyed() {
-    console.log("destroyed");
+    // console.log("destroyed");
   },
 };
 </script>

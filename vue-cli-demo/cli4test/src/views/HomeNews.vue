@@ -11,7 +11,8 @@
 <script>
 export default {
   name: "HomeNews",
-  computed: {
-  },
+  created() {
+    document.title=this.$route.meta.title;
+  }
 };
 </script>

@@ -5,6 +5,15 @@ import VueRouter from 'vue-router'
 // 安装插件
 Vue.use(VueRouter)
 
+// 解决首页菜单重复点击控制器报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function (location, onResolve, onReject) {
+  if (onResolve || onReject) {
+    return originalPush.call(this, location, onResolve, onReject)
+  } else
+    return originalPush.call(this, location).catch(err => err)
+}
+
 // 路由懒加载
 const Test = () => import('../views/Test.vue');
 const Home = () => import('../views/Home.vue');
@@ -27,6 +36,7 @@ const routes = [{
     meta: {
       title: '首页'
     },
+    // 嵌套路由
     children: [
       // {
       //   path: '/',
@@ -34,10 +44,17 @@ const routes = [{
       // }, 
       {
         path: 'news',
-        component: HomeNews
-      }, {
+        component: HomeNews,
+        meta: {
+          title: '首页-新闻'
+        },
+      },
+      {
         path: 'views',
-        component: HomeMessages
+        component: HomeMessages,
+        meta: {
+          title: '首页-新闻'
+        },
       }
     ]
   },
@@ -80,9 +97,10 @@ const routes = [{
 
 // 创建 vue router 对象
 const router = new VueRouter({
+  routes,
   mode: 'history',
   base: process.env.BASE_URL,
-  routes,
+  // linkActiveClass 会在视图 view 中修改 active-class 为指定值，从而来切换选中样式
   linkActiveClass: 'active'
 })
 
@@ -94,8 +112,9 @@ router.beforeEach((to, from, next) => {
 })
 
 // 全局后置钩子
-router.afterEach((to, from, next) => {
+router.afterEach((to, from) => {
   // console.log('全局后置钩子');
 })
 
+// 将 vue router 对象导出到 vue实例
 export default router

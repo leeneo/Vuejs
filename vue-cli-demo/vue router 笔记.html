@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <h2>所有组件都继承自 vue 的原型</h2>
 
     <h2>路由的发展</h2>
     <dl>
@@ -44,12 +45,105 @@
     <ul>
         <li>在 vue router 的SPA 中，url的改变就是组件的切换</li>
     </ul>
-    
+
     <dl>
         <dt>安装 vue router</dt>
         <dd>1,npm install vue-router --save</dd>
         <dd>2,Vue.use(VueRouter)</dd>
     </dl>
+
+    <h2>vue router 的使用</h2>
+    <ol>
+        <li>创建映射到 url 的组件，也就是 vue 组件</li>
+        <li>配置 url 到组件间的映射</li>
+        <li>通过在视图中插入&lt;router-link> &lt;router-view> 使用路径映射关系(路由)</li>
+        <li>视图使用 router-link 是一个vue-router 内部已经注册的组件，它在页面上最终会渲染成一个a标签</li>
+        <li>router-view 相当&lt;cpn/>，它指示组件加载的区域</li>
+    </ol>
+
+    <h2>更改路由</h2>
+    <ul>
+        <li>视图使用 router-link</li>
+        <li>js中使用 this.$router.push("/about") | this.$router.replace("/about") </li>
+    </ul>
+
+    <h2>路由绑定参数（拼接url）</h2>
+    <ul>
+        <li>routes:{path:/user/:uid}</li>
+        <li>使用v-bind ：&lt;router-link :to="'/user/' + uid"> 绑定参数到 user 视图</li>
+        <li>user组件拿到 user视图传递的参数：this.$route.params.uid</li>
+    </ul>
+
+    <h2>路由传参</h2>
+    <dl>
+        <dt>params 方式：</dt>
+        <dd>路由配置：{path:/router/:id}</dd>
+        <dd>视图：&lt:router-link :to="'/router/' + uid"></dd>
+        <dd>取参：$route.params.uid</dd>
+        <dd>形成的链接：/router/123</dd>
+        <dt>query 方式：</dt>
+        <dd>路由配置：普通配置，不需要加动态值 :id</dd>
+        <dd>视图：&lt;router-link :to="{path:'/router',query:{name:'leeneo',age:'28'}}">&lt;/router-link></dd>
+        <dd>取参：$route.query | $route.query.name</dd>
+        <dd>形成链接：/router?name=leeneo&age=28</dd>
+        <dt>事件方式</dt>
+        <dd>this.$router.push('/router'+this.uid)</dd>
+        <dd>this.$router.push({path:'/router',query:{name:'neo',age:28}})</dd>
+    </dl>
+
+
+    <h2>路由的懒加载</h2>
+    <ul>
+        <li>懒加载：用到时方加载</li>
+        <li>主要作用：将不同路由对应的组件分割成不同的js代码块，只有当路由被访问的时候，才加载对应代码</li>
+    </ul>
+
+    <h2>路由嵌套（分层）</h2>
+    <ul>
+        <li>&lt;router-link to="/home/news" tag="button">新闻&lt;/router-link></li>
+        <li>在要追加层级的组件路由下添加 children --> routes:{Home:{children:[]}} </li>
+    </ul>
+
+    <h2>this.$router this.$route 的区别</h2>
+    <ul>
+        <li>this.$router:VueRouter 外层最大的VueRouter对象: this.$router.push()|replace()</li>
+        <li>this.$route: 当前激活的路由(active of routes)对象，可以访问当前路由的 path,params,query等</li>
+    </ul>
+
+    <h2>全局守卫，勾子函数 router.beforeEach() and router.afterEach</h2>
+    <ul>
+        <li>用于在进入页面之前做些限制，比如验证登录权限，比如设置页面title</li>
+        <li>beforeEach(to,from,next) 需要 next 函数，否则运行会出错</li>
+        <li>afterEach(to,from) 不需要 next 函数</li>
+    </ul>
+
+    <h2>使用 beforeEach() 设置页面title</h2>
+    <dl>
+        <dt>事件中设置title：</dt>
+        <dd>created(){document.title = "首页-消息"}</dd>
+        <dt>路由中设置title：</dt>
+        <dd>1, route:{meta:{title:'简介' }}</dd>
+        <dd>2, beforeEach((to, from, next) =>{document.title = to.matched[0].meta.title})</dd>
+    </dl>
+
+    <h2>其他守卫函数</h2>
+    <ol>
+        <dt>路由独享守卫</dt>
+        <dd>route 里面配置 beforeEnter(to,from,next) 函数</dd>
+        <dt>组件内守卫</dt>
+        <dd>beforeRouteEnter(to,from,next), beforeRouteUpdate(to,from,next), beforeRouteLeave(to,from,next)</dd>
+    </ol>
+
+    <h2>keep-alive</h2>
+    <ul>
+        <li>keep-alive 是 Vue 内置的一个组件，可以使被包含的组件保留状态，或避免重新渲染</li>
+        <li>router-view 如果被包在 keep-alive里面，所有路径匹配到的视图组件都会被缓存</li>
+        <li>使用：
+            &lt;keep-alive exclude="User,Profile">
+            &lt;router-view />
+            &lt;/keep-alive>
+        </li>
+    </ul>
 
 </body>
 
