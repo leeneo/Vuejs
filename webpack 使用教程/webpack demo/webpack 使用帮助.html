@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <title>webpack 使用帮助</title> -->
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
 </head>
 
 <body>
@@ -154,6 +156,25 @@
         <li>需要安装 webpack-merge 对抽离的配置文件进行合并</li>
     </ul>
 
+    <h2>配置路径别名 alias</h2>
+    <ul>
+        <li><h3>配置：webpack.base.config.js</h3></li>
+        <li>resolve:{alias:{</li>
+        <li>'@': resolve('src'),</li>
+        <li>'assets': resolve('src/assets'),</li>
+        <li>'components': resolve('src/components'),</li>
+        <li>'views': resolve('src/views') }}</li>
+        <li><h3>使用：</h3></li>
+        <li>import xxx from "@/components/xxx";</li>
+        <li>src="@/assets/img/xxx.jpg"</li>
+    </ul>
+
+    <h2>cli3&cli4 中修改 webpack 的配置文件</h2>
+    <ul>
+        <li>1，vue ui:使用图形化界面配置项目</li>
+        <li>2，通过node_modules\@vue\cli-service\ 这个目录来修改配置，比如 webpack</li>
+        <li>3，在项目根目录下手动添加 vue.config.js 该配置文件会自动与其他 webpack 配置文件合并</li>
+    </ul>
 
     <!-- 测试区域 -->
     <hr>
