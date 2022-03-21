@@ -11,7 +11,7 @@
       <span slot="item-text">首页</span>
     </tab-bar-item>
     <tab-bar-item path="/category" activeColor="deepskyblue">
-      <img slot="item-icon" src="@/assets/img/tabbar/category.png" alt="" />
+      <img slot="item-icon" src="~assets/img/tabbar/category.png" alt="" />
       <img
         slot="item-icon-active"
         src="@/assets/img/tabbar/category-a.png"
@@ -20,19 +20,19 @@
       <span slot="item-text">分类</span>
     </tab-bar-item>
     <tab-bar-item path="/cart" activeColor="darkseagreen">
-      <img slot="item-icon" src="@/assets/img/tabbar/cart.png" alt="" />
+      <img slot="item-icon" src="~assets/img/tabbar/cart.png" alt="" />
       <img
         slot="item-icon-active"
-        src="@/assets/img/tabbar/cart-a.png"
+        src="~assets/img/tabbar/cart-a.png"
         alt=""
       />
       <span slot="item-text">蓝子</span>
     </tab-bar-item>
     <tab-bar-item path="/profile" activeColor="deeppink">
-      <img slot="item-icon" src="@/assets/img/tabbar/profile.png" alt="" />
+      <img slot="item-icon" src="~assets/img/tabbar/profile.png" alt="" />
       <img
         slot="item-icon-active"
-        src="@/assets/img/tabbar/profile-a.png"
+        src="~assets/img/tabbar/profile-a.png"
         alt=""
       />
       <span slot="item-text">我的</span>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import TabBarItem from "@/components/tabbar/TabBarItem";
+import TabBarItem from "components/tabbar/TabBarItem";
 
 export default {
   name: "TabBar",

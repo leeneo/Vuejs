@@ -156,17 +156,21 @@
         <li>需要安装 webpack-merge 对抽离的配置文件进行合并</li>
     </ul>
 
-    <h2>配置路径别名 alias</h2>
+    <h2>webpack.base.config.js 配置路径别名(alias) </h2>
     <ul>
-        <li><h3>配置：webpack.base.config.js</h3></li>
         <li>resolve:{alias:{</li>
         <li>'@': resolve('src'),</li>
         <li>'assets': resolve('src/assets'),</li>
         <li>'components': resolve('src/components'),</li>
-        <li>'views': resolve('src/views') }}</li>
-        <li><h3>使用：</h3></li>
+        <li>'views': resolve('src/views') }}</li> 
+    </ul>
+
+    <h2>别名的使用</h2>
+    <ul>
         <li>import xxx from "@/components/xxx";</li>
+        <li>import xxx from "components/xxx";</li>
         <li>src="@/assets/img/xxx.jpg"</li>
+        <li>src="~assets/img/xxx.jpg"</li>
     </ul>
 
     <h2>cli3&cli4 中修改 webpack 的配置文件</h2>

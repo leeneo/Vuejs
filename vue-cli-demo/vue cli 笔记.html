@@ -109,6 +109,24 @@
         <li>3，在项目根目录下手动添加 vue.config.js 该配置文件会自动与其他 webpack 配置文件合并</li>
     </ul>
 
+    <h2>vue.config.js 配置别名(alias)</h2>
+    <ul>
+        <li>chainWebpack:()=>{</li>
+        <li>config.resolve.alias</li>
+        <li>.set("@", resolve("src")) </li>
+        <li>.set("components", resolve("src/components"))</li>
+        <li>.set("assets", resolve("src/assets"))</li>
+        <li>}</li>
+    </ul>
+
+    <h2>别名的使用</h2>
+    <ul>
+        <li>import xxx from "@/components/xxx";</li>
+        <li>import xxx from "components/xxx";</li>
+        <li>src="@/assets/img/xxx.jpg"</li>
+        <li>src="~assets/img/xxx.jpg"</li>
+    </ul>
+
 </body>
 
 </html>
