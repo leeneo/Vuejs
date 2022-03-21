@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // const TabBar = () => import('../components/tabbar/TabBar.vue');
-const Home = () => import('../views/home/home.vue');
+const Home = () => import('../views/home/Home.vue');
 const Cart = () => import('../views/cart/Cart.vue');
-const Category = () => import('../views/Category/Category.vue');
-const Profile = () => import('../views/Profile/Profile.vue');
+const Category = () => import('../views/category/Category.vue');
+const Profile = () => import('../views/profile/Profile.vue');
 
 Vue.use(Router)
 
