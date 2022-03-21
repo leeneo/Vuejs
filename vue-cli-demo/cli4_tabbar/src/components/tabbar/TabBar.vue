@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import TabBarItem from "components/tabbar/TabBarItem";
+import TabBarItem from "@/components/tabbar/TabBarItem";
 
 export default {
   name: "TabBar",
