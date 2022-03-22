@@ -5,7 +5,7 @@ var moduleB = (function () {
     var flag = false;
 
     if (!flag) {
-        document.getElementById('bcont').innerHTML = 'bcont';
+        document.getElementById('bcont').innerHTML = 'moduleB: bcont <br/>';
     }
     obj.flag = flag;
     console.log('moduleB:', obj);

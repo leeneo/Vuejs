@@ -4,7 +4,7 @@ var moduleA = (function () {
     var flag = true;
 
     if (flag) {
-        document.getElementById('acont').innerHTML = 'acont';
+        document.getElementById('acont').innerHTML = 'moduleA: acont <br/>';
     }
 
     function sum(a, b) {

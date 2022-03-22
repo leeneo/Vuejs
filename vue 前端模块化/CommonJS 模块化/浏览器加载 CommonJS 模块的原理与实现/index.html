@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommonJS 的模块</title>
+</head>
+
+<body>
+    <h2>CommonJS 的模块化</h2>
+    <ul>
+        <li>
+            <h3>特点：module.exports 加 require('/xx.js') 命令</h3>
+        </li>
+        <li> module.exports = { </li>
+        <li>name:"kobe" </li>
+        <li>age:18 </li>
+        <li>group:{} </li>
+        <li>};</li>
+    </ul>
+    <h2>node 可以直接执行含有 CommonJS 规范的js代码</h2>
+
+    <!-- 浏览器执行commonjs 规范代码方案： -->
+    <script src="./js/require.js"></script>
+    <script src="./index.js"></script>
+</body>
+
+</html>

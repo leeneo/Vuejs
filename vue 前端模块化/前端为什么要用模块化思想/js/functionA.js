@@ -1,5 +1,6 @@
-//A 程序员写的js:a
-(function(){
+// 匿名闭包A
+// 闭包A 声明了 flag 和 sum 函数
+;(function(){
     var flag = true;
 
     if (flag) {

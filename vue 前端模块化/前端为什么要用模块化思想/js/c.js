@@ -5,5 +5,5 @@
 // 如何解决 js 的设计之初的弊端：全局变量冲突的问题
 // 答案：模块化
 if(flag){
-    document.getElementById('ccont').innerHTML='c-cont';
+    document.getElementById('ccont').innerHTML='ccont';
 }

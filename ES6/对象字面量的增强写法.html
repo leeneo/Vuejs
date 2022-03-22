@@ -49,7 +49,8 @@
 			height: height,
 			flag: true
 		}
-		console.log('ES5的写法：' + JSON.stringify(es5obj));
+		// console.log('ES5的写法：' + JSON.stringify(es5obj));
+		console.log('ES5的写法：', es5obj);
 
 		// ES6的写法
 		const es6obj = {
@@ -58,7 +59,10 @@
 			height,
 			flag: true
 		}
-		console.log('ES6的写法：' + JSON.stringify(es6obj));
+		es6obj.name = 'james'
+		es6obj.name = 19
+		// console.log('ES6的写法：' + JSON.stringify(es6obj));
+		console.log('ES6的写法：', es6obj);
 
 		// 2.函数的增强写法
 		// ES5的写法
@@ -71,7 +75,7 @@
 			}
 		}
 		es5func.run();
-		
+
 		// ES6的写法
 		const es6func = {
 			run() {

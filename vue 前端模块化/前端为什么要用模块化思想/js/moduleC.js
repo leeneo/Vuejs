@@ -6,8 +6,12 @@
 // 答案：模块化
 var moduleC = (function () {
     if (moduleA.flag) {
-        document.getElementById('ccont').innerHTML = 'c-cont';
+        document.getElementById('ccont').innerHTML = 'moduleC: ccont ,Aflag=true<br/>';
+    }
+    
+    if (moduleB.flag) {
+        document.getElementById('ccont').innerHTML = 'moduleC: ccont Bflag=true<br/>';
     }
 
-    moduleA.sum(2, 3);
+    moduleA.sum(1, 2);
 })();
