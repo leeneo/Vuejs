@@ -38,9 +38,9 @@
                 reject('失败操作2'); //promise对象变为 rejected 状态，进入 catch 回调
             }, 1000)
         }).then(data => {
-            console.log('执行结果2: ', data);
+            console.log('执行结果2 then data: ', data);
         }, err => {
-            console.log('执行结果2: ', err);
+            console.log('执行结果2 then err: ', err);
         })
     </script>
 </body>

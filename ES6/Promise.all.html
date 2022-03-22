@@ -44,8 +44,8 @@
                 //     }
                 // })
                 setTimeout(() => {
-                    // resolve({ res: 'result3' });
-                    reject({ res: 'err mesg!' })
+                    resolve({ res: 'result3' });
+                    // reject({ res: 'err mesg!' })
                 }, 1200);
             }),
         ]).then(results => {
