@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript-let 和 var</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>text here：
+            <span>{{message}}</span>
+        </h2>
+    </div>
+
+    <script src="./js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '请观察console窗口!'
+            },
+            computed: {
+
+            },
+            methods: {
+
+            }
+        });
+
+        //var let 的区别,var是javascript语言的缺陷，let是为了弥补这种缺陷而生的
+
+        //Javascript没有块级作用域（{}限定不了var定义的变量可访问范围），javascript只有函数有作用域
+        // {
+        //     var i = 99;
+        // }
+        // console.log(i);     //外部可访问
+
+        //ES6新增的let可以将定义的变量可访问范围限定在{}，即可限定在块级作用域
+        // {
+        //     let l = 100;    //l只在当前{}内有效
+        // }
+        // console.log(l);     //外部不可访问
+
+        //输出10个10，在定时函数执行前，for已执行完所有的循环，a传到定时函数的值始终是10
+        for (var a = 0; a < 10; a++) {
+            setTimeout(() => {
+                console.log('var: ' + a);
+            }, 0);
+        }
+
+        //let 的值会被限定在局部范围内，相当于下面的闭包for
+        for (let b = 0; b < 10; b++) {
+            setTimeout(() => {
+                console.log('let: ' + b);
+            }, 0);
+        }
+
+        for (var c = 0; c < 10; c++) {
+            (function (num) {
+                setTimeout(() => {
+                console.log('闭包: ' + num);
+            }, 0);
+            })(c)
+        }
+
+        //let 不能重复声明同一个变量，var可以 
+        // var a=2;var a=3;console.log(a);
+        // let a=22;let a=33;console.log(a);
+    </script>
+</body>
+
+</html>
