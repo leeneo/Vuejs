@@ -4,29 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>前端模块化思想的演进</title>
+    <title>ES6的模块化实现</title>
 </head>
 
 <body>
     <div>
         <h4>测试本页面脚本，需下载 Live Server 插件(vs code 扩展)，然后通过 Live Server 打开，从而避开 script:type=module 的浏览器跨域问题</h4>
-        <h4>script:type=module 产生跨域问题解析：</h4>  
+        <h4>script:type=module 产生跨域问题解析：</h4>
         <ul>
             <li>默认情况下，互联网是以 HTTP 协议传输 HTML,CSS,JavaScript 等文件的，这种情况下访问本地文件，其 Origin 是同源的，不会产生跨域问题</li>
             <Li>但是当 JavaScript 声明为 module type 时，其 Origin 变成 null，这时跨域就产生了（Sec-Fetch-Mode：cors）</Li>
-            <li>Access to script at 'xx.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https</li>
+            <li>Access to script at 'xx.js' from origin 'null' has been blocked by CORS policy: Cross origin requests
+                are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https
+            </li>
             <li>翻译过来就是：从未知源发出的访问xx脚本的请求被阻塞了，跨源请求仅支持如下协议方案：http、data、chrome、chrome 扩展、https 等</li>
             <li>如何解决这种访问本地文件的跨域呢，其实很简单，给跨域的文件一个 orgin ，然后再从这个 orgin 发起请求不就解决了？</li>
             <li>那么怎么实现呢？搭建一个 server 就可以了</li>
         </ul>
+
+        <h4>为什么要加 type="module"</h4>
+        <ul>
+            <li>使用 type='module’ 解决不同 js 文件内部变量(var 变量)命名冲突问题。</li>
+            <li>也就是声明每个js文件为单独的模块，每个单独的模块有自己的作用域</li>
+        </ul>
+
         <span id='acont'></span>
         <span id='bcont'></span>
         <span id='ccont'></span>
+
     </div>
 
+    <!-- 使用type='module’解决命名冲突问题。 -->
     <script src="./js/export.js" type='module'></script>
-    <script src="./js/test.js" type='module'></script>
     <script src="./js/import.js" type='module'></script>
+    <script src="./js/test.js" type='module'></script>
 </body>
 
 </html>
