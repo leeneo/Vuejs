@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vuex 笔记</title>
+    <style>
+        li {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .code li span {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>vuex 是一个为 vue 应用开发的集中式状态管理插件，属于生产时依赖</h2>
+    <ol>
+        <li>
+            概念：可以简单的理解为把需要多个组件间共享的变量全部存储在一个对象里面。然后把这个对象放在顶层的vue实例中，
+            让其他组件可以访问使用。
+        </li>
+        <li> 类似于在vue实例原型上添加一个公共变量: </li>
+        <li>Vue.prototype.commonObj={};</li>
+    </ol>
+
+    <h2>vuex 特性： </h2>
+    <ol>
+        <li>响应式</li>
+        <li>虽然可以自己封装一个对象来管理公共变量，但很难做到响应式，所以会用到 vuex。</li>
+        <li>*vuex 就是一个在多个组件间共享状态的插件，并且可以响应式改变和跟踪这些状态。</li>
+    </ol>
+
+    <h2>需要使用vuex的地方： </h2>
+    <ol>
+        <li>用户的登录状态，用户信息（ID,名称，头像，），地理位置信息等等</li>
+        <li>购物车，收藏夹，对比信息</li>
+    </ol>
+
+    <h2>vuex 核心概念</h2>
+    <ol>
+        <li> State,Getters,Mutations,Actions,Modules</li>
+    </ol>
+
+    <h2>vuex 状态管理流程</h2>
+    <ol>
+        <li>Vuex 状态相关：Actions,Mutaions,State </li>
+        <li>Actions(commit)-->Mutations(mutate-突变)-->State(render)-->Vue components(dispatch-发送)-->
+            Actions(异步时使用)/Mutations</li>
+        <li>Backend API 通过 Actions 与 Vuex 进行交互</li>
+        <li>DevTools 通过 Mutations 与 Vuex 进行交互</li>
+        <li>Vue components 通过 Actions（异步时使用）、Mutations 修改 State 与 Vuex 进行交互</li>
+        <li>*Vue components 也可以直接修改State，但这样的操作 DevTools 跟踪不到，所以官方不建议这样做。</li>
+        <li>单界面的状态管理：State(存储变量)->View(信息展示)->Action(用户操作)->State(改变后变量)</li>
+        <li> 单一状态树概念（单一数据源）：即整个 vue 实例有且仅有一个 $store </li>
+    </ol>
+
+    <h2>安装 vuex</h2>
+    <ol>
+        <li>npm install vuex --save</li>
+    </ol>
+
+    <h2>使用 vuex (主要是使用 vuex 中的 store 对象)</h2>
+    <ol>
+        <li>
+            <h4>新建store/index.js: //把需要在组件间共享的变量定义在 soter 中</h4>
+            <code>
+            import Vue from 'vue'   <br>
+            import Vuex from 'vuex' <br>
+            Vue.use(Vuex)           <br>
+            export default new Vuex.Store({ 
+              state: {counter: 0}
+            });
+            </code>
+        </li>
+        <li>
+            <h4>main.js: </h4>
+            <code>
+                import store from './store' //引入并在 vue 实例中配置 store 对象。<br>
+                new Vue({                    <br>
+                    el: '#app',              <br>
+                    store,                   <br>
+                    router,                  <br>
+                    render: h => h(App)      <br>
+                })
+            </code>
+        </li>
+    </ol>
+
+    <h2>vuex 使用详解(new Vuex.Store({}))：</h2>
+    <ol class="code">
+        <li>
+            <span>state 声明的变量都是响应式的</span>
+            <span>state 定义: {counter: 0}</span>
+            <span>state 使用：{{$store.state.counter}}</span><br>
+        </li>
+        <li>
+            <span>mutations 定义改变 state 的事件: <br><code>{ fn(state){ state.counter++ } }</code></span>
+            <span>mutations 使用，组件 commit 到 mutaitons：</span>
+            <span><code>methods:{ fn(){ this.$store.commit("increment") } }</code></span><br>
+        </li>
+        <li>
+            <h4>通过 commit 向 mutation 传递参数，以更新数据，这个参数叫做“负载-payload”，参数也可以是一个对象</h4>
+            <span>mutations 定义改变 state 的事件，用参数更新: <br>
+                <code>{ updateCount(state,num){ state.counter+=num } }</code>
+            </span>
+            <span>mutations 使用，组件 commit 到 mutaitons，传递参数：</span>
+            <span><code>methods:{ addCount(num){ this.$store.commit("updateCount",num) } }</code></span><br>
+        </li>
+        <li>
+            <h4>通过 commit 向 mutation 提交是一种普通的方式，vue提供了另一种提交 mutaion的风格，一个包含 type 属性的对象</h4>
+            <span>mutations 定义: <br>
+                <code>{ updatePayload(state,payload){ state.counter += payload.num } }</code>
+            </span>
+            <span>mutations 使用：</span>
+            <span><code>methods:{ updatePayload(num){ this.$store.commit({type:"updatePayload",num}) } }</code></span><br>
+        </li>
+        <li>
+            <span>getters 定义(作用类似 computed)， 返回值为非函数:</span>
+            <span><code>{bigThan20(state){return state.students.filter(s => s.age > 20)}}</code></span>
+            <span>getters 使用：</span>
+            <span><code>{{$store.getters.bigThan20}}</code></span><br>
+        </li>
+        <li>
+            <span>getters 定义， 返回值为非函数，双参数:</span>
+            <span><code>{bigThan20Length(state,getters){ return getters.bigThan20.length }}</code></span>
+            <span>getters 使用：</span>
+            <span><code>{{$store.getters.bigThan20Length}}</code></span><br>
+        </li>
+        <li>
+            <span>getters 定义， 返回值为函数，可以接受参数:</span>
+            <span><code>{ bigThanAge(state){return age => {return state.students.filter(s => s.age > age) }} }</code></span>
+            <span>getters 使用，模板用函数，并传参：</span>
+            <span><code>{{$store.getters.bigThanAge(25) }}</code></span><br>
+        </li>
+    </ol>
+
+    <h2>通过mutation （响应式）修改 state 数据的一些方式</h2>
+    <ul>
+        <li>
+            <code>// 这些对数据的修改都是响应式的</code>
+        </li>
+        <li>
+            <code>// 但是 vue 之前的版本（除了vue.set|vue.delete 以及修改原有数据项时）都是非响应式的</code>
+        </li>
+        <li>
+            <code>state.info.name = 'harry';</code>
+        </li>
+        <li>
+            <code>// state.info.height = 20;</code>
+        </li>
+        <li>
+            <code>// state.info['addr'] = 'ffff';</code>
+        </li>
+        <li>
+            <code>// delete state.info.sex;</code>
+        </li>
+        <li><code>Vue.set(state.info,'addr','英国');</code>
+        </li>
+        <li>
+            <code>Vue.delete(state.info,'age');</code>
+        </li>
+    </ul>
+
+    <h2>Actions 使用详解</h2>
+    <ol>
+        <li>
+            <h4>Mutations 里面的方法不能是异步的，因为devtools 无法很好的跟踪 mutations 中的异步操作</h4>
+        </li>
+        <li>
+            <h4>Actions 类似于 Mutations,但是用来代替Mutations 进行异步操作的，能被 devtools 跟踪到</h4>
+        </li>
+        <li>更新方法提交到mutations,实际的更新数据操作依然在 mutations 中，只是加了一个异步的壳</li>
+    </ol>
+
+    <h2>使用:</h2>
+    <ol>
+        <li>
+            vuex actions:
+            <code>
+                aUpdateInfo(context) {
+                    setTimeout(() => {
+                    context.commit('updateInfo');
+                    }, 1000);
+                    }
+            </code>
+        </li>
+        <li>
+            vue methods:
+            <code>
+                aUpdateInfo(){
+                    this.$store.dispatch("aUpdateInfo");
+                    }
+            </code>
+        </li>
+        <li>
+            mutations updateInfo:
+            <code>
+                updateInfo(state) {
+                    state.info.name='通过 actions 异步方式修改数据'
+                }
+            </code>
+        </li>
+    </ol>
+
+    <h2>modules</h2>
+    <ol>
+        <li>vue 使用单一状态树，很多状态都会交给单一个store对象管理</li>
+        <li>当应用复杂时，store对象就会变得臃肿，而module 允许将store分割成不同的模块</li>
+        <li>每个模块有自己的state,mutations,actons,getters</li>
+        <li>被分割后，顶级的模块为根(root)模块</li>
+    </ol>
+    <h2>modules 使用详解</h2>
+    <ol>
+        <li><code>const mouleA={state:{name:'aaa'},...}</code></li>
+        <li>root Store: <code>modules:{a:moudleA}</code></li>
+        <li>App vue: <code>$store.state.a.name</code></li>
+        <li>mutations,actions,getters用法同root module：函数命名不要与 root module里的相同就行，
+            使用时根模块找不到，就会往分模块找</li>
+        <li>
+            分模块的 getters 可以传第3个参数 rootState:
+            <code>fullName(state,getters,rootState){return getters.fullName2+rootState.counter}</code>
+        </li>
+        <li>
+            分模块的 actions context 除了，模块自身定义的，还包含 root 的一些东西可供访问: rootGetters,rootState:
+            <code>fullName(state,getters,rootState){return getters.fullName2+rootState.counter}</code>
+        </li>
+    </ol>
+</body>
+
+</html>
