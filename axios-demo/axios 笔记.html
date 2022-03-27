@@ -194,10 +194,43 @@
 
     <h2>拦截器</h2>
     <ol>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>
+            <code>
+                //配置请求拦截
+                instance.interceptors.request.use(config=>{
+                    console.log('请求拦截success')
+                    return config;
+                },err=>{
+                    console.log('请求拦截failure')
+                    return err;                   
+                })
+            </code>
+        </li>
+        <li>
+            <code>
+                //配置响应拦截
+                instance.interceptors.response.use(response=>{
+                    console.log('响应拦截success')
+                    return response.data;
+                },err=>{
+                    console.log('响应拦截failure')
+                    return err;                   
+                })
+            </code>
+        </li>
+        <li>全局网络请求对应全局拦截器，实例网络请求对应实例拦截器，互不干扰</li>
+        <li>如果设置了拦截器，每次网络请求都会经过对应的拦截器</li>
+        <li>组件内的全局axios请求不会激发main函数中定义的全局拦截器（除非在组件内部也定义相应的全局拦截器），
+            但是封装的request发起的请求会激发axios实例上的拦截器</li>
     </ol>
+
+    <h3>拦截器的作用</h3>
+    <ol>
+        <li>比如处理信息不符合的请求</li>
+        <li>预加载过程中的一些事务处理：比如设置loading动画</li>
+        <li>检测登录请求的token等等</li>
+    </ol>
+
 </body>
 
 </html>

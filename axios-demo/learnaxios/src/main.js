@@ -14,6 +14,16 @@ axios.defaults.baseURL = 'http://123.207.32.32:8000'
 axios.defaults.timeout = 2000 //毫秒
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
+// 全局拦截器 
+// 1.要写在网络请求发起之前
+// 2.没有全局网络请求发起，该拦截器不会执行
+axios.interceptors.request.use(config => {
+  console.log('全局拦截器-main： ', config);
+  return config;
+}, err => {
+  console.log(err);
+})
+
 // 使用全局的 axios 对象和对应的配置进行网络请求
 // 最简单的方式
 // axios({
