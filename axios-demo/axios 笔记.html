@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>axios 笔记</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,14 +27,14 @@
             <h3>jQuery ajax</h3>
             <ul>
                 <li>封装好的 ajax ，jQuery 时期非常好用，但到了移动端就不行了</li>
-                <li>jQuery重量级太大，放到移动端手机流量承受不住</li>                
+                <li>jQuery重量级太大，放到移动端手机流量承受不住</li>
             </ul>
         </li>
         <li>
             <h3>Vue-resource</h3>
             <ul>
                 <li>vue 1.0 时期推出的</li>
-                <li>vue 2.0 出来后，vue resource 被抛弃</li>                
+                <li>vue 2.0 出来后，vue resource 被抛弃</li>
             </ul>
         </li>
         <li>
@@ -40,36 +45,154 @@
         </li>
     </ol>
 
+    <h2>axios 的功能特点</h2>
     <ol>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>
+            同样的API,支持node端和浏览器端
+            <ul>
+                <li>从浏览器中创建 XMLHttpRequests</li>
+                <li>从 node.js 创建 http 请求</li>
+            </ul>
+        </li>
+        <li>
+            使用Promise管理异步
+            <ul>
+                <li>支持 Promise API</li>
+            </ul>
+        </li>
+        <li>
+            支持拦截器等高级配置
+            <ul>
+                <li>拦截请求和响应</li>
+                <li>转换请求数据和响应数据</li>
+            </ul>
+        </li>
+        <li>取消请求(cancelToken)</li>
+        <li>自动转换 JSON 数据</li>
+        <li>客户端支持防御 XSRF</li>
+        <li>社区支持：axios相关的npm包数量一直在增长</li>
     </ol>
+
+
+    <h2>请求方式</h2>
+    <ul>
+        <li>
+            <code>
+                axios(config);
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.request(config);
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.get(url[,config]);
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.delete(url[,config]);
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.head(url[,config]);
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.post(url[,data[,config]]);
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.put(url[,data[,config]])
+            </code>
+        </li>
+        <li>
+            <code>
+                axios.patch(url[,data[,config]])
+            </code>
+        </li>
+    </ul>
+
+    <h2>安装</h2>
     <ol>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>生产时依赖，使用 --save</li>
+        <li>npm install axios --save</li>
     </ol>
+
+    <h2>使用</h2>
     <ol>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>
+            简单请求
+            <code>
+                axios({
+                    url: '/home/multidata',
+                }).then(res => {
+                    console.log('使用全局配置的简单请求: ', res);
+                })
+            </code>
+        </li>
+        <li>
+            get 请求
+            <code>
+                axios.get('http://123.207.32.32:8000/home/multidata?type=pop&page=1').then(res => {
+                    console.log('get: ', res);
+                });
+            </code>
+        </li>
+        <li>
+            post 请求
+            <code>
+                axios.post('/home/multidata', {
+                    data: 'someData'
+                }).then(res => {
+                    console.log('post: ', res);
+                })                  
+            </code>
+        </li>
     </ol>
+
+    <h2>常见的config 配置项</h2>
     <ol>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>请求地址：url:'/home'</li>
+        <li>请求类型：method:'get'|'post'</li>
+        <li>请求路径：baseURL:'https://www.xxx.com/api'</li>
+        <li>请求前的数据处理：transformRequest:[function(data){}]</li>
+        <li>请求后的数据处理：transformResponse:[function(data){}]</li>
+        <li>自定义的请求头：headers:{'x-Requested-With':'XMLHttpRequest'}</li>
+        <li>url query list：params:{type:'catogry',page:1} ，配合 method:'get' 使用</li>
+        <li>request body：data:{key:'value'} ，配合 method:'post' 使用</li>
+        <li>查询对象序列化函数 paramsSerializer:function(params){}</li>
+        <li>timeout:1000</li>
+        <li>跨域是否带 token: withCredentials:false</li>
+        <li>自定义请求处理：adapter:function(resolve,reject,config){}</li>
+        <li>身份验证信息 auth:{uname:'xx',pwd:'xx'}</li>
+        <li>响应的数据格式 json|blob|document|text|stream|arrybuffer：responseType:'json'</li>
+        <li>
+            <h3>配置的优先顺序</h3>
+            <ul>
+                <li>
+                    <pre>
+配置会以一个优先顺序进行合并。
+这个顺序是：在 lib/defaults.js 找到的库的默认值，然后是实例的 defaults 属性，最后是请求的 config 参数。
+后者将优先于前者。
+                    </pre>
+                </li>
+            </ul>
+        </li>
     </ol>
+
+    <h2>创建 axios 实例</h2>
     <ol>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li>要使用单独的配置，可以创建单独的实例；不创建实例，意味着所有请求都用全局配置。</li>
+        <li>axios.create(config)</li>
     </ol>
-    <ol>
-        <li></li>
-        <li></li>
-        <li></li>
-    </ol>
+
+    <h2>拦截器</h2>
     <ol>
         <li></li>
         <li></li>
