@@ -27,10 +27,10 @@ export default {
 .left,
 .right {
   width: 60px;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 .center {
   flex: 1;
-  background-color: salmon;
+  /* background-color: salmon; */
 }
 </style>
