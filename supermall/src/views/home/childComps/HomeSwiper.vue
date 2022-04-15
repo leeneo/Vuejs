@@ -1,7 +1,7 @@
 <template>
   <div class="home-swiper">
     <swiper>
-      <swiper-item v-for="item in banners" :key="item.link">
+      <swiper-item v-for="item in childBanners" :key="item.link">
         <a :href="item.link">
           <img :src="item.image" alt="" />
         </a>
@@ -23,7 +23,7 @@ export default {
     SwiperItem,
   },
   props: {
-    banners: {
+    childBanners: {
       type: Array,
       default() {
         return [];
