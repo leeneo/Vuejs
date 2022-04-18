@@ -14,10 +14,6 @@ export default {
 
 <style scoped>
 .nav-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   display: flex;
   line-height: 44px;
   height: 44px;

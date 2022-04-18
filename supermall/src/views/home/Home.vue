@@ -4,6 +4,14 @@
       <div slot="center">购物街</div>
     </nav-bar>
 
+    <tab-control
+      :titles="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+      ref="tabControl1"
+      :class="{ isTabFixed }"
+      v-show="isTabFixed"
+    ></tab-control>
+
     <scroll
       class="wrapper"
       ref="scrollRef"
@@ -13,13 +21,16 @@
       @pullingUp="loadMore"
     >
       <div class="content">
-        <home-swiper :childBanners="banners" />
+        <home-swiper
+          :childBanners="banners"
+          @swiperImageLoad="homeSwiperImageLoad"
+        />
         <recommend-view :childRecommends="recommends" />
         <feature-view></feature-view>
         <tab-control
-          class="tab-control"
           :titles="['流行', '新款', '精选']"
           @tabClick="tabClick"
+          ref="tabControl2"
         ></tab-control>
         <goods-list :childsGoods="showGoods"></goods-list>
       </div>
@@ -46,6 +57,8 @@ import {
   // getMoreHomeData
 } from "network/home";
 
+import { debounce } from "common/utils";
+
 export default {
   name: "Home",
   components: {
@@ -68,7 +81,9 @@ export default {
         sells: { page: 0, list: [] },
       },
       currentType: "pops",
+      taboffSetTop: 0,
       isShowBackTop: false,
+      isTabFixed: false,
       errors: {},
     };
   },
@@ -83,8 +98,22 @@ export default {
     this.getHomeGoods("news");
     this.getHomeGoods("sells");
   },
-  mounted(){
+  mounted() {
+    // better-scroll bug 解决方案1
+    // better-scroll 有个 scrollHeight 属性是计算了页面的可滚动高度的，但是有时候图片加载还未完成，这个高度已经计算出来了，
+    // 所以需要在整个页面加载完成后 refresh下。让这个scrollHeigth刷新。加载多页数据后，也需要refresh，
+    // 也可以通过监听图片加载完成后refresh 的方式，img.onload() || @load;
+    // 课件里讲的是通过$bus事件总线的方式，但是其实没必要，在这里我是用的mounted函数里面refresh解决的better-scroll的这个bug
     this.$refs.scrollRef.refresh();
+
+    // better-scroll bug 解决方案2
+    // 调用防抖函数
+    const refreshFn = debounce(this.$refs.scrollRef.refresh, 500);
+    // 监听事件总线中的图片加载完成事件
+    this.$bus.$on("itemImageLoad", () => {
+      // console.log('itemImageLoad');
+      refreshFn();
+    });
   },
   methods: {
     /**
@@ -102,23 +131,50 @@ export default {
           this.currentType = "sells";
           break;
       }
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     btClick() {
       // console.log('xxx');
       this.$refs.scrollRef.scrollTo(0, 0, 500);
     },
     scrollPostion(position) {
+      // 判断backtop 是否显示
       // if ((-position.y) > 1000) this.isShowBackTop = true;
       // else this.isShowBackTop = false;
       // 一步搞定
       this.isShowBackTop = -position.y > 1000;
+
+      // 判断tab-control 是否吸顶(fixed 定位)
+      this.isTabFixed = -position.y > this.taboffSetTop;
     },
     loadMore() {
       // 发送网络请求，请求更多的数据
       // this.getHomeGoods(this.currentType);
+
       this.$refs.scrollRef.finishPullUp();
       this.$refs.scrollRef.refresh();
       console.log("加载更多已完成");
+    },
+
+    // 图片加载完成的事件监听，用于解决better-scroll 的显示bug
+    // 建立防抖函数
+    // timer 建立之后，延迟时间内如果没有后续调用过来就会执行主体函数，
+    // 如果有后续调用会立即清除该次timer，然后建立新的timer,至终只有一次timer会被执行，这就是防抖
+    // debounce(func, delay) {
+    //   let timer = null;
+    //   return function (...args) {
+    //     if (timer) clearTimeout(timer);
+    //     timer = setTimeout(() => {
+    //       func.apply(this, args);
+    //     }, delay);
+    //   };
+    // },
+
+    homeSwiperImageLoad() {
+      // tab-control 的吸顶效果实现
+      // 所有的组件都有一个属性$el:用于获取组件中的元素
+      this.taboffSetTop = this.$refs.tabControl2.$el.offsetTop;
     },
 
     /**
@@ -168,16 +224,12 @@ export default {
 
 .home-nav {
   background-color: var(--color-tint);
-  z-index: 9;
+  color: #fff;
 }
 
-/* .home-swiper {
-  margin-top: 44px;
-} */
-
-.tab-control {
-  position: sticky;
-  top: 44px;
+.isTabFixed {
+  position: relative;
+  z-index: 6;
 }
 
 /* 方案一 */

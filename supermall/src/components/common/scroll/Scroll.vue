@@ -41,30 +41,31 @@ export default {
     });
 
     // 监听滚动的位置
-    this.scroll.on("scroll", (position) => {
-      this.$emit("scroll", position);
-    });
+    if (this.probeType === 2 || this.probeType === 3)
+      this.scroll.on("scroll", (position) => {
+        this.$emit("scroll", position);
+      });
 
     // 监听上拉事件
-    this.scroll.on("pullingUp", () => {
-      this.$emit("pullingUp");
-    });
+    if (this.pullUpLoad)
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+      });
   },
   methods: {
     //   time=300 ES6语法，参数可以设置默认值
     scrollTo(x, y, time = 300) {
-      this.scroll.scrollTo(x, y, time);
+      this.scroll && this.scroll.scrollTo(x, y, time);
     },
     finishPullUp() {
       // 等数据请求完成，并且新的数据展示完成后，刷新pullup使下次pullup可以生效
       setTimeout(() => {
-        this.scroll.finishPullUp(); // 该函数一调用就可以立即触发下一次，所以可以搞个延时setTimeout
+        this.scroll && this.scroll.finishPullUp(); // 该函数一调用就可以立即触发下一次，所以可以搞个延时setTimeout
       }, 1000);
     },
-    refresh(){
-      this.scroll.refresh();
-    }
-
+    refresh() {
+      this.scroll && this.scroll.refresh();
+    },
   },
 };
 </script>
