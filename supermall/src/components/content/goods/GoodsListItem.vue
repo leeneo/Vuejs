@@ -5,7 +5,7 @@
         <img :src="childItem.show.img" alt="">
         <div class="goods-info">
             <p>{{childItem.title}}</p>
-            <span>{{childItem.price}}</span><span>{{childItem.cfav}}</span>
+            <span class="price">{{childItem.price}}</span><span class="collect">{{childItem.cfav}}</span>
         </div>
 
     </div>

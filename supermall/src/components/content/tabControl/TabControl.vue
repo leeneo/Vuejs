@@ -1,5 +1,5 @@
 <template>
-    <div class="tabControl">
+    <div class="tab-control">
         <div v-for="(item,index) in titles" :key="item" class="item" :class="{active:index===currentIndex}"
             @click="itemClick(index)">
             <span>{{item}}</span>
@@ -25,33 +25,35 @@
         methods: {
             itemClick(index){
                 this.currentIndex=index;
+                this.$emit('tabClick',index);
             }
         }
     }
 </script>
 <style lang="css">
-    .tabControl {
+    .tab-control {
         display: flex;
         text-align: center;
         height: 40px;
         line-height: 40px;
         font-size: 16px;
         background-color: rgb(255, 255, 255);
+        z-index: 9;
     }
 
-    .tabControl .item {
+    .tab-control .item {
         flex: 1;
     }
 
-    .tabControl .active {
+    .tab-control .active {
         color: var(--color-high-text);
     }
 
-    .tabControl .item span {
+    .tab-control .item span {
         padding: 5px;
     }
 
-    .tabControl .active span {
+    .tab-control .active span {
         border-bottom: 2px solid var(--color-tint);
     }
 </style>

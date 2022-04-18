@@ -6,8 +6,8 @@
     <home-swiper :childBanners="banners" />
     <recommend-view :childRecommends="recommends" />
     <feature-view></feature-view>
-    <tab-control class="tab-control" :titles="['流行','新款','精选']"></tab-control>
-    <goods-list :childsGoods="goods['pops'].list"></goods-list>
+    <tab-control class="tab-control" :titles="['流行','新款','精选']" @tabClick="tabClick"></tab-control>
+    <goods-list :childsGoods="showGoods"></goods-list>
 
 
 
@@ -43,8 +43,14 @@
           'pops': { page: 0, list: [] },
           'news': { page: 0, list: [] },
           'sells': { page: 0, list: [] }
-        }
+        },
+        currentType: 'pops'
       };
+    },
+    computed: {
+      showGoods() {
+        return this.goods[this.currentType].list
+      }
     },
     created() {
       this.getHomeMultidata();
@@ -53,10 +59,30 @@
       this.getHomeGoods('sells');
     },
     methods: {
+      /**
+       * 事件监听相关
+      */
+      tabClick(index) {
+        switch (index) {
+          case 0:
+            this.currentType = 'pops'
+            break;
+          case 1:
+            this.currentType = 'news'
+            break;
+          case 2:
+            this.currentType = 'sells'
+            break;
+        }
+      },
+
+      /**
+       * 网络请求相关
+      */
       getHomeMultidata() {
         // 请求数据
         requestHomeMultidata().then((res) => {
-          console.log('getHomeMultidata', res);
+          // console.log('getHomeMultidata', res);
           this.banners = res.data.banner.list;
           this.recommends = res.data.recommend.list;
         })
@@ -69,7 +95,7 @@
           // this.goods[type].page += 1;
 
           // 由于接口已不可用，所以手动模拟数据          
-          const goods = [
+          const goodsData = [
             {
               "title": "2022新春靓丽女装1",
               "link": "https://item.meilishuo.com/h5/detail/1m93p4u?acm=3.ms.0_4_1m93p4u.0.13386-69004.s026vr4qnwskg.t_-sd_117-lc_16",
@@ -107,8 +133,13 @@
               "cfav": "100"
             },
           ]
-          this.goods[type].list.push(...goods);
-
+          if (type == 'pops')
+            goodsData[0].title = '2022新春流行女装'
+          if (type == 'news')
+            goodsData[0].title = '2022新春上新女装'
+          if (type == 'sells')
+            goodsData[0].title = '2022新春精选女装'
+          this.goods[type].list.push(...goodsData);
           console.log(res);
         })
       }
@@ -117,6 +148,12 @@
 </script>
 
 <style>
+  #home {
+    /* height: 100vh;
+    position: relative; */
+    margin-bottom: 80px;
+  }
+
   .home-nav {
     background-color: var(--color-tint);
     z-index: 9;
