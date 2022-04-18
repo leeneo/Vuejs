@@ -8,8 +8,8 @@
       :titles="['流行', '新款', '精选']"
       @tabClick="tabClick"
       ref="tabControl1"
-      :class="{ isTabFixed }"
-      v-show="isTabFixed"
+      :class="{ isStayTop }"
+      v-show="isStayTop"
     ></tab-control>
 
     <scroll
@@ -83,7 +83,7 @@ export default {
       currentType: "pops",
       taboffSetTop: 0,
       isShowBackTop: false,
-      isTabFixed: false,
+      isStayTop: false,
       errors: {},
     };
   },
@@ -146,7 +146,7 @@ export default {
       this.isShowBackTop = -position.y > 1000;
 
       // 判断tab-control 是否吸顶(fixed 定位)
-      this.isTabFixed = -position.y > this.taboffSetTop;
+      this.isStayTop = -position.y > this.taboffSetTop;
     },
     loadMore() {
       // 发送网络请求，请求更多的数据
@@ -227,7 +227,8 @@ export default {
   color: #fff;
 }
 
-.isTabFixed {
+/* 吸顶效果 */
+.isStayTop {
   position: relative;
   z-index: 6;
 }
