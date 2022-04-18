@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,webpack,node.js,git,npm,前端,全栈,Web开发"
+    />
+    <meta
+      name="description"
+      content="一位Web开发工程师的学习、工作笔记-星之痕。
+    内容涵盖：HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,前端,全栈,Web开发……等"
+    />
+    <title>Vue.js 笔记-星之痕</title>
+    <link rel="stylesheet" href="./css/global.css" />
+
+    <style>
+      .wrapper {
+        height: 400px;
+        background-color: aquamarine;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>
+        <h2>{{title}}</h2>
+        <ul>
+          <li v-for="msg in messages">{{msg}}</li>
+        </ul>
+      </div>
+
+        <div class="wrapper" ref="wrapperRef">
+          <ul class="content">
+              <li>列表演示1</li>
+              <li>列表演示2</li>
+              <li>列表演示3</li>
+              <li>列表演示4</li>
+              <li>列表演示5</li>
+              <li>列表演示6</li>
+              <li>列表演示7</li>
+              <li>列表演示8</li>
+              <li>列表演示9</li>
+              <li>列表演示10</li>
+              <li>列表演示11</li>
+              <li>列表演示12</li>
+              <li>列表演示13</li>
+              <li>列表演示14</li>
+              <li>列表演示15</li>
+              <li>列表演示16</li>
+              <li>列表演示17</li>
+              <li>列表演示18</li>
+              <li>列表演示19</li>
+              <li>列表演示20</li>
+              <li>列表演示21</li>
+              <li>列表演示22</li>
+              <li>列表演示23</li>
+              <li>列表演示24</li>
+              <li>列表演示25</li>
+              <li>列表演示26</li>
+              <li>列表演示27</li>
+              <li>列表演示28</li>
+              <li>列表演示29</li>
+              <li>列表演示30</li>
+              <li>列表演示31</li>
+              <li>列表演示32</li>
+              <li>列表演示33</li>
+              <li>列表演示34</li>
+              <li>列表演示35</li>
+              <li>列表演示36</li>
+              <li>列表演示37</li>
+              <li>列表演示38</li>
+              <li>列表演示39</li>
+              <li>列表演示40</li>
+              <li>列表演示41</li>
+              <li>列表演示42</li>
+              <li>列表演示43</li>
+              <li>列表演示44</li>
+              <li>列表演示45</li>
+              <li>列表演示46</li>
+              <li>列表演示47</li>
+              <li>列表演示48</li>
+              <li>列表演示49</li>
+              <li>列表演示50</li>
+          </ul>
+      </div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <!-- cdn方式引入 better scroll -->
+    <!-- <script src="https://unpkg.com/better-scroll@latest/dist/better-scroll.js"></script> -->
+    <script src="js/better-scroll.js"></script>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          title: "vue better-scroll 的使用",
+          messages: ["this is a vue 结合 better-scroll 的 demo!"],
+        },
+        mounted() {
+          console.log("BetterScroll", BetterScroll);
+          //   BetterScroll.PullUpLoad();
+          let wrapper = this.$refs.wrapperRef;
+          let bs = BetterScroll.createBScroll(wrapper, {
+            //   0-1：不打印滚动位置，2：打印位置，但不打印惯性滑动的滚动位置，3：打印手指离开后的惯性滚动位置
+            probeType: 3,
+            click: true,
+            pullUpLoad:true,
+            // pullUpLoad: {
+            //     // 可以配置顶部下拉的距离（threshold）决定刷新时机
+            //   threshold: -20,
+            // },
+          });
+          bs.on("scroll", (position) => {
+            // console.log(position);
+          });
+          bs.on("pullingUp", () => {
+            console.log("上拉加载更多");
+            // 发送网络请求，请求更多的数据
+            // await fetchData
+
+            // 等数据请求完成，并且新的数据展示完成后，刷新pullup使下次pullup可以生效
+            setTimeout(() => {
+                bs.finishPullUp() // 该函数一调用就可以立即触发下一次，所以可以搞个延时setTimeout                
+            }, 1000);
+          });
+        },
+      });
+    </script>
+  </body>
+</html>

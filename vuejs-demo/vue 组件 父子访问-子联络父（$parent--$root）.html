@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <!-- 调用组件 -->
-        <v-note :title='title' :messages='msg' ref='noteCpn'></v-note>
+        <v-note :title='title' :messages='msg'></v-note>
         <v-comp></v-comp>
     </div>
 
@@ -20,7 +20,7 @@
         <div>
             <h2>{{childData}}</h2>
             <button @click='showRoot'>显示根组件</button>
-            <v-child-comp ref='cpn'></v-child-comp>
+            <v-child-comp></v-child-comp>
         </div>
     </template>
 

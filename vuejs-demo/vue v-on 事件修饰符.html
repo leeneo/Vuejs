@@ -35,8 +35,8 @@
             <!-- 点击事件只会触发一次，重复点击无效，但按钮不会置灰-->
             <button  @click.stop @click.once="doOnce">button</button>
 
-            <!-- .native :监听组件根元素的原生事件 -->
-
+            <!-- @click.native :可以监听组件上的原生事件 -->
+            <!-- <v-comp @click.native="compClick"></v-comp> -->
         </div><br>
 
         <!-- prevent修饰符的使用 阻止默认行为-->

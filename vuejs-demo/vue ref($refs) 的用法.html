@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="keywords"
+      content="HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,webpack,node.js,git,npm,前端,全栈,Web开发"
+    />
+    <meta
+      name="description"
+      content="一位Web开发工程师的学习、工作笔记-星之痕。
+    内容涵盖：HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,前端,全栈,Web开发……等"
+    />
+    <title>vue组件-Vue.js 笔记-星之痕</title>
+    <link rel="stylesheet" href="./css/global.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="wrapper" ref="wrapperRef"><span>ref 使用的演示</span></div>
+      <!-- 调用组件 -->
+      <v-note :title="title" :messages="messages"></v-note>
+      <v-comp :c-info="info" ref="childCompRef"></v-comp>
+    </div>
+
+    <!-- 自定义组件模板 -->
+    <template id="comp">
+      <div>
+        <h2>{{msg}}</h2>
+        <h2>{{cInfo}}</h2>
+      </div>
+    </template>
+
+    <!-- 组件模板 -->
+    <template id="note">
+      <div>
+        <h2>{{title}}</h2>
+        <ul>
+          <li v-html="msg" v-for="msg in messages"></li>
+        </ul>
+      </div>
+    </template>
+
+    <script src="js/vue.js"></script>
+    <script>
+      // 自定义组件
+      const vComp = {
+        template: "#comp",
+        data() {
+          return {
+            msg: "这是一个子组件",
+          };
+        },
+        props: {
+          cInfo: {
+            default() {
+              return {};
+            },
+          },
+        },
+      };
+
+      // 笔记列表组件
+      const vNote = {
+        template: "#note",
+        props: {
+          title: String,
+          messages: {
+            type: Array,
+            default() {
+              return [];
+            },
+          },
+        },
+      };
+
+      const app = new Vue({
+        el: "#app",
+        data: {
+          title: "vue ref($refs) 的用法",
+          messages: [
+            `在Vue中一般很少会用到直接操作DOM，但不可避免有时候需要用到，这时我们可以通过ref和$refs这两个来实现`,
+            `ref 被用来给元素或子组件注册引用信息,引用信息将会注册在父组件的 $refs 对象上，
+                    如果是在普通的DOM元素上使用，引用指向的就是 DOM 元素，如果是在子组件上，引用就指向组件的实例。`,
+            `$refs是一个对象，持有已注册过 ref的所有的子组件。`,
+            `ref 有三种用法：<br/>
+                1、ref 加在普通的元素上，用this.$refs.name获取到的是dom元素 <br/>
+                2、ref 加在子组件上，用this.$refs.name获取到的是组件实例，可以使用组件的所有方法。<br/>
+                3、ref 加在 v-for 绑定的元素上，获取到的是一个包含引用信息的数组<br/>`,
+          ],
+          info: "this is a message",
+        },
+        components: {
+          vNote,
+          vComp,
+        },
+        computed: {},
+        methods: {},
+        mounted() {
+          const warpper = document.querySelector(".wrapper");
+          const wrapperRef = this.$refs.wrapperRef;
+          // 与 document.querySelector 一样，获取到的是同一个Dom节点
+          console.log("warpper", warpper);
+          console.log("wrapperRef", wrapperRef);
+          console.log('childCompRef',this.$refs.childCompRef._data.msg);
+        },
+      });
+    </script>
+  </body>
+</html>

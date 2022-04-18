@@ -1,59 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vue生命周期函数</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <h2>{{message}}</h2>
-        <button v-on:click='action'>点击</button>
+      <h2>{{message}}</h2>
+      <button v-on:click="action">点击</button>
     </div>
 
     <script src="js/vue.js"></script>
     <script>
-        const app = new Vue({
-            el: '#app',
-            data: {
-                message: 'this is a vue demo!'
-            },
-            methods: {
-                action: function () {
-                    this.message = ''
-                }
-            },
-            // beforeCreate() {                 //相当于beforeCreate: function () 
-            //     console.log('beforeCreate');
-            // },
-            beforeCreate: function () {
-                console.log('beforeCreate');
-            },
-            created: function () {
-                console.log('created');
-            },
-            beforeMount: function () {
-                console.log('beforeMount');
-            },
-            mounted: function () {
-                console.log('mounted');
-            },
-            beforeUpdate: function () {
-                console.log('beforeUpdate');
-            },
-            updated: function () {
-                console.log('updated');
-            },
-            beforeDestroy: function () {
-                console.log('beforeDestroy');
-            },
-            destroyed: function () {
-                console.log('destroyed');
-            }
-        });
+      const app = new Vue({
+        el: "#app",
+        data: {
+          message: "this is a vue demo!",
+        },
+        methods: {
+          action() {
+            this.message = "";
+            throw "xxx"
+          },
+        },
+        /**
+         * beforeCreate :在实例初始化之后执行此时对象还未创建，el 和data并未初始化，因此无法访问 methods,data ,computed等方法和数据。
+         * 应用场景： 可以在此时加一些 loading 效果，在 created 时进行移除。
+         */
+        beforeCreate: function () {
+          console.log("beforeCreate");
+        },
+        /**
+         * created：最早开始使用data和methods中的数据的钩子函数，这个阶段可以数据请求，但是不能dom操作。
+         * 应用场景： 需要异步请求数据的方法可以在此时执行，完成数据的初始化。
+         */
+        created() {
+          console.log("created");
+        },
+        /**
+         * beforeMount:挂载开始之前被调用，把data里面的数据和模板生成html，完成了el和data初始化，注意此时还没有挂载到html页面上。
+         */
+        beforeMount: function () {
+          console.log("beforeMount");
+        },
+        /**
+         * mounted:挂载完成，HTML已经被渲染到了页面上，这个阶段可以执行dom操作，可以进行数据请求。
+         * 应用场景： 当需要操作 dom 的时候执行，可以配合$.nextTick 使用进行单一事件对数据的更新后更新dom。
+         */
+        mounted() {
+          console.log("mounted");
+        },
+        /**
+         * beforeUpdate:数据更新前调用,当data的数据发生改变会执行这个钩子 内存中数据是新的 页面是旧的。
+         */
+        beforeUpdate: function () {
+          console.log("beforeUpdate");
+        },
+        /**
+         * updated:由于数据更改导致的虚拟 DOM 重新渲染，在这之后会调用该钩子。
+         * 当这个钩子被调用时，组件 DOM 已经更新，所以你现在可以执行依赖于 DOM 的操作。
+         * 注意 updated 不会保证所有的子组件也都一起被重绘。
+         * 如果你希望等到整个视图都重绘完毕，可以在 updated 里使用 vm.$nextTick。
+         * 应用场景：当数据更新需要做统一业务处理的时候使用。
+         */
+        updated() {
+          console.log("updated");
+        },
+        /**
+         * beforeDestroy:实例销毁之前调用，在这一步还可以做一些释放内存的操作。
+         */
+        beforeDestroy: function () {
+          console.log("beforeDestroy");
+        },
+        /**
+         * destroy:实例销毁后调用。该钩子被调用后，对应 Vue 实例的所有指令都被解绑，所有的事件监听器被移除，所有的子实例也都被销毁。
+         */
+        destroyed() {
+          console.log("destroyed");
+        },
+        /**
+         * 当捕获一个来自子孙组件的错误时被调用。此钩子会收到三个参数：错误对象、发生错误的组件实例以及一个包含错误来源信息的字符串。
+         * 此钩子可以返回 false 以阻止该错误继续向上传播。
+        */
+        errorCaptured(){
+            console.log("errorCaptured");
+        },
+        /**
+         * activated: keep-alive 缓存的组件激活时调用。
+        */
+        activated(){
+            console.log('activated');
+        },
+        /**
+         * deactivated: keep-alive 缓存的组件停用时调用。
+        */
+         deactivated(){
+            console.log('activated');
+         }
+      });
     </script>
-</body>
-
+  </body>
 </html>
