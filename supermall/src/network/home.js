@@ -11,13 +11,12 @@ export function requestHomeGoods(type, page) {
     url: "/home/data",
     params: {
       type,
-      page,
-    },
+      page
+    }
   });
 }
 
 export function getMoreHomeData(type) {
-  // console.log(type)
   return getMoreData(type);
 }
 

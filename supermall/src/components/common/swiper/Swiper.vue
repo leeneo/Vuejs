@@ -5,6 +5,7 @@
       @touchstart="touchStart"
       @touchmove="touchMove"
       @touchend="touchEnd"
+      ref="swiperWrapRef"
     >
       <slot></slot>
     </div>
@@ -129,7 +130,8 @@ export default {
      */
     handleDom: function () {
       // 1.获取要操作的元素
-      let swiperEl = document.querySelector(".swiper");
+      // let swiperEl = document.querySelector(".swiper");
+      let swiperEl=this.$refs.swiperWrapRef;
       let slidesEls = swiperEl.getElementsByClassName("slide");
 
       // 2.保存个数
@@ -234,7 +236,7 @@ export default {
   position: relative;
 }
 
-.swiper {
+#hy-swiper .swiper {
   display: flex;
 }
 

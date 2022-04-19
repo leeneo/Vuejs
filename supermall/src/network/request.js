@@ -4,7 +4,8 @@ import axios from "axios";
 export function request(config) {
   // 1.创建 axios 的实例
   const instance = axios.create({
-    baseURL: "http://123.207.32.32:8000",
+    // baseURL: "http://123.207.32.32:8000",
+    baseURL: "http://152.136.185.210:7878/api/hy66",
     timeout: 5000,
   });
 
@@ -34,7 +35,7 @@ export function request(config) {
 
 // 这里模拟的数据比较简单，应该还有个page项，每一页对应一个list 数据列表
 export const goodsData = {
-  pops: [
+  pop: [
     {
       title: "2022新春流行女装1",
       link: "https://item.meilishuo.com/h5/detail/1m93p4u?acm=3.ms.0_4_1m93p4u.0.13386-69004.s026vr4qnwskg.t_-sd_117-lc_16",
@@ -48,6 +49,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4u",
     },
     {
       title: "2022新春流行女装2",
@@ -62,6 +64,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1jw0sr2",
     },
     {
       title: "2022新春流行女装3",
@@ -76,6 +79,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ub",
     },
     {
       title: "2022新春流行女装4",
@@ -90,6 +94,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uc",
     },
     {
       title: "2022新春流行女装5",
@@ -104,6 +109,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4ud",
     },
     {
       title: "2022新春流行女装6",
@@ -118,6 +124,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ue",
     },
     {
       title: "2022新春流行女装7",
@@ -132,6 +139,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uf",
     },
     {
       title: "2022新春流行女装8",
@@ -146,6 +154,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ug",
     },
     {
       title: "2022新春流行女装9",
@@ -160,6 +169,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4uh",
     },
     {
       title: "2022新春流行女装10",
@@ -174,6 +184,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ui",
     },
     {
       title: "2022新春流行女装11",
@@ -188,6 +199,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uj",
     },
     {
       title: "2022新春流行女装12",
@@ -202,9 +214,10 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uk",
     },
   ],
-  news: [
+  new: [
     {
       title: "2022新春靓丽女装1",
       link: "https://item.meilishuo.com/h5/detail/1m93p4u?acm=3.ms.0_4_1m93p4u.0.13386-69004.s026vr4qnwskg.t_-sd_117-lc_16",
@@ -218,6 +231,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4ul",
     },
     {
       title: "2022新春靓丽女装2",
@@ -232,6 +246,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4um",
     },
     {
       title: "2022新春靓丽女装3",
@@ -246,6 +261,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4un",
     },
     {
       title: "2022新春靓丽女装4",
@@ -260,6 +276,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uo",
     },
     {
       title: "2022新春靓丽女装5",
@@ -274,6 +291,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4up",
     },
     {
       title: "2022新春靓丽女装6",
@@ -288,6 +306,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uq",
     },
     {
       title: "2022新春靓丽女装7",
@@ -302,6 +321,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ur",
     },
     {
       title: "2022新春靓丽女装8",
@@ -316,6 +336,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4us",
     },
     {
       title: "2022新春靓丽女装9",
@@ -330,6 +351,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ut",
     },
     {
       title: "2022新春靓丽女装10",
@@ -344,6 +366,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uu",
     },
     {
       title: "2022新春靓丽女装11",
@@ -358,9 +381,10 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uv",
     },
   ],
-  sells: [
+  sell: [
     {
       title: "2022新春精选女装1",
       link: "https://item.meilishuo.com/h5/detail/1m93p4u?acm=3.ms.0_4_1m93p4u.0.13386-69004.s026vr4qnwskg.t_-sd_117-lc_16",
@@ -374,6 +398,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4uw",
     },
     {
       title: "2022新春精选女装2",
@@ -388,6 +413,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4ux",
     },
     {
       title: "2022新春精选女装3",
@@ -402,6 +428,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uy",
     },
     {
       title: "2022新春精选女装4",
@@ -416,6 +443,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4uz",
     },
     {
       title: "2022新春精选女装5",
@@ -430,6 +458,7 @@ export const goodsData = {
       price: "59.00",
       orgPrice: "84.29",
       cfav: "120",
+      iid: "1m93p4u1",
     },
     {
       title: "2022新春精选女装6",
@@ -444,6 +473,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4u2",
     },
     {
       title: "2022新春精选女装7",
@@ -458,6 +488,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4u3",
     },
     {
       title: "2022新春精选女装8",
@@ -472,6 +503,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4u4",
     },
     {
       title: "2022新春精选女装9",
@@ -486,6 +518,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4u5",
     },
     {
       title: "2022新春精选女装10",
@@ -500,6 +533,7 @@ export const goodsData = {
       price: "49.00",
       orgPrice: "94.99",
       cfav: "100",
+      iid: "1m93p4u6",
     },
   ],
 };
@@ -562,13 +596,13 @@ export function getMoreData(type) {
   sell.title += randomString();
   console.log(pop);
   switch (type) {
-    case "pops":
+    case "pop":
       goodsData[type].push(pop);
       break;
-    case "news":
+    case "new":
       goodsData[type].push(newItem);
       break;
-    case "sells":
+    case "sell":
       goodsData[type].push(sell);
       break;
   }

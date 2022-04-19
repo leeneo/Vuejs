@@ -1,6 +1,5 @@
 <template>
-  <div class="goods-item">
-    <a :href="childItem.link"> </a>
+  <div class="goods-item" @click="itemClick">
     <img :src="childItem.show.img" alt="" @load="imageLoad" />
     <div class="goods-info">
       <p>{{ childItem.title }}</p>
@@ -24,7 +23,21 @@ export default {
     imageLoad() {
       // console.log('imageLoad');
       //   向事件总线，传递一个img load 事件
-      this.$bus.$emit('itemImageLoad');
+      this.$bus.$emit("itemImageLoad");
+    },
+    itemClick() {
+      // console.log('goes to 详情页');
+
+      // 路由传参 params 方式，取参：$route.params.uid，形成的链接：/router/123
+      this.$router.push("/detail/" + this.childItem.iid);
+      // console.log('sss',this.childItem.iid);
+      // 路由传参 query方式  取参：$route.query.id，形成的链接：/router?id=0001
+      // this.$router.push({
+      //   path:'/detail',
+      //   query:{
+      //     id:this.childItem.iid
+      //   }
+      // });
     },
   },
 };
