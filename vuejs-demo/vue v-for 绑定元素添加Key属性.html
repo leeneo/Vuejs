@@ -35,7 +35,7 @@
 
         <!-- for 循环绑定key -->
         <ul>
-            <li v-for="item in letters" :key="item">{{item}}</li>
+            <li v-for="item in words" :key="item">{{item}}</li>
         </ul>
 
         <button v-on:click='action'>点击</button>
@@ -50,7 +50,9 @@
                 letters: ['a', 'b', 'c', 'd'],
             },
             computed: {
-
+                words(){
+                    return ['d', 'b', 'c', 'e'];
+                }
             },
             methods: {
                 action: function () {

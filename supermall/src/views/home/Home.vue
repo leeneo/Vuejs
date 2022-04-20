@@ -182,8 +182,10 @@
       getHomeGoods(type) {
         const page = this.goods[type].page + 1;
         requestHomeGoods(type, page).then((res) => {
+
           // 接口可用时调用方法
-          this.goods[type].list.push(...res.data.list);
+          if (res && res.data.list)
+            this.goods[type].list.push(...res.data.list);
           this.goods[type].page += 1;
 
           // 由于接口已不可用，所以手动模拟数据

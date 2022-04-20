@@ -40,6 +40,11 @@
             <li v-for="(value,key,index) in info">{{index}}.{{key}}: {{value}}</li>
         </ul>
 
+        <!-- 遍历数字 -->
+        <ul>
+            <li v-for="index in 6">{{index}}</li>
+        </ul>
+
         <button v-on:click='action'>点击</button>
     </div>
 
@@ -50,10 +55,10 @@
             data: {
                 message: 'this is a vue demo!',
                 names: ['apple', 'pear', 'banana', 'orange'],
-                info:{
-                    name:'Hua',
-                    age:18,
-                    height:1.88
+                info: {
+                    name: 'Hua',
+                    age: 18,
+                    height: 1.88
                 }
             },
             computed: {
