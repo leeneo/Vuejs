@@ -41,16 +41,22 @@ export default {
     });
 
     // 监听滚动的位置
-    if (this.probeType === 2 || this.probeType === 3)
+    if (this.probeType === 2 || this.probeType === 3){
+
       this.scroll.on("scroll", (position) => {
         this.$emit("scroll", position);
       });
-
+     
+      this.scroll.on('scrollEnd',(endPosition)=>{
+        this.$emit("scrollEnd", endPosition);
+      }) 
+    }
     // 监听上拉事件
     if (this.pullUpLoad)
       this.scroll.on("pullingUp", () => {
         this.$emit("pullingUp");
       });
+
   },
   methods: {
     //   time=300 ES6语法，参数可以设置默认值
