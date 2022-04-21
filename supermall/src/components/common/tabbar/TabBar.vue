@@ -58,6 +58,7 @@ export default {
   right: 0;
   margin: 0;
   background-color: #f6f6f6;
+  border-top:1px solid rgba(100,100,100,.1);
   box-shadow: 0px 0px 1px 0px rgb(93 149 149);
 }
 </style>

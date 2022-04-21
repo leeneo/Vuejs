@@ -1,5 +1,5 @@
 <template lang="zh">
-    <div class="shop-info">
+    <div class="shop-info" v-if="Object.keys(shopInfo).length !== 0">
         <div class="shop-top">
             <img :src="shopInfo.logo" alt="">
             <span class="title">{{shopInfo.name}}</span>
@@ -41,22 +41,23 @@
 </template>
 <script>
     export default {
-        name: 'DetailShopInfo',
+        name: "DetailShopInfo",
         props: {
             shopInfo: {
                 type: Object,
                 defautl() {
-                    return {}
-                }
-            }
+                    return {};
+                },
+            },
         },
+        //   过滤器
         filters: {
             sellCountFilter(value) {
                 if (value < 10000) return value;
-                return (value / 10000).toFixed(1) + '万'
-            }
-        }
-    }
+                return (value / 10000).toFixed(1) + "万";
+            },
+        },
+    };
 </script>
 <style lang="css" scoped>
     .shop-info {
@@ -97,7 +98,7 @@
         justify-content: space-evenly;
         color: #333;
         text-align: center;
-        border-right: 1px solid rgba(215, 215, 215, .8);
+        border-right: 1px solid rgba(215, 215, 215, 0.8);
     }
 
     .sells-count,
@@ -130,7 +131,7 @@
     }
 
     .shop-middle-right .score-better {
-        color: #f13e3a
+        color: #f13e3a;
     }
 
     .shop-middle-right .better span {
@@ -145,15 +146,18 @@
 
     .shop-bottom {
         text-align: center;
-        margin-top: 6px;
+        margin-top: 8px;
     }
 
-    .shop-bottom .enter-shop {
-        background-color: orange;
-        line-height: 32px;
-        width: 122px;
-        border-radius: 3px;
+    .enter-shop {
+        margin: 0 auto;
+        font-size: 14px;
+        background-color: rgb(255 165 0 / 86%);
         color: #fff;
-        margin: 8px auto;
+        width: 150px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 5px;
     }
 </style>

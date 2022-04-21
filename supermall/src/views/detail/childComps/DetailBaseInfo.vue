@@ -4,7 +4,7 @@
         <div class="info-price">
             <span class="n-price">{{baseInfo.newPrice}}</span>
             <span class="o-price">{{baseInfo.oldPrice}}</span>
-            <span class="discount" v-if="baseInfo.discount">{{baseInfo.discount}}</span>
+            <span class="discount" v-if="baseInfo.discount" :style="{backgroundColor:baseInfo.discountBgColor}">{{baseInfo.discount}}</span>
         </div>
         <div class="info-other">
             <span>{{sellAmount}}</span>

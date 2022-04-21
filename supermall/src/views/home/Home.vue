@@ -35,11 +35,9 @@
   import {
     requestHomeMultidata,
     requestHomeGoods,
-    // HomeGoodsData,
-    // getMoreHomeData
   } from "network/home";
 
-  import { debounce } from "common/utils";
+  import { itemListenerMixin } from "common/mixins";
 
   export default {
     name: "Home",
@@ -75,6 +73,7 @@
         return this.goods[this.currentType].list;
       },
     },
+    mixins:[itemListenerMixin],
     created() {
       this.getHomeMultidata();
       this.getHomeGoods("pop");
@@ -88,15 +87,6 @@
       // 也可以通过监听图片加载完成后refresh 的方式，img.onload() || @load;
       // 课件里讲的是通过$bus事件总线的方式，但是其实没必要，在这里我是用的mounted函数里面refresh解决的better-scroll的这个bug
       this.$refs.scrollRef.refresh();
-
-      // better-scroll bug 解决方案2
-      // 调用防抖函数
-      const refreshFn = debounce(this.$refs.scrollRef.refresh, 500);
-      // 监听事件总线中的图片加载完成事件
-      this.$bus.$on("itemImageLoad", () => {
-        // console.log('itemImageLoad');
-        refreshFn();
-      });
     },
     activated() {
       this.$refs.scrollRef.scrollTo(0, this.saveY, 0);
@@ -104,7 +94,9 @@
     },
     deactivated() {
       this.saveY = this.$refs.scrollRef.getScrollY();
-      // console.log(this.saveY);
+
+      // 离开视图时，取消全局事件的监听
+      this.$bus.$off("itemImageLoad", this.itemImgListener);
     },
     methods: {
       /**
@@ -142,7 +134,6 @@
       loadMore() {
         // 发送网络请求，请求更多的数据
         this.getHomeGoods(this.currentType);
-        console.log(this.currentType);
         this.$refs.scrollRef.finishPullUp();
         this.$refs.scrollRef.refresh();
         console.log("加载更多已完成");

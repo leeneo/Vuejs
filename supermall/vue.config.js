@@ -1,17 +1,19 @@
 // 声明式
 module.exports = {
-    configureWebpack: {
-      resolve: {
-        alias: {
-          'assets': '@/assets',
-          'common': '@/common',
-          'components': '@/components',
-          'network': '@/network',
-          'views': '@/views',
-        }
-      }
-    }
-  }
+  // publicPath: "./",
+  // outputDir: process.env.outputDir,
+  configureWebpack: {
+    resolve: {
+      alias: {
+        assets: "@/assets",
+        common: "@/common",
+        components: "@/components",
+        network: "@/network",
+        views: "@/views",
+      },
+    },
+  },
+};
 
 // 函数式
 // const path = require("path");

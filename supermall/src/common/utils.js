@@ -12,3 +12,37 @@ export function debounce(func, delay) {
     }, delay);
   };
 }
+
+export function formatDate(date, fmt) {
+  // 格式化年份
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(
+      RegExp.$1,
+      (date.getFullYear() + "").substr(4 - RegExp.$1.length)
+    );
+  }
+
+  // 格式化非年份（月，日，时等等）
+  let o = {
+    "M+": date.getMonth() + 1, //月份
+    "d+": date.getDate(), //日
+    "h+": date.getHours(), //小时
+    "m+": date.getMinutes(), //分
+    "s+": date.getSeconds(), //秒
+  };
+  for (let k in o) {
+    if (new RegExp(`(${k})`).test(fmt)) {
+      let str = o[k] + "";
+      fmt = fmt.replace(
+        RegExp.$1,
+        RegExp.$1.length === 1 ? str : padLeftZero(str)
+      );
+    }
+  }
+  return fmt;
+}
+
+// 非年份数字，不足十位，左侧补0
+function padLeftZero(str) {
+  return ("00" + str).substr(str.length);
+}
