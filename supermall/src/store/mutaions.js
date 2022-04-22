@@ -5,7 +5,9 @@ export default {
   [ADD_COUNT](state, payload) {
     payload.count++;
   },
+  // 添加新商品函数
   [ADD_TO_CART](state, payload) {
+    payload.checked = true;
     state.cartList.push(payload);
   },
 };
