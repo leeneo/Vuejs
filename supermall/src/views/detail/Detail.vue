@@ -16,8 +16,7 @@
     </scroll>
 
     <back-top @click.native="backTop" v-show="isShowBackTop"></back-top>
-    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
-
+    <detail-bottom-bar @click.native="addToCart"></detail-bottom-bar>
   </div>
 </template>
 <script>
@@ -32,9 +31,10 @@
 
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from 'components/common/scroll/Scroll';
-  import { getDetail, getRecommend, Goods, Shop, GoodsParam,CartGoodsInfo } from "network/detail";
+  import { getDetail, getRecommend, Goods, Shop, GoodsParam, CartGoodsInfo } from "network/detail";
   import { itemListenerMixin, backTopMixin } from "common/mixins";
   import { debounce } from "common/utils";
+  import { mapActions } from 'vuex'
 
   export default {
     name: "Detail",
@@ -48,7 +48,7 @@
       DetailParamInfo,
       DetailCommentInfo,
       DetailBottomBar,
-      GoodsList
+      GoodsList,
     },
     data() {
       return {
@@ -143,6 +143,7 @@
       // });
     },
     methods: {
+      ...mapActions(['addCartAction']),
       imageLoad() {
         // 其实这里的imageLoad 事件只会执行一次，因为之前在子组件（DetailGoodsInfo）内部已经做过防抖处理
         // 这里老师课件用了mixin的方式做了另一种防抖处理,mixin 防抖的方式适合会执行很多次imageLoad事件的场景
@@ -217,12 +218,18 @@
           'image': this.topImages[0],
           'iid': this.iid
         });
-
         // 将商品添加到购物车
         // 调用mutaions
         // this.$store.commit('addCart', prod);
         // 调用actions
-        this.$store.dispatch('addCart',prod);
+        // this.$store.dispatch('addCart', prod).then(res => {
+        //   console.log(res);
+        // });
+        // 使用 mapActions
+        this.addCartAction(prod).then(res => {
+          this.$toast.show(res);
+          console.log(res);
+        });
       }
 
 
