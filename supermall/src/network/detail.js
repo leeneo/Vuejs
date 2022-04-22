@@ -11,8 +11,8 @@ export function getDetail(iid) {
 
 export function getRecommend() {
   return request({
-    url:'/recommend'
-  })
+    url: "/recommend",
+  });
 }
 
 export class Goods {
@@ -23,7 +23,7 @@ export class Goods {
     this.oldPrice = itemInfo.oldPrice;
     this.realPrice = itemInfo.lowNowPrice;
     this.discount = itemInfo.discountDesc;
-    this.discountBgColor=itemInfo.discountBgColor;
+    this.discountBgColor = itemInfo.discountBgColor;
     this.columns = columns;
     this.services = services;
   }
@@ -45,5 +45,15 @@ export class GoodsParam {
     this.image = info.images ? info.images[0] : "";
     this.infos = info.set;
     this.sizes = rule.tables;
+  }
+}
+
+export class CartGoodsInfo {
+  constructor(itemInfo) {
+    this.iid = itemInfo.iid;
+    this.title = itemInfo.title;
+    this.desc = itemInfo.desc;
+    this.realPrice = itemInfo.realPrice;
+    this.image = itemInfo.image;
   }
 }

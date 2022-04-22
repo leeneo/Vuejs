@@ -3,10 +3,10 @@ import { debounce } from "common/utils";
 // 该部分代码，在Home,Detail组件 mounted 中都用到了，所以抽离出来到一个混入函数中
 export const itemListenerMixin = {
   data() {
-      return {
-        itemImgListener: null,
-        refreshFn:null
-      }
+    return {
+      itemImgListener: null,
+      refreshFn: null,
+    };
   },
   mounted() {
     // better-scroll bug 解决方案2
@@ -19,5 +19,23 @@ export const itemListenerMixin = {
     };
     this.$bus.$on("itemImageLoad", this.itemImgListener);
     // console.log('混入函数: Home,Detail 共用代码部分');
+  },
+};
+
+import BackTop from "components/content/backTop/BackTop";
+export const backTopMixin = {
+  components: {
+    BackTop,
+  },
+  data() {
+    return {
+      isShowBackTop: false,
+    }
+  },
+  methods: {
+    backTop() {
+      // console.log('xxx');
+      this.$refs.scrollRef.scrollTo(0, 0, 300);
+    },
   },
 };

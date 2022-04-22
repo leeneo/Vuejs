@@ -18,7 +18,7 @@
       </div>
     </scroll>
 
-    <back-top @click.native="btClick" v-show="isShowBackTop"></back-top>
+    <back-top @click.native="backTop" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -30,14 +30,13 @@
   import TabControl from "components/content/tabControl/TabControl";
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from "components/common/scroll/Scroll";
-  import BackTop from "components/content/backTop/BackTop";
 
   import {
     requestHomeMultidata,
     requestHomeGoods,
   } from "network/home";
 
-  import { itemListenerMixin } from "common/mixins";
+  import { itemListenerMixin,backTopMixin } from "common/mixins";
 
   export default {
     name: "Home",
@@ -49,7 +48,6 @@
       TabControl,
       GoodsList,
       Scroll,
-      BackTop,
     },
     data() {
       return {
@@ -62,7 +60,6 @@
         },
         currentType: "pop",
         taboffSetTop: 0,
-        isShowBackTop: false,
         isStayTop: false,
         saveY: 0,
         errors: {},
@@ -73,7 +70,7 @@
         return this.goods[this.currentType].list;
       },
     },
-    mixins:[itemListenerMixin],
+    mixins:[itemListenerMixin,backTopMixin],
     created() {
       this.getHomeMultidata();
       this.getHomeGoods("pop");
@@ -117,10 +114,7 @@
         this.$refs.tabControl1.currentIndex = index;
         this.$refs.tabControl2.currentIndex = index;
       },
-      btClick() {
-        // console.log('xxx');
-        this.$refs.scrollRef.scrollTo(0, 0, 500);
-      },
+
       scrollPostion(position) {
         // 判断backtop 是否显示
         // if ((-position.y) > 1000) this.isShowBackTop = true;

@@ -6,7 +6,7 @@
     <scroll class="wrapper" ref="scrollRef" :probe-type="3" @scroll="scrollPosition">
       <div class="content">
         <detail-swiper :top-images="topImages"></detail-swiper>
-        <detail-base-info :baseInfo="goods"></detail-base-info>
+        <detail-base-info :baseInfo="goodsInfo"></detail-base-info>
         <detail-shop-info :shopInfo="shop"></detail-shop-info>
         <detail-goods-info :detailInfo="detailInfo" @imageLoad="imageLoad"></detail-goods-info>
         <detail-param-info :paramInfo="paramInfo" ref="paramsRef"></detail-param-info>
@@ -14,6 +14,9 @@
         <goods-list :childsGoods="recommends" ref="recommendsRef" />
       </div>
     </scroll>
+
+    <back-top @click.native="backTop" v-show="isShowBackTop"></back-top>
+    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
 
   </div>
 </template>
@@ -25,11 +28,12 @@
   import DetailGoodsInfo from "./childComps/DetailGoodsInfo";
   import DetailParamInfo from "./childComps/DetailParamInfo";
   import DetailCommentInfo from "./childComps/DetailCommentInfo";
+  import DetailBottomBar from "./childComps/DetailBottomBar";
 
   import GoodsList from "components/content/goods/GoodsList";
   import Scroll from 'components/common/scroll/Scroll';
-  import { getDetail, getRecommend, Goods, Shop, GoodsParam } from "network/detail";
-  import { itemListenerMixin } from "common/mixins";
+  import { getDetail, getRecommend, Goods, Shop, GoodsParam,CartGoodsInfo } from "network/detail";
+  import { itemListenerMixin, backTopMixin } from "common/mixins";
   import { debounce } from "common/utils";
 
   export default {
@@ -43,13 +47,14 @@
       DetailGoodsInfo,
       DetailParamInfo,
       DetailCommentInfo,
+      DetailBottomBar,
       GoodsList
     },
     data() {
       return {
         iid: "",
         topImages: [],
-        goods: {},
+        goodsInfo: {},
         shop: {},
         detailInfo: {},
         paramInfo: {},
@@ -63,7 +68,7 @@
         recommendsOffsetTop: { 'index': 3 },
       };
     },
-    mixins: [itemListenerMixin],
+    mixins: [itemListenerMixin, backTopMixin],
     created() {
       // 保存商品id
       this.iid = this.$route.params.iid;
@@ -81,7 +86,7 @@
 
         // 获取商品基本信息
         if (data && data.itemInfo) {
-          this.goods = new Goods(
+          this.goodsInfo = new Goods(
             data.itemInfo,
             data.columns,
             data.shopInfo.services
@@ -187,7 +192,8 @@
           this.$refs.navbarRef.curIndex = this.paramsOffsetTop.index;
         else
           this.$refs.navbarRef.curIndex = 0;
-          // console.log(this.paramsOffsetTop);
+
+        this.isShowBackTop = -position.y > 1000;
       },
       // 老师课件里的方法
       // scrollPosition(position) {
@@ -202,6 +208,23 @@
       //     }
       //   } 
       // }
+
+      addToCart() {
+        let prod = new CartGoodsInfo({
+          'title': this.goodsInfo.title,
+          'desc': this.goodsInfo.desc,
+          'realPrice': this.goodsInfo.realPrice,
+          'image': this.topImages[0],
+          'iid': this.iid
+        });
+
+        // 将商品添加到购物车
+        // 调用mutaions
+        // this.$store.commit('addCart', prod);
+        // 调用actions
+        this.$store.dispatch('addCart',prod);
+      }
+
 
     },
     destroyed() {
@@ -225,7 +248,7 @@
   }
 
   .wrapper {
-    height: calc(100% - 44px);
+    height: calc(100% - 44px - 49px);
     overflow: hidden;
   }
 </style>
