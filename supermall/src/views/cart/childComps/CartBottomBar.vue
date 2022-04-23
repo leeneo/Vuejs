@@ -69,7 +69,10 @@
                 let flag = this.cartList.filter(item => { return item.checked }).length;
                 if (!flag) {
                     this.$toast.show('请选择要购买的商品')
+                }else{
+                    this.$toast.show('你点击了结算！');
                 }
+
             }
         },
     }

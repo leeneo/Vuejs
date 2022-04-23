@@ -84,6 +84,7 @@
       // 也可以通过监听图片加载完成后refresh 的方式，img.onload() || @load;
       // 课件里讲的是通过$bus事件总线的方式，但是其实没必要，在这里我是用的mounted函数里面refresh解决的better-scroll的这个bug
       this.$refs.scrollRef.refresh();
+      this.$toast.show('本网站仅用于效果展示，请不要在本页面及后续链接中下单支付任何商品！',3000);
     },
     activated() {
       this.$refs.scrollRef.scrollTo(0, this.saveY, 0);

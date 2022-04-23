@@ -16,7 +16,7 @@
     </scroll>
 
     <back-top @click.native="backTop" v-show="isShowBackTop"></back-top>
-    <detail-bottom-bar @click.native="addToCart"></detail-bottom-bar>
+    <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
   </div>
 </template>
 <script>
@@ -163,7 +163,8 @@
       },
       navbarItemClick(index) {
         // 因为ref引用元素的父级上层有个高为44px navbar，所以造成子元素offsetTop 值不太精确，所以要少滚动44px才对
-        this.$refs.scrollRef.scrollTo(0, -this.themeTopYs[index] + 44, 100);
+        // this.$refs.scrollRef.scrollTo(0, -this.themeTopYs[index] + 44, 100);
+        this.$refs.scrollRef.scrollTo(0, -this.themeTopYs[index], 100);
       },
 
       // 实现滑动和主题的联动效果

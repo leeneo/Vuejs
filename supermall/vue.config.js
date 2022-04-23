@@ -1,6 +1,6 @@
 // 声明式
 module.exports = {
-  // publicPath: "./",
+  // publicPath: "../../",  //开发环境，注释此项
   // outputDir: process.env.outputDir,
   configureWebpack: {
     resolve: {

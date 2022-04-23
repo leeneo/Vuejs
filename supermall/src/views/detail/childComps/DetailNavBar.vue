@@ -2,7 +2,7 @@
     <div class="detail-nav-bar">
         <nav-bar class="detail-nav">
             <div slot="left" class="title-img" @click="backClick">
-                <img src="~assets/img/common/back.svg" alt="">
+                <img src="~assets/img/common/back.svg" alt="返回按钮图片">
             </div>
             <div slot="center" class="title">
                 <div v-for="(item,index) in titles" class="title-item" :class="{active:(curIndex==index)}"

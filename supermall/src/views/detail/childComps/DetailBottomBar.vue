@@ -15,8 +15,8 @@
             </div>
         </div>
         <div class="bar-item bar-right">
-            <div class="cart">加入购物车</div>
-            <div class="buy">购买</div>
+            <div class="cart"  @click="addClick">加入购物车</div>
+            <div class="buy" @click="buyClick">购买</div>
         </div>
     </div>
 </template>
@@ -24,9 +24,12 @@
     export default {
         name: 'DetailBottomBar',
         methods: {
-            // addClick() {
-            //     this.$emit('addCart');
-            // }
+            addClick() {
+                this.$emit('addCart');
+            },
+            buyClick(){
+                this.$toast.show('抱歉，此页面仅用于展示，并不能真得购买！')
+            }
         },
     }
 </script>

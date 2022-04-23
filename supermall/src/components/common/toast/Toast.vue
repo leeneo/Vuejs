@@ -35,5 +35,7 @@
         padding: 8px 10px;
         border-radius: 4px;
         z-index: 999;
+        width: 240px;
+        height: 80px;
     }
 </style>
