@@ -7,7 +7,7 @@
         <div class="check-content price">
             <span>合计：￥{{totalPrice}}</span>
         </div>
-        <div class="check-content buyBill">
+        <div class="check-content buyBill" @click="buyBillClick">
             <span>去结算：({{checkedCount}})</span>
         </div>
     </div>
@@ -62,6 +62,14 @@
                     this.cartList.filter(item => {
                         return !item.checked
                     }).forEach(item => item.checked = true)
+            },
+            buyBillClick() {
+                // 判断选择商品的件数，如果选择0件商品，提示，选择要购买的商品
+                // 如果件数为0，flag=false,消息提示的判定条件则成立
+                let flag = this.cartList.filter(item => { return item.checked }).length;
+                if (!flag) {
+                    this.$toast.show('请选择要购买的商品')
+                }
             }
         },
     }

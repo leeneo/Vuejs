@@ -13,7 +13,7 @@
             }
         },
         methods: {
-            show(msg, delay=2000) {
+            show(msg='默认文本', delay=2000) {
                 this.message = msg;
                 this.isShow = true;
                 setTimeout(() => {
