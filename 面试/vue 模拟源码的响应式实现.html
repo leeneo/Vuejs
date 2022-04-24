@@ -12,7 +12,10 @@
 
     <div id="app">
         <h2>{{title}}</h2>
-        <input type="text" v-model="message" :value="message">{{message}}
+        <div>
+            <input type="text" v-model="message">
+            <span>{{message}}</span>
+        </div>
     </div>
 
     <script>
@@ -105,7 +108,10 @@
                 Dep.target = null;
             }
             update() {
-                this.node.nodeValue = this.vm[this.name]
+                if (this.node.nodeValue)
+                    this.node.nodeValue = this.vm[this.name]
+                else if (this.node.textContent)
+                    this.node.textContent = this.vm[this.name]
             }
         }
 
@@ -128,35 +134,54 @@
                 return frag
             }
             _compile(node) {
-                if (node.nodeType === 1) {  // notdeType-1：标签节点
-                    const attrs = node.attributes
-                    if (attrs.hasOwnProperty('v-model')) {
-                        const name = attrs['v-model'].nodeValue
-                        node.addEventListener('input', e => {
-                            this.vm[name] = e.target.value
-                        })
-                    }
-                    if (attrs.hasOwnProperty(':value')) {
-                        const name = attrs[':value'].nodeValue
-                        node.value = this.vm[name];
-                        // console.log(name, this.vm[name]);
-                    }
-                }
+
                 if (node.nodeType === 1 && node.childNodes) {
                     for (let item of node.childNodes) {
-                        if (reg.test(item.nodeValue) && item.nodeType == 3) {
-                            const name = RegExp.$1.trim()
-                            if (name)
-                                item.nodeValue = this.vm[name]
+                        // if (reg.test(item.nodeValue) && item.nodeType == 3) {
+                        //     const name = RegExp.$1.trim()
+                        //     if (name)
+                        //         item.nodeValue = this.vm[name]
+                        // }
+                        if (item.nodeType === 1) {  // notdeType-1：标签节点
+                            if (item.attributes) {
+                                const attrs = item.attributes
+                                if (attrs.hasOwnProperty('v-model')) {
+                                    const name = attrs['v-model'].nodeValue
+                                    // 监听input的change事件，并更新obj的值
+                                    item.addEventListener('input', e => {
+                                        this.vm[name] = e.target.value
+                                    })
+                                    item.value = this.vm[name];
+                                }
+
+                                // if (attrs.hasOwnProperty(':value')) {
+                                //     const name = attrs[':value'].nodeValue
+                                //     node.value = this.vm[name];
+                                //     // console.log(name, this.vm[name]);
+                                // }
+                            }
+                            if (item.textContent) {
+                                if (reg.test(item.textContent)) {
+                                    const name = RegExp.$1.trim();
+                                    new Watcher(item, name, this.vm)
+                                }
+                                console.log(item.textContent);
+                            }
+                        }
+                        if (item.nodeType === 3) {  // notdeType-3：文本节点
+                            if (reg.test(item.nodeValue)) {
+                                const name = RegExp.$1.trim()
+                                new Watcher(item, name, this.vm)
+                            }
                         }
                     }
                 }
-                if (node.nodeType === 3) {  // notdeType-3：文本节点
-                    if (reg.test(node.nodeValue)) {
-                        const name = RegExp.$1.trim()
-                        new Watcher(node, name, this.vm)
-                    }
-                }
+                // if (node.nodeType === 3) {  // notdeType-3：文本节点
+                //     if (reg.test(node.nodeValue)) {
+                //         const name = RegExp.$1.trim()
+                //         new Watcher(node, name, this.vm)
+                //     }
+                // }
             }
         }
     </script>
