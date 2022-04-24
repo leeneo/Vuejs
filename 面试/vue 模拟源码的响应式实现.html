@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 模拟源码的响应式实现</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h2>{{title}}</h2>
+        <input type="text" v-model="message" :value="message">{{message}}
+    </div>
+
+    <script>
+        class Vue {
+            constructor(options) {
+                // 1.保存数据
+                this.$options = options;
+                this.$data = options.data;
+                this.$el = options.el;
+
+                // 2.将 data 添加到响应式系统中
+                new Observer(this.$data);
+
+                // 3.代理this.$data的数据
+                Object.keys(this.$data).forEach(key => {
+                    this._proxy(key)
+                })
+
+                // 4.处理el
+                new Compiler(this.$el, this)
+            }
+
+            // 数据代理
+            _proxy(key) {
+                Object.defineProperty(this, key, {
+                    configurable: true,
+                    enumerable: true,
+                    set(newValue) {
+                        this.$data[key] = newValue
+                    },
+                    get() {
+                        return this.$data[key];
+                    }
+                })
+            }
+        }
+
+        class Observer {
+            constructor(data) {
+                this.data = data;
+                Object.keys(data).forEach(key => {
+                    this.defineReactive(this.data, key, data[key])
+                })
+            }
+
+            defineReactive(data, key, val) {
+                const dep = new Dep();
+                Object.defineProperty(data, key, {
+                    enumerable: true,
+                    configurable: true,
+                    get() {
+                        if (Dep.target) {
+                            // 添加观察者
+                            dep.addSub(Dep.target);
+                        }
+                        return val;
+                    },
+                    set(newValue) {
+                        if (newValue === val) return;
+                        val = newValue;
+                        // 发布更新
+                        dep.notify();
+                    }
+                })
+            }
+        }
+
+        class Dep {
+            // 发布者，保存了一个订阅（watcher:观察者）数组
+            constructor() {
+                this.subs = []  //watcher:观察者 列表
+            }
+            addSub(watcher) {
+                this.subs.push(watcher)
+            }
+            notify() {
+                this.subs.forEach(item => {
+                    item.update()
+                })
+            }
+        }
+
+        class Watcher {
+            constructor(node, name, vm) {
+                this.node = node;
+                this.name = name;
+                this.vm = vm;
+                Dep.target = this;
+                this.update();
+                Dep.target = null;
+            }
+            update() {
+                this.node.nodeValue = this.vm[this.name]
+            }
+        }
+
+        const reg = /\{\{(.+)\}\}/
+
+        class Compiler {
+            constructor(el, vm) {
+                this.el = document.querySelector(el)
+                this.vm = vm
+                this.frag = this._createFragment()
+                this.el.appendChild(this.frag)
+            }
+            _createFragment() {
+                const frag = document.createDocumentFragment()
+                let child;
+                while (child = this.el.firstChild) {
+                    this._compile(child)
+                    frag.appendChild(child)
+                }
+                return frag
+            }
+            _compile(node) {
+                if (node.nodeType === 1) {  // notdeType-1：标签节点
+                    const attrs = node.attributes
+                    if (attrs.hasOwnProperty('v-model')) {
+                        const name = attrs['v-model'].nodeValue
+                        node.addEventListener('input', e => {
+                            this.vm[name] = e.target.value
+                        })
+                    }
+                    if (attrs.hasOwnProperty(':value')) {
+                        const name = attrs[':value'].nodeValue
+                        node.value = this.vm[name];
+                        // console.log(name, this.vm[name]);
+                    }
+                }
+                if (node.nodeType === 1 && node.childNodes) {
+                    for (let item of node.childNodes) {
+                        if (reg.test(item.nodeValue) && item.nodeType == 3) {
+                            const name = RegExp.$1.trim()
+                            if (name)
+                                item.nodeValue = this.vm[name]
+                        }
+                    }
+                }
+                if (node.nodeType === 3) {  // notdeType-3：文本节点
+                    if (reg.test(node.nodeValue)) {
+                        const name = RegExp.$1.trim()
+                        new Watcher(node, name, this.vm)
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: '模拟 vue 源码的响应式实现',
+                message: '响应式数据绑定'
+            }
+        })
+    </script>
+
+</body>
+
+</html>

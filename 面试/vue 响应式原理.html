@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 响应式原理</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h4>{{title}}</h4>
+        <ul>
+            <li v-for="message in messages">
+                <h4>{{message.title}}</h4>
+                <ol>
+                    <li v-for="msg in message.msgs">{{msg}}</li>
+                </ol>
+            </li>
+        </ul>
+
+        <div id="test"></div>
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                title: 'vue 响应式原理',
+                messages: [
+                    {
+                        title: 'app.message数据改变，页面实时刷新，vue内部是如何实现监听message数据的改变的',
+                        msgs: ['vue 通过 Object.defineProperty 监听对象属性的改变']
+                    },
+                    {
+                        title: '当数据发生改变，Vue是怎么知道让界面哪些元素刷新的',
+                        msgs: ['发布订阅模式']
+                    },
+                ]
+            }
+        })
+
+
+        // 发布订阅模式
+        class Dep {
+            // 发布者，保存了一个订阅（watcher:观察者）数组
+            constructor() {
+                this.subs = []  //watcher:观察者 列表
+            }
+            addSub(watcher) {
+                this.subs.push(watcher)
+            }
+            notify() {
+                this.subs.forEach(item => {
+                    item.update()
+                })
+            }
+        }
+        class Watcher {
+            constructor(name) {
+                this.name = name
+            }
+            update() {
+                console.log(this.name + ' updated ');
+            }
+        }
+        const dep = new Dep();
+        const w1 = new Watcher('张三');
+        const w2 = new Watcher('李四');
+        const w3 = new Watcher('王五');
+        dep.addSub(w1);
+        dep.addSub(w2);
+        dep.addSub(w3);
+        // dep.notify();
+
+        const obj = {
+            msg: 'hello'
+        }
+        Object.keys(obj).forEach(key => {
+            let vala = obj[key]
+
+            Object.defineProperty(obj, key, {
+                set(newVal) {
+                    console.log('监听 ' + key + ' 的改变');
+                    vala = newVal;
+                    dep.notify();   //通知引用该obj的watcher，让它们刷新该值
+                },
+                get() {
+                    // 当页面有{{msg}}时，就会执行一次get，就代表哪个地方引用了该obj
+                    console.log('获取 ' + key + ' 的值');
+                    // dep.addSub(w1);
+                    // dep.addSub(w2);
+                    // dep.addSub(w3);
+                    return vala
+                }
+            })
+            // console.log(vala);
+        })
+        let dv = document.getElementById('test');
+        obj.msg = 'msg 被监听了'
+        dv.textContent = obj.msg
+        console.log(dv.textContent);
+
+
+    </script>
+
+</body>
+
+</html>
