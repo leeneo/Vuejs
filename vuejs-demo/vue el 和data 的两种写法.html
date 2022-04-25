@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,webpack,node.js,git,npm,前端,全栈,Web开发" />
+    <meta name="description" content="一位Web开发工程师的学习、工作笔记-星之痕。
+    内容涵盖：HTML,CSS,HTML5,CSS3,ES6,JavaScript,Vue,Vue.js,TS,TypeScript,前端,全栈,Web开发……等" />
+    <title>vue el 和data 的两种写法</title>
+    <link rel="stylesheet" href="./css/global.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div>
+            <h2>{{title}}</h2>
+            <ul>
+                <li v-for='msg in messages'>{{msg}}</li>
+            </ul>
+        </div>
+        <button v-on:click='action'>点击</button>
+
+    </div>
+
+    <script src="js/vue.js"></script>
+    <script>
+      Vue.config.productionTip = false; //阻止vue页面在启动时的生产提示
+
+        const app = new Vue({
+            // el: '#app',   //第一种写法
+            // data: {   //data 第一种写法，对象式
+            //     title: 'this is a title',
+            //     messages: [
+            //         'this is a vue demo!',
+            //     ]
+            // },
+            data(){   //data 第二种写法，函数式，子组件必需用这种写法
+              return {
+                title: 'this is a title',
+                messages: [
+                    'this is a vue demo!',
+                ]
+              }
+            },
+            methods: {
+                action() {
+                    this.title = 'hello!';
+                }
+            }
+        });
+        console.log(app);
+        // Vue实例上的$methods,以及Prototype上$methods 是Vue内部封装好的，可供开发人员调用的方法
+        setTimeout(() => {
+          app.$mount('#app');   //第2种写法，自由度更高，可自己控制什么时候在模板上挂载Vue实例
+        }, 1000);
+    </script>
+</body>
+
+</html>

@@ -30,7 +30,7 @@
     Vue.config.productionTip = false; //阻止vue页面在启动时的生产提示
 
     const app = new Vue({
-      el: '#app',
+      // el: '#app',
       data: {
         title: 'this is a title',
         messages: [
@@ -47,8 +47,18 @@
       }
     });
 
-    // Vue实例上的$methods,以及Prototype上$methods 是Vue内部封装好的，可供开发人员调用的方法
-    console.log(app);
+    // 调用Vue Prototype上原有$methods 方法的方式
+    app.$mount('#app');
+
+    // 在Vue原型上挂载方法
+    app.prototype = {}
+    app.prototype.logstr = function () {
+      console.log('this is a method of vue.prototype');
+    }
+    // console.log(app);
+
+    // 调用Vue prototype原型上自己挂载的方法的方式
+    app.prototype.logstr()
   </script>
 </body>
 

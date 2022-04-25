@@ -44,7 +44,7 @@
     </div><br>
 
     <div id="app">
-        <h2>moustache 语法'{{}}'</h2>
+        <h2>插值语法： moustache 语法'{{}}'</h2>
         <h2>{{message}}</h2>
         <!-- v-once 指令：一次性插值指令，类似于单向绑定，后续数据改变时插值处的内容不会更新 -->
         <h2>
@@ -179,7 +179,7 @@
                         return total + curValue.price;
                     });
                 },
-                // 数组累加推荐使用设置初始值的方式                 
+                // 数组累加推荐使用设置初始值的方式
                 totalPrice2: function () {
                     return this.books.reduce(function (total, curValue) {
                         console.log('totalPrice:' + JSON.stringify(total));
